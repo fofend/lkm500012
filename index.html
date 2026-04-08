@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>익명채팅 - 완벽 기획판</title>
+    <style>
+        :root { --primary: #007AFF; --success: #34c759; --error: #FF3B30; --bg: #f2f2f7; --male: #007AFF; --female: #FF2D55; }
+        body { font-family: -apple-system, sans-serif; max-width: 500px; margin: 0 auto; background: var(--bg); display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+        .stats-bar { background: #333; color: #fff; font-size: 10px; padding: 5px 15px; display: flex; justify-content: space-between; }
+        .top-bar { background: #fff; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #d1d1d6; }
+        #chat-box { flex: 1; overflow-y: auto; padding: 15px; background: white; display: flex; flex-direction: column; gap: 10px; }
+        .gender-tag { font-size: 10px; padding: 2px 6px; border-radius: 4px; color: white; margin-right: 4px; font-weight: bold; }
+        .interest-tag { font-size: 10px; color: #8e8e93; margin-left: 5px; background: #f2f2f7; padding: 2px 5px; border-radius: 4px; }
+        .gender-male { background: var(--male); }
+        .gender-female { background: var(--female); }
+        .msg-line { max-width: 85%; display: flex; flex-direction: column; }
+        .msg-line.me { align-self: flex-end; align-items: flex-end; }
+        .msg-line.partner { align-self: flex-start; align-items: flex-start; }
+        .bubble { padding: 10px 14px; border-radius: 18px; font-size: 14px; line-height: 1.4; }
+        .me .bubble { background: var(--primary); color: white; border-bottom-right-radius: 4px; }
+        .partner .bubble { background: #e9e9eb; color: black; border-bottom-left-radius: 4px; }
+        .sender-info { font-size: 11px; color: #8e8e93; margin-bottom: 3px; display: flex; align-items: center; }
+        .input-area { padding: 10px 15px 30px; background: white; border-top: 1px solid #d1d1d6; }
+        .btn-group { display: flex; gap: 8px; align-items: center; }
+        input { flex: 1; padding: 12px; border: 1px solid #d1d1d6; border-radius: 20px; outline: none; background: #f2f2f7; }
+        input:disabled { background: #e5e5ea; cursor: not-allowed; }
+        button { border: none; border-radius: 20px; cursor: pointer; font-weight: bold; }
+        .btn-send { background: var(--primary); color: white; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
+        .btn-next { background: var(--success); color: white; padding: 10px 15px; font-size: 13px; }
+        .btn-block { color: var(--error); background: none; font-size: 13px; }
+        #setup-screen { padding: 40px 25px; text-align: center; background: white; flex: 1; }
+        .system { align-self: center; font-size: 11px; color: #8e8e93; background: #f2f2f7; padding: 4px 12px; border-radius: 10px; margin: 5px 0; text-align: center; }
+        .error-msg { align-self: center; font-size: 11px; color: var(--error); padding: 4px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="stats-bar">
+        <span>접속자: <span id="stat-users">0</span>명</span>
+        <span>대기중: <span id="stat-waiting">0</span>명</span>
+    </div>
+    <div class="top-bar" id="chat-top-bar" style="display:none;">
+        <button class="btn-block" onclick="blockUser()">🚫 차단</button>
+        <span style="font-weight: bold;">💬 익명 대화방</span>
+        <button style="color:#8e8e93; background:none;" onclick="exitToSetup()">나가기</button>
+    </div>
+
+    <div id="setup-screen">
+        <h2>익명채팅</h2>
+        <input type="text" id="nickname" placeholder="닉네임" style="width:100%; margin:20px 0 10px; box-sizing:border-box; padding:12px; border-radius:10px; border:1px solid #ddd;">
+        <select id="gender" style="width:100%; padding:12px; border-radius:10px; border:1px solid #ddd; margin-bottom:10px;">
+            <option value="male">남성</option>
+            <option value="female">여성</option>
+        </select>
+        <input type="text" id="interest" placeholder="관심사 (선택 사항)" style="width:100%; margin-bottom:20px; box-sizing:border-box; padding:12px; border-radius:10px; border:1px solid #ddd;">
+        <button onclick="startMatching()" style="width:100%; background:var(--primary); color:white; padding:15px; border-radius:12px; font-size:16px;">매칭 시작하기</button>
+    </div>
+
+    <div id="chat-screen" style="display:none; flex-direction:column; flex:1;">
+        <div id="chat-box"></div>
+        <div class="input-area">
+            <div class="btn-group">
+                <button class="btn-next" onclick="requestRematch()">다음 상대</button>
+                <input type="text" id="msg-input" placeholder="상대를 찾는 중..." disabled onkeypress="if(event.keyCode==13) send()">
+                <button id="send-btn" class="btn-send" disabled onclick="send()">✈️</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        let myData = {};
+        let partnerGender = "";
+        let partnerInterest = "";
+
+        socket.on('server-stats', (stats) => {
+            document.getElementById('stat-users').innerText = stats.currentUsers;
+            document.getElementById('stat-waiting').innerText = stats.waiting;
+        });
+
+        function setInputState(enabled) {
+            const input = document.getElementById('msg-input');
+            const btn = document.getElementById('send-btn');
+            input.disabled = !enabled;
+            btn.disabled = !enabled;
+            input.placeholder = enabled ? "메시지 입력..." : "상대를 찾는 중입니다...";
+            if(enabled) setTimeout(() => input.focus(), 100);
+        }
+
+        function startMatching() {
+            myData = {
+                nickname: document.getElementById('nickname').value || "익명",
+                gender: document.getElementById('gender').value,
+                interest: document.getElementById('interest').value.trim() // 공백 제거
+            };
+            socket.emit('join', myData);
+            document.getElementById('setup-screen').style.display = 'none';
+            document.getElementById('chat-screen').style.display = 'flex';
+            document.getElementById('chat-top-bar').style.display = 'flex';
+            document.getElementById('chat-box').innerHTML = '<div class="system">상대를 검색 중...</div>';
+            setInputState(false);
+        }
+
+        socket.on('matched', (data) => {
+            partnerGender = data.partnerGender;
+            partnerInterest = data.partnerInterest;
+            const tag = `<span class="gender-tag ${partnerGender === 'male' ? 'gender-male' : 'gender-female'}">${partnerGender === 'male' ? '남' : '여'}</span>`;
+            
+            let interestInfo = partnerInterest ? `<br><small>상대방의 관심사: ${partnerInterest}</small>` : "";
+            document.getElementById('chat-box').innerHTML = `<div class="system">${tag} ${data.msg} ${interestInfo}</div>`;
+            
+            setInputState(true);
+        });
+
+        socket.on('partner-left', (msg) => {
+            document.getElementById('chat-box').innerHTML += `<div class="system">${msg || '상대방이 떠났습니다.'}</div>`;
+            setInputState(false);
+        });
+
+        socket.on('system-err', (msg) => {
+            const chatBox = document.getElementById('chat-box');
+            chatBox.innerHTML += `<div class="error-msg">⚠️ ${msg}</div>`;
+            chatBox.scrollTop = chatBox.scrollHeight;
+        });
+
+        socket.on('message-ok', (text) => {
+            const chatBox = document.getElementById('chat-box');
+            // 내 관심사가 있을 때만 태그 생성
+            const interestTag = myData.interest ? `<span class="interest-tag">${myData.interest}</span>` : "";
+            chatBox.innerHTML += `<div class="msg-line me"><span class="sender-info">나 ${interestTag}</span><div class="bubble">${text}</div></div>`;
+            chatBox.scrollTop = chatBox.scrollHeight;
+        });
+
+        socket.on('chat-msg', (data) => {
+            const chatBox = document.getElementById('chat-box');
+            const gTag = `<span class="gender-tag ${partnerGender === 'male' ? 'gender-male' : 'gender-female'}">${partnerGender === 'male' ? '남' : '여'}</span>`;
+            // 상대 관심사가 있을 때만 태그 생성
+            const iTag = data.interest ? `<span class="interest-tag">${data.interest}</span>` : "";
+            chatBox.innerHTML += `<div class="msg-line partner"><span class="sender-info">${gTag} ${data.sender} ${iTag}</span><div class="bubble">${data.text}</div></div>`;
+            chatBox.scrollTop = chatBox.scrollHeight;
+        });
+
+        socket.on('start-re-match', () => {
+            socket.emit('join', myData);
+            document.getElementById('chat-box').innerHTML = '<div class="system">상대를 검색 중...</div>';
+            setInputState(false);
+        });
+
+        socket.on('return-to-setup', () => {
+            document.getElementById('setup-screen').style.display = 'block';
+            document.getElementById('chat-screen').style.display = 'none';
+            document.getElementById('chat-top-bar').style.display = 'none';
+        });
+
+        function send() {
+            const input = document.getElementById('msg-input');
+            if(input.value && !input.disabled) {
+                socket.emit('message', input.value);
+                input.value = '';
+            }
+        }
+
+        function blockUser() {
+            if(confirm("이 유저를 차단하고 대화를 종료할까요?")) {
+                socket.emit('block-user');
+            }
+        }
+
+        function exitToSetup() {
+            if(confirm("대화를 종료하고 설정 화면으로 돌아갈까요?")) {
+                socket.emit('leave-chat');
+            }
+        }
+
+        function requestRematch() { socket.emit('re-match'); }
+    </script>
+</body>
+</html>
