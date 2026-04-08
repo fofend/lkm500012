@@ -8,20 +8,8 @@
     <meta name="naver-site-verification" content="e485c59ebc6290f7054e809c671f4c37070bc20f" />
 
     <title>나나라이브 - 실시간 익명 채팅 및 랜덤 채팅</title>
-    <meta name="description" content="나나라이브에서 새로운 인연을 만나보세요. 쉽고 빠른 실시간 익명 채팅 서비스입니다.">
-    <meta name="keywords" content="나나라이브, 익명채팅, 랜덤채팅, 무료채팅, 실시간채팅, 친구만들기, 심심이">
-    <meta name="author" content="나나라이브">
-    <link rel="canonical" href="https://nana-live.onrender.com"> 
-    
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="나나라이브 - 설레는 익명 채팅">
-    <meta property="og:description" content="지금 바로 새로운 파트너와 대화를 시작해보세요!">
-    <meta property="og:image" content="https://nana-live.onrender.com/logo.png"> 
-    <meta property="og:url" content="https://nana-live.onrender.com">
-
     <style>
         :root { --primary: #007AFF; --success: #34c759; --error: #FF3B30; --bg: #f2f2f7; --male: #007AFF; --female: #FF2D55; }
-        
         * { box-sizing: border-box; } 
 
         body { 
@@ -54,22 +42,6 @@
             -webkit-overflow-scrolling: touch; 
         }
 
-        .gender-tag { font-size: 10px; padding: 2px 6px; border-radius: 4px; color: white; margin-right: 4px; font-weight: bold; }
-        .interest-tag { font-size: 10px; color: #8e8e93; margin-left: 5px; background: #f2f2f7; padding: 2px 5px; border-radius: 4px; }
-        .gender-male { background: var(--male); }
-        .gender-female { background: var(--female); }
-        
-        .msg-line { max-width: 85%; display: flex; flex-direction: column; flex-shrink: 0; }
-        .msg-line.me { align-self: flex-end; align-items: flex-end; }
-        .msg-line.partner { align-self: flex-start; align-items: flex-start; }
-        
-        .bubble { padding: 10px 14px; border-radius: 18px; font-size: 15px; line-height: 1.4; word-break: break-all; position: relative; }
-        .me .bubble { background: var(--primary); color: white; border-bottom-right-radius: 4px; }
-        .partner .bubble { background: #e9e9eb; color: black; border-bottom-left-radius: 4px; }
-        
-        .sender-info { font-size: 11px; color: #8e8e93; margin-bottom: 4px; display: flex; align-items: center; }
-
-        /* 광고 영역 스타일 */
         .ad-banner {
             background: #fff;
             padding: 8px 0;
@@ -77,34 +49,36 @@
             border-top: 1px solid #d1d1d6;
             flex-shrink: 0;
         }
-        .ad-disclaimer {
-            font-size: 9px;
-            color: #aeaeae;
-            margin-top: 4px;
-            display: block;
+        .ad-disclaimer { font-size: 9px; color: #aeaeae; margin-top: 4px; display: block; }
+
+        @media (min-width: 768px) {
+            #main-ad-banner { display: block !important; }
         }
 
-        .input-area { 
-            padding: 10px 15px calc(10px + env(safe-area-inset-bottom)); 
-            background: #fff; 
-            border-top: 1px solid #d1d1d6; 
-            flex-shrink: 0; 
-        }
-        
+        .gender-tag { font-size: 10px; padding: 2px 6px; border-radius: 4px; color: white; margin-right: 4px; font-weight: bold; }
+        .gender-male { background: var(--male); }
+        .gender-female { background: var(--female); }
+        .msg-line { max-width: 85%; display: flex; flex-direction: column; flex-shrink: 0; }
+        .msg-line.me { align-self: flex-end; align-items: flex-end; }
+        .msg-line.partner { align-self: flex-start; align-items: flex-start; }
+        .bubble { padding: 10px 14px; border-radius: 18px; font-size: 15px; line-height: 1.4; word-break: break-all; position: relative; }
+        .me .bubble { background: var(--primary); color: white; border-bottom-right-radius: 4px; }
+        .partner .bubble { background: #e9e9eb; color: black; border-bottom-left-radius: 4px; }
+        .sender-info { font-size: 11px; color: #8e8e93; margin-bottom: 4px; display: flex; align-items: center; }
+        .input-area { padding: 10px 15px calc(10px + env(safe-area-inset-bottom)); background: #fff; border-top: 1px solid #d1d1d6; flex-shrink: 0; }
         .btn-group { display: flex; gap: 8px; align-items: center; }
         #msg-input { flex: 1; padding: 12px; border: 1px solid #d1d1d6; border-radius: 20px; outline: none; background: #f2f2f7; font-size: 16px !important; }
-        .btn-send { background: var(--primary); color: white; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; border: none; border-radius: 50%; }
-        .btn-next { background: var(--success); color: white; padding: 10px 15px; font-size: 13px; flex-shrink: 0; height: 42px; border: none; border-radius: 20px; font-weight: bold; }
-        .btn-block { color: var(--error); background: none; font-size: 14px; font-weight: 500; border: none; }
-
+        .btn-send { background: var(--primary); color: white; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: none; border-radius: 50%; }
+        .btn-next { background: var(--success); color: white; padding: 10px 15px; font-size: 13px; height: 42px; border: none; border-radius: 20px; font-weight: bold; }
+        .btn-block { color: var(--error); background: none; font-size: 14px; border: none; }
         #setup-screen { padding: 40px 25px; background: white; flex: 1; overflow-y: auto; display: flex; flex-direction: column; align-items: center; }
-        #setup-screen h1 { text-align: center; margin-bottom: 30px; font-size: 28px; letter-spacing: -1px; }
-        .setup-label { display: block; width: 100%; max-width: 320px; text-align: left; font-size: 13px; font-weight: 600; color: #8e8e93; margin: 15px 0 6px 5px; }
-        #setup-screen input, #setup-screen select { width: 100%; max-width: 320px; height: 48px; border-radius: 12px; background: #f2f2f7; border: 1px solid #d1d1d6; padding: 0 15px; font-size: 16px !important; margin-bottom: 5px; outline: none; box-sizing: border-box; display: block; text-align: left; }
-        #setup-screen select { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238e8e93' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 15px center; background-size: 16px; }
+        #setup-screen h1 { text-align: center; margin-bottom: 20px; font-size: 28px; letter-spacing: -1px; }
+        .setup-label { display: block; width: 100%; max-width: 320px; font-size: 13px; font-weight: 600; color: #8e8e93; margin: 15px 0 6px 5px; }
+        #setup-screen input, #setup-screen select { width: 100%; max-width: 320px; height: 48px; border-radius: 12px; background: #f2f2f7; border: 1px solid #d1d1d6; padding: 0 15px; font-size: 16px !important; margin-bottom: 5px; outline: none; display: block; }
         .btn-start { width: 100%; max-width: 320px; background: var(--primary); color: white; padding: 16px; border-radius: 15px; font-size: 18px; font-weight: bold; margin-top: 35px; border: none; box-shadow: 0 4px 12px rgba(0,122,255,0.2); cursor: pointer; }
-        .system { align-self: center; font-size: 12px; color: #8e8e93; background: #f2f2f7; padding: 6px 15px; border-radius: 15px; margin: 8px 0; text-align: center; flex-shrink: 0; width: fit-content; }
-        .error-msg { align-self: center; font-size: 11px; color: var(--error); padding: 5px; text-align: center; }
+        .system { align-self: center; font-size: 12px; color: #8e8e93; background: #f2f2f7; padding: 6px 15px; border-radius: 15px; margin: 8px 0; text-align: center; width: fit-content; }
+        /* 도배 경고 전용 스타일 */
+        .system-err { color: #FF3B30 !important; background: #FFE9E9 !important; border: 1px solid #FF3B30; }
     </style>
 </head>
 <body>
@@ -135,7 +109,7 @@
     <div id="chat-screen" style="display:none; flex-direction:column; flex:1; overflow:hidden;">
         <div id="chat-box"></div>
         
-        <div class="ad-banner">
+        <div id="main-ad-banner" class="ad-banner">
             <a href="https://link.coupang.com/a/ekXtuF" target="_blank" referrerpolicy="unsafe-url">
                 <img src="https://ads-partners.coupang.com/banners/979326?subId=&traceId=V0-301-5a8c79a76485eb21-I979326&w=320&h=50" alt="광고배너" style="max-width: 100%; height: auto; border-radius: 4px;">
             </a>
@@ -154,9 +128,17 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io();
+        const adBanner = document.getElementById('main-ad-banner');
         let myData = {};
         let partnerGender = "";
-        let partnerInterest = "";
+
+        function updateAdVisibility(isVisible) {
+            if (window.innerWidth < 768) {
+                adBanner.style.display = isVisible ? 'block' : 'none';
+            } else {
+                adBanner.style.display = 'block';
+            }
+        }
 
         function scrollToBottom() {
             const chatBox = document.getElementById('chat-box');
@@ -164,30 +146,20 @@
             setTimeout(() => { chatBox.scrollTop = chatBox.scrollHeight; }, 30);
         }
 
-        if (window.visualViewport) {
-            window.visualViewport.addEventListener('resize', () => {
-                document.body.style.height = `${window.visualViewport.height}px`;
-                window.scrollTo(0, 0);
-                scrollToBottom();
-            });
-        }
-
         socket.on('server-stats', (stats) => {
             document.getElementById('stat-users').innerText = stats.currentUsers;
             document.getElementById('stat-waiting').innerText = stats.waiting;
         });
 
-        function setInputState(enabled) {
-            const input = document.getElementById('msg-input');
-            const btn = document.getElementById('send-btn');
-            input.disabled = !enabled;
-            btn.disabled = !enabled;
-            input.placeholder = enabled ? "메시지 입력..." : "상대를 찾는 중...";
-            if(enabled) {
-                input.focus();
+        // [수정] 도배 경고 중복 방지 로직
+        socket.on('system-err', (msg) => {
+            const chatBox = document.getElementById('chat-box');
+            const existingErr = document.querySelector('.system-err');
+            if (!existingErr) {
+                chatBox.innerHTML += `<div class="system system-err">⚠️ ${msg}</div>`;
                 scrollToBottom();
             }
-        }
+        });
 
         function startMatching() {
             myData = {
@@ -200,57 +172,50 @@
             document.getElementById('setup-screen').style.display = 'none';
             document.getElementById('chat-screen').style.display = 'flex';
             document.getElementById('chat-top-bar').style.display = 'flex';
+            updateAdVisibility(true);
             document.getElementById('chat-box').innerHTML = '<div class="system">새로운 상대를 검색 중입니다...</div>';
             setInputState(false);
         }
 
         socket.on('matched', (data) => {
             partnerGender = data.partnerGender;
-            partnerInterest = data.partnerInterest;
+            updateAdVisibility(false);
             const gName = partnerGender === 'male' ? '남' : '여';
             const tag = `<span class="gender-tag ${partnerGender === 'male' ? 'gender-male' : 'gender-female'}">${gName}</span>`;
-            let interestInfo = partnerInterest ? `<br><small style="opacity:0.8;">상대방 관심사: ${partnerInterest}</small>` : "";
-            document.getElementById('chat-box').innerHTML = `<div class="system">${tag} ${data.msg} ${interestInfo}</div>`;
+            document.getElementById('chat-box').innerHTML = `<div class="system">${tag} ${data.msg}</div>`;
             setInputState(true);
         });
 
         socket.on('partner-left', (msg) => {
+            updateAdVisibility(true);
             document.getElementById('chat-box').innerHTML += `<div class="system">⚠️ ${msg || '상대방이 대화를 종료했습니다.'}</div>`;
             setInputState(false);
             scrollToBottom();
         });
 
-        socket.on('system-err', (msg) => {
-            document.getElementById('chat-box').innerHTML += `<div class="error-msg">❌ ${msg}</div>`;
-            scrollToBottom();
-        });
-
-        socket.on('message-ok', (text) => {
-            const chatBox = document.getElementById('chat-box');
-            const iTag = myData.interest ? `<span class="interest-tag">${myData.interest}</span>` : "";
-            chatBox.innerHTML += `<div class="msg-line me"><span class="sender-info">나 ${iTag}</span><div class="bubble">${text}</div></div>`;
-            scrollToBottom();
-        });
-
-        socket.on('chat-msg', (data) => {
-            const chatBox = document.getElementById('chat-box');
-            const gTag = `<span class="gender-tag ${partnerGender === 'male' ? 'gender-male' : 'gender-female'}">${partnerGender === 'male' ? '남' : '여'}</span>`;
-            const iTag = data.interest ? `<span class="interest-tag">${data.interest}</span>` : "";
-            chatBox.innerHTML += `<div class="msg-line partner"><span class="sender-info">${gTag} ${data.sender} ${iTag}</span><div class="bubble">${data.text}</div></div>`;
-            scrollToBottom();
-        });
-
         socket.on('start-re-match', () => {
+            updateAdVisibility(true); 
             socket.emit('join', myData);
             document.getElementById('chat-box').innerHTML = '<div class="system">새로운 상대를 검색 중입니다...</div>';
             setInputState(false);
         });
 
         socket.on('return-to-setup', () => {
+            updateAdVisibility(true); 
             document.getElementById('setup-screen').style.display = 'block';
             document.getElementById('chat-screen').style.display = 'none';
             document.getElementById('chat-top-bar').style.display = 'none';
         });
+
+        function setInputState(enabled) {
+            const input = document.getElementById('msg-input');
+            const btn = document.getElementById('send-btn');
+            input.disabled = !enabled;
+            btn.disabled = !enabled;
+            input.placeholder = enabled ? "메시지 입력..." : "상대를 찾는 중...";
+            if(enabled) input.focus();
+            scrollToBottom();
+        }
 
         function send() {
             const input = document.getElementById('msg-input');
@@ -261,6 +226,27 @@
                 input.focus();
             }
         }
+
+        socket.on('message-ok', (text) => {
+            const chatBox = document.getElementById('chat-box');
+            // 정상 전송 시 기존 경고문 삭제
+            const existingErr = document.querySelector('.system-err');
+            if(existingErr) existingErr.remove();
+
+            chatBox.innerHTML += `<div class="msg-line me"><span class="sender-info">나</span><div class="bubble">${text}</div></div>`;
+            scrollToBottom();
+        });
+
+        socket.on('chat-msg', (data) => {
+            const chatBox = document.getElementById('chat-box');
+            // 대화가 오면 기존 경고문 삭제
+            const existingErr = document.querySelector('.system-err');
+            if(existingErr) existingErr.remove();
+
+            const gTag = `<span class="gender-tag ${partnerGender === 'male' ? 'gender-male' : 'gender-female'}">${partnerGender === 'male' ? '남' : '여'}</span>`;
+            chatBox.innerHTML += `<div class="msg-line partner"><span class="sender-info">${gTag} ${data.sender}</span><div class="bubble">${data.text}</div></div>`;
+            scrollToBottom();
+        });
 
         function blockUser() { if(confirm("이 유저를 차단하고 새로운 상대를 찾을까요?")) socket.emit('block-user'); }
         function exitToSetup() { if(confirm("대화를 종료하고 메인으로 나갈까요?")) socket.emit('leave-chat'); }
