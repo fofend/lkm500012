@@ -18,7 +18,7 @@
             --male: #007AFF; 
             --female: #FF2D55; 
         }
-        * { box-sizing: border-box; } 
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; } 
 
         html {
             background: var(--bg-gradient) no-repeat center center fixed;
@@ -115,7 +115,6 @@
         .me .bubble { background: var(--primary); color: white; border-bottom-right-radius: 4px; box-shadow: 0 2px 5px rgba(142,68,173,0.3); }
         .partner .bubble { background: #f2f2f7; color: black; border-bottom-left-radius: 4px; }
         
-        /* [수정] 광고 영역 스타일 */
         .ad-container {
             width: 100%;
             background: #fff;
@@ -129,14 +128,13 @@
             z-index: 5;
         }
 
-        /* [핵심] 모바일에서는 채팅 중 광고 숨김 로직용 클래스 */
         @media screen and (max-width: 768px) {
             .mobile-hide-ad { display: none !important; }
         }
 
         .input-area { padding: 10px 15px calc(10px + env(safe-area-inset-bottom)); background: #fff; border-top: 1px solid #eee; flex-shrink: 0; }
         .btn-group { display: flex; gap: 8px; align-items: center; }
-        #msg-input { flex: 1; padding: 12px 18px; border: 1px solid #eee; border-radius: 25px; outline: none; background: #f8f8f8; font-size: 16px; }
+        #msg-input { flex: 1; padding: 12px 18px; border: 1px solid #eee; border-radius: 25px; outline: none; background: #f8f8f8; font-size: 16px; color: #000; }
         
         .system { align-self: center; font-size: 12px; color: #8e8e93; background: #f2f2f7; padding: 6px 15px; border-radius: 15px; margin: 8px 0; width: fit-content; }
     </style>
@@ -190,7 +188,7 @@
             <div class="btn-group">
                 <button onclick="requestRematch()" style="background:#eee; color: #555; padding: 10px 15px; font-size: 13px; height: 42px; border: none; border-radius: 20px; font-weight: bold; flex-shrink: 0;">다음</button>
                 <input type="text" id="msg-input" placeholder="상대를 찾는 중..." disabled onkeypress="if(event.keyCode==13) send()">
-                <button id="send-btn" disabled onclick="send()" style="background:var(--primary); color:white; width:42px; height:42px; border:none; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size: 18px;">✈️</button>
+                <button id="send-btn" disabled onmousedown="event.preventDefault(); send();" ontouchstart="event.preventDefault(); send();" style="background:var(--primary); color:white; width:42px; height:42px; border:none; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size: 18px;">✈️</button>
             </div>
         </div>
     </div>
@@ -216,15 +214,11 @@
             myData.nickname = document.getElementById('nickname').value.trim() || "익명";
             myData.interest = document.getElementById('interest').value.trim();
             socket.emit('join', myData);
-            
             document.getElementById('setup-screen').style.display = 'none';
             document.getElementById('chat-screen').style.display = 'flex';
             document.getElementById('chat-top-bar').style.display = 'flex';
             document.querySelector('.stats-bar').style.display = 'flex';
-            
             document.getElementById('chat-box').innerHTML = '<div class="system">새로운 상대를 검색 중입니다...</div>';
-            
-            // [추가] 대기 중에는 광고 노출 유지
             document.getElementById('main-ad').classList.remove('mobile-hide-ad');
             setInputState(false);
         }
@@ -234,15 +228,12 @@
             const tagColor = partnerGender === 'male' ? 'var(--male)' : 'var(--female)';
             const tag = `<span style="font-size:10px; padding:2px 6px; border-radius:4px; color:white; margin-right:4px; font-weight:bold; background:${tagColor}">${partnerGender==='male'?'남':'여'}</span>`;
             document.getElementById('chat-box').innerHTML = `<div class="system">${tag} ${data.msg}</div>`;
-            
-            // [핵심] 매칭되어 채팅 중일 때는 광고 숨기기 (모바일 한정)
             document.getElementById('main-ad').classList.add('mobile-hide-ad');
             setInputState(true);
         });
 
         socket.on('partner-left', (msg) => {
             document.getElementById('chat-box').innerHTML += `<div class="system">⚠️ ${msg || '상대방이 종료했습니다.'}</div>`;
-            // [추가] 상대가 나가서 대기 상태가 되면 광고 다시 노출
             document.getElementById('main-ad').classList.remove('mobile-hide-ad');
             setInputState(false);
             scrollToBottom();
@@ -251,17 +242,18 @@
         socket.on('start-re-match', () => {
             socket.emit('join', myData);
             document.getElementById('chat-box').innerHTML = '<div class="system">새로운 상대를 검색 중입니다...</div>';
-            // [추가] 재매칭 대기 중 광고 노출
             document.getElementById('main-ad').classList.remove('mobile-hide-ad');
             setInputState(false);
         });
 
-        // 나머지 소켓 및 헬퍼 함수들은 이전과 동일 (message-ok, chat-msg, send 등)
         socket.on('message-ok', (text) => {
             const chatBox = document.getElementById('chat-box');
             chatBox.innerHTML += `<div class="msg-line me"><span style="font-size:11px; color:#8e8e93; margin-bottom:4px; margin-right:4px;">나</span><div class="bubble">${text}</div></div>`;
             scrollToBottom();
+            // 전송 완료 후 다시 포커스 보정
+            setTimeout(() => document.getElementById('msg-input').focus(), 10);
         });
+
         socket.on('chat-msg', (data) => {
             const chatBox = document.getElementById('chat-box');
             const tagColor = partnerGender === 'male' ? 'var(--male)' : 'var(--female)';
@@ -269,26 +261,33 @@
             chatBox.innerHTML += `<div class="msg-line partner"><span style="font-size:11px; color:#8e8e93; margin-bottom:4px; margin-left:4px;">${tag} ${data.sender}</span><div class="bubble">${data.text}</div></div>`;
             scrollToBottom();
         });
+
         function setInputState(enabled) {
             const input = document.getElementById('msg-input');
             const btn = document.getElementById('send-btn');
             input.disabled = !enabled;
             btn.disabled = !enabled;
             input.placeholder = enabled ? "메시지 입력..." : "상대를 찾는 중...";
-            if(enabled) input.focus();
+            if(enabled) setTimeout(() => input.focus(), 100);
             scrollToBottom();
         }
+
         function send() {
             const input = document.getElementById('msg-input');
-            if(input.value.trim() && !input.disabled) {
-                socket.emit('message', input.value.trim());
+            const val = input.value.trim();
+            if(val && !input.disabled) {
+                socket.emit('message', val);
                 input.value = '';
+                // [핵심] 모바일 키보드 유지
+                input.focus();
             }
         }
+
         function scrollToBottom() {
             const cb = document.getElementById('chat-box');
             cb.scrollTop = cb.scrollHeight;
         }
+
         function blockUser() { if(confirm("이 유저를 차단하고 다음 상대를 찾을까요?")) socket.emit('block-user'); }
         function exitToSetup() { if(confirm("메인 화면으로 나갈까요?")) location.reload(); }
         function requestRematch() { if(confirm("현재 대화를 종료하고 다음 상대와 연결할까요?")) socket.emit('re-match'); }
