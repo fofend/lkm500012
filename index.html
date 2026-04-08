@@ -2,8 +2,8 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>익명채팅 - 완벽 기획판</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>나나라이브 - 익명채팅</title>
     <style>
         :root { --primary: #007AFF; --success: #34c759; --error: #FF3B30; --bg: #f2f2f7; --male: #007AFF; --female: #FF2D55; }
         body { font-family: -apple-system, sans-serif; max-width: 500px; margin: 0 auto; background: var(--bg); display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
@@ -23,7 +23,8 @@
         .sender-info { font-size: 11px; color: #8e8e93; margin-bottom: 3px; display: flex; align-items: center; }
         .input-area { padding: 10px 15px 30px; background: white; border-top: 1px solid #d1d1d6; }
         .btn-group { display: flex; gap: 8px; align-items: center; }
-        input { flex: 1; padding: 12px; border: 1px solid #d1d1d6; border-radius: 20px; outline: none; background: #f2f2f7; }
+        /* [수정] 모바일 자동 줌인을 방지하기 위해 폰트 크기를 16px로 고정했습니다 */
+        input, select { flex: 1; padding: 12px; border: 1px solid #d1d1d6; border-radius: 20px; outline: none; background: #f2f2f7; font-size: 16px !important; }
         input:disabled { background: #e5e5ea; cursor: not-allowed; }
         button { border: none; border-radius: 20px; cursor: pointer; font-weight: bold; }
         .btn-send { background: var(--primary); color: white; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
@@ -46,7 +47,7 @@
     </div>
 
     <div id="setup-screen">
-        <h2>익명채팅</h2>
+        <h2>나나라이브</h2>
         <input type="text" id="nickname" placeholder="닉네임" style="width:100%; margin:20px 0 10px; box-sizing:border-box; padding:12px; border-radius:10px; border:1px solid #ddd;">
         <select id="gender" style="width:100%; padding:12px; border-radius:10px; border:1px solid #ddd; margin-bottom:10px;">
             <option value="male">남성</option>
@@ -92,7 +93,7 @@
             myData = {
                 nickname: document.getElementById('nickname').value || "익명",
                 gender: document.getElementById('gender').value,
-                interest: document.getElementById('interest').value.trim() // 공백 제거
+                interest: document.getElementById('interest').value.trim()
             };
             socket.emit('join', myData);
             document.getElementById('setup-screen').style.display = 'none';
@@ -126,7 +127,6 @@
 
         socket.on('message-ok', (text) => {
             const chatBox = document.getElementById('chat-box');
-            // 내 관심사가 있을 때만 태그 생성
             const interestTag = myData.interest ? `<span class="interest-tag">${myData.interest}</span>` : "";
             chatBox.innerHTML += `<div class="msg-line me"><span class="sender-info">나 ${interestTag}</span><div class="bubble">${text}</div></div>`;
             chatBox.scrollTop = chatBox.scrollHeight;
@@ -135,7 +135,6 @@
         socket.on('chat-msg', (data) => {
             const chatBox = document.getElementById('chat-box');
             const gTag = `<span class="gender-tag ${partnerGender === 'male' ? 'gender-male' : 'gender-female'}">${partnerGender === 'male' ? '남' : '여'}</span>`;
-            // 상대 관심사가 있을 때만 태그 생성
             const iTag = data.interest ? `<span class="interest-tag">${data.interest}</span>` : "";
             chatBox.innerHTML += `<div class="msg-line partner"><span class="sender-info">${gTag} ${data.sender} ${iTag}</span><div class="bubble">${data.text}</div></div>`;
             chatBox.scrollTop = chatBox.scrollHeight;
