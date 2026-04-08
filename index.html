@@ -83,8 +83,8 @@
 </head>
 <body>
     <div class="stats-bar">
-        <span>접속자: <span id="stat-users">0</span>명</span>
-        <span>대기중: <span id="stat-waiting">0</span>명</span>
+        <span>접속자: <span id="stat-users">실시간 접속 중</span></span>
+        <span>대기중: <span id="stat-waiting">빠른 매칭 중</span></span>
     </div>
 
     <div class="top-bar" id="chat-top-bar" style="display:none;">
@@ -147,11 +147,25 @@
         }
 
         socket.on('server-stats', (stats) => {
-            document.getElementById('stat-users').innerText = stats.currentUsers;
-            document.getElementById('stat-waiting').innerText = stats.waiting;
+            const usersEl = document.getElementById('stat-users');
+            const waitingEl = document.getElementById('stat-waiting');
+
+            // 1. 전체 접속자: 50명 미만일 때 문구로 대체
+            if (stats.currentUsers < 50) {
+                usersEl.innerText = "실시간 접속 중";
+            } else {
+                usersEl.innerText = stats.currentUsers + "명";
+            }
+
+            // 2. 대기자: 10명 미만일 때 문구로 대체
+            if (stats.waiting < 10) {
+                waitingEl.innerText = "빠른 매칭 중";
+            } else {
+                waitingEl.innerText = stats.waiting + "명";
+            }
         });
 
-        // [수정] 도배 경고 중복 방지 로직
+        // 도배 경고 중복 방지 로직
         socket.on('system-err', (msg) => {
             const chatBox = document.getElementById('chat-box');
             const existingErr = document.querySelector('.system-err');
