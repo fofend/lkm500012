@@ -3,7 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>나나라이브 - 익명채팅</title>
+    
+    <title>나나라이브 - 실시간 익명 채팅 및 랜덤 채팅</title>
+    <meta name="description" content="나나라이브에서 새로운 인연을 만나보세요. 쉽고 빠른 실시간 익명 채팅 서비스입니다.">
+    <meta name="keywords" content="나나라이브, 익명채팅, 랜덤채팅, 무료채팅, 실시간채팅, 친구만들기, 심심이">
+    <meta name="author" content="나나라이브">
+    <link rel="canonical" href="https://nana-live.onrender.com"> <meta property="og:type" content="website">
+    <meta property="og:title" content="나나라이브 - 설레는 익명 채팅">
+    <meta property="og:description" content="지금 바로 새로운 파트너와 대화를 시작해보세요!">
+    <meta property="og:image" content="https://nana-live.onrender.com/logo.png"> <meta property="og:url" content="https://yourdomain.com">
+
     <style>
         :root { --primary: #007AFF; --success: #34c759; --error: #FF3B30; --bg: #f2f2f7; --male: #007AFF; --female: #FF2D55; }
         
@@ -63,14 +72,12 @@
         
         .btn-group { display: flex; gap: 8px; align-items: center; }
         
-        /* 채팅 입력창 */
         #msg-input { flex: 1; padding: 12px; border: 1px solid #d1d1d6; border-radius: 20px; outline: none; background: #f2f2f7; font-size: 16px !important; }
         
         .btn-send { background: var(--primary); color: white; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; border: none; border-radius: 50%; }
         .btn-next { background: var(--success); color: white; padding: 10px 15px; font-size: 13px; flex-shrink: 0; height: 42px; border: none; border-radius: 20px; font-weight: bold; }
         .btn-block { color: var(--error); background: none; font-size: 14px; font-weight: 500; border: none; }
 
-        /* [핵심] 설정 화면 레이아웃 - 비율 통일 */
         #setup-screen { 
             padding: 40px 25px; 
             background: white; 
@@ -78,7 +85,7 @@
             overflow-y: auto; 
             display: flex;
             flex-direction: column;
-            align-items: center; /* 자식 요소들을 가운데로 배치 */
+            align-items: center; 
         }
 
         #setup-screen h1 {
@@ -91,7 +98,7 @@
         .setup-label { 
             display: block; 
             width: 100%;
-            max-width: 320px; /* 입력창과 너비를 맞춤 */
+            max-width: 320px; 
             text-align: left; 
             font-size: 13px; 
             font-weight: 600;
@@ -99,11 +106,10 @@
             margin: 15px 0 6px 5px; 
         }
         
-        /* 입력창 및 셀렉트 박스 스타일 칼같이 통일 */
         #setup-screen input, #setup-screen select {
             width: 100%;
-            max-width: 320px; /* 스크린샷 1번처럼 아담한 너비 유지 */
-            height: 48px; /* 높이 통일 */
+            max-width: 320px; 
+            height: 48px; 
             border-radius: 12px;
             background: #f2f2f7;
             border: 1px solid #d1d1d6;
@@ -116,7 +122,6 @@
             text-align: left;
         }
 
-        /* 셀렉트 박스 전용 디자인 (화살표 통일) */
         #setup-screen select {
             appearance: none;
             -webkit-appearance: none;
@@ -126,7 +131,6 @@
             background-size: 16px;
         }
 
-        /* 매칭 버튼 */
         .btn-start {
             width: 100%;
             max-width: 320px;

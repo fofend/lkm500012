@@ -3,8 +3,17 @@ const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
+// [중요] robots.txt와 index.html이 있는 폴더를 외부에서 접근 가능하게 열어줍니다.
+// 현재 폴더(__dirname)를 정적 폴더로 지정합니다.
+app.use(express.static(__dirname));
+
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
+});
+
+// robots.txt를 직접 읽을 수 있게 한 번 더 명시해줍니다 (확실한 검색 등록을 위해)
+app.get('/robots.txt', (req, res) => {
+    res.sendFile(__dirname + '/robots.txt');
 });
 
 let waitingUsers = [];
@@ -21,19 +30,16 @@ io.on('connection', (socket) => {
     socket.on('join', (data) => {
         socket.nickname = data.nickname || "익명";
         socket.gender = data.gender;
-        socket.wantGender = data.wantGender || "all"; // [추가] 유저가 원하는 상대 성별
+        socket.wantGender = data.wantGender || "all"; 
         socket.interest = data.interest ? data.interest.trim() : ""; 
 
-        // [핵심 수정] 매칭 조건 로직
         let partnerIndex = waitingUsers.findIndex(user => {
             // 1. 차단 여부 확인
             const isNotBlacklisted = !socket.blacklist.has(user.id) && !user.socket.blacklist.has(socket.id);
             if (!isNotBlacklisted) return false;
 
             // 2. 성별 매칭 조건 (서로의 요구사항이 맞아야 함)
-            // 내가 원하는 성별 조건 만족하는지 확인
             const iWantThem = (socket.wantGender === "all") || (socket.wantGender === user.gender);
-            // 상대가 원하는 성별 조건 만족하는지 확인
             const theyWantMe = (user.wantGender === "all") || (user.wantGender === socket.gender);
 
             return iWantThem && theyWantMe;
@@ -64,11 +70,10 @@ io.on('connection', (socket) => {
             
             waitingUsers.splice(partnerIndex, 1);
         } else {
-            // 대기열에 추가할 때 wantGender 정보도 함께 저장해야 합니다.
             waitingUsers.push({ 
                 id: socket.id, 
                 gender: socket.gender, 
-                wantGender: socket.wantGender, // 중요!
+                wantGender: socket.wantGender,
                 interest: socket.interest, 
                 nickname: socket.nickname, 
                 socket 
@@ -76,9 +81,6 @@ io.on('connection', (socket) => {
         }
         io.emit('server-stats', { currentUsers: totalConnections, waiting: waitingUsers.length });
     });
-
-    // ... (이하 block-user, re-match, message, leave-chat, disconnect 로직은 동일)
-    // 단, disconnect와 leave-chat 시 waitingUsers 필터링 부분은 그대로 유지하면 됩니다.
 
     socket.on('block-user', () => {
         if (socket.currentPartnerId) {
