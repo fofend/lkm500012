@@ -21,13 +21,22 @@ io.on('connection', (socket) => {
     socket.on('join', (data) => {
         socket.nickname = data.nickname || "익명";
         socket.gender = data.gender;
-        // ★ 수정 포인트: 관심사가 없으면 "전체" 대신 빈 문자열("")을 넣습니다.
+        socket.wantGender = data.wantGender || "all"; // [추가] 유저가 원하는 상대 성별
         socket.interest = data.interest ? data.interest.trim() : ""; 
 
+        // [핵심 수정] 매칭 조건 로직
         let partnerIndex = waitingUsers.findIndex(user => {
-            const isDifferentGender = user.gender !== socket.gender;
+            // 1. 차단 여부 확인
             const isNotBlacklisted = !socket.blacklist.has(user.id) && !user.socket.blacklist.has(socket.id);
-            return isDifferentGender && isNotBlacklisted;
+            if (!isNotBlacklisted) return false;
+
+            // 2. 성별 매칭 조건 (서로의 요구사항이 맞아야 함)
+            // 내가 원하는 성별 조건 만족하는지 확인
+            const iWantThem = (socket.wantGender === "all") || (socket.wantGender === user.gender);
+            // 상대가 원하는 성별 조건 만족하는지 확인
+            const theyWantMe = (user.wantGender === "all") || (user.wantGender === socket.gender);
+
+            return iWantThem && theyWantMe;
         });
 
         if (partnerIndex !== -1) {
@@ -55,10 +64,21 @@ io.on('connection', (socket) => {
             
             waitingUsers.splice(partnerIndex, 1);
         } else {
-            waitingUsers.push({ id: socket.id, gender: socket.gender, interest: socket.interest, nickname: socket.nickname, socket });
+            // 대기열에 추가할 때 wantGender 정보도 함께 저장해야 합니다.
+            waitingUsers.push({ 
+                id: socket.id, 
+                gender: socket.gender, 
+                wantGender: socket.wantGender, // 중요!
+                interest: socket.interest, 
+                nickname: socket.nickname, 
+                socket 
+            });
         }
         io.emit('server-stats', { currentUsers: totalConnections, waiting: waitingUsers.length });
     });
+
+    // ... (이하 block-user, re-match, message, leave-chat, disconnect 로직은 동일)
+    // 단, disconnect와 leave-chat 시 waitingUsers 필터링 부분은 그대로 유지하면 됩니다.
 
     socket.on('block-user', () => {
         if (socket.currentPartnerId) {
