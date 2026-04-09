@@ -3,8 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>나나라이브 - 실시간 익명 채팅</title>
     <meta name="description" content="나나라이브에서 실시간 익명 채팅과 랜덤 채팅을 즐겨보세요.">
     <meta property="og:title" content="나나라이브">
@@ -12,72 +11,73 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://nana-live.onrender.com/">
     <style>
+        html {
+            background-color: #fff !important;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
 
-    /* 1. 애니메이션 정의 (로고 등장 & 배경 흐름) */
-@keyframes flow {
-    from { background-position: 0% 50%; }
-    to { background-position: 100% 50%; }
-}
+        @keyframes flow {
+            from { background-position: 0% 50%; }
+            to { background-position: 100% 50%; }
+        }
 
-@keyframes fadeInLogo {
-    from { opacity: 0; transform: translateY(15px); filter: blur(5px); }
-    to { opacity: 1; transform: translateY(0); filter: blur(0); }
-}
+        @keyframes fadeInLogo {
+            from { opacity: 0; transform: translateY(15px); filter: blur(5px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
 
-@keyframes fadeInContent {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+        @keyframes fadeInContent {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-/* 2. 오프닝 화면 (최상단 레이어) */
-#opening-screen {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(-45deg, #1a0525, #6c3483, #8e44ad, #c15ee2);
-    background-size: 300% 300%;
-    animation: flow 4s ease-out forwards;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    transition: opacity 1s ease;
-}
+        #opening-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(-45deg, #1a0525, #6c3483, #8e44ad, #c15ee2);
+            background-size: 300% 300%;
+            animation: flow 4s ease-out forwards;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1s ease;
+        }
 
-/* 3. 로고 공통 스타일 (오프닝 & 셋업 공용) */
-.main-logo-style {
-    font-size: 48px;
-    font-weight: 900;
-    color: #fff;
-    text-shadow: 0 4px 25px rgba(0,0,0,0.4);
-    letter-spacing: -2px;
-    margin: 0;
-    padding: 0;
-    transition: opacity 1s ease;
-}
+        .main-logo-style {
+            font-size: 48px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 4px 25px rgba(0,0,0,0.4);
+            letter-spacing: -2px;
+            margin: 0;
+            padding: 0;
+            transition: opacity 1s ease;
+        }
 
-/* 4. 셋업 화면 (입력창 있는 화면) */
-#setup-screen {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%; height: 100dvh;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; /* 질문과 입력창을 화면 중앙에 배치 */
-    padding: 20px;
-    background: linear-gradient(-45deg, #1a0525, #6c3483, #8e44ad, #c15ee2);
-    background-size: 300% 300%;
-    transition: opacity 1s ease;
-}
+        #setup-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%; height: 100dvh;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: linear-gradient(-45deg, #1a0525, #6c3483, #8e44ad, #c15ee2);
+            background-size: 300% 300%;
+            transition: opacity 1s ease;
+        }
 
-.setup-content-wrapper {
-    width: 100%;
-    max-width: 320px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* 서서히 나타나는 애니메이션 제거하고 즉시 노출 (오프닝 후) */
-    opacity: 1; 
-}
+        .setup-content-wrapper {
+            width: 100%;
+            max-width: 320px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 1;
+        }
 
         :root {
             --primary: #8E44AD;
@@ -119,34 +119,45 @@
             color: #fff;
         }
 
-        /* 상단 상태 바: 마케팅 문구 포함 */
         .stats-bar {
-            background: rgba(0, 0, 0, 0.5);
-            color: rgba(255, 255, 255, 0.95);
-            font-size: 11px;
-            padding: 7px 15px;
-            display: none;
-            justify-content: space-between;
-            z-index: 100;
-            backdrop-filter: blur(8px);
-            font-weight: 500;
-        }
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 500px;
+    background: rgba(0, 0, 0, 0.5);
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 11px;
+    padding: 7px 15px;
+    display: none;
+    justify-content: space-between;
+    z-index: 2002;
+    backdrop-filter: blur(8px);
+    font-weight: 500;
+}
 
-       .swipe-transition {
-    transition: transform 0.55s cubic-bezier(0.19, 1, 0.22, 1), 
-                opacity 0.4s ease-out !important;
+        .swipe-transition {
+            transition: transform 0.55s cubic-bezier(0.19, 1, 0.22, 1),
+                        opacity 0.4s ease-out !important;
         }
 
         .top-bar {
-            background: #fff;
-            padding: 12px 15px;
-            display: none;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #d1d1d6;
-            z-index: 10;
-            color: #000;
-        }
+    position: fixed;
+    top: 31px; /* stats-bar 바로 아래 */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 500px;
+    background: #fff;
+    padding: 12px 15px;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #d1d1d6;
+    z-index: 2001;
+    color: #000;
+}
 
         #setup-screen {
             padding: 40px 25px;
@@ -227,25 +238,30 @@
         }
 
         #chat-screen {
-            display: none;
+    display: none;
     flex-direction: column;
-    flex: 1;
+    height: calc(100dvh - 76px); /* 상단 2줄 높이만큼 빼기 */
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #fff;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
     overflow: hidden;
-    color: #000;
-    background: #fff;
-    /* 묵직한 손맛을 위한 핵심 설정 */
-    will-change: transform, opacity;
-    transform-origin: center bottom !important; /* 축을 중앙 하단으로 고정 */
-        }
+}
 
         #chat-box {
             flex: 1;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
             padding: 15px;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            gap: 12px;
+            background: #fff;
         }
 
         .msg-line {
@@ -284,9 +300,9 @@
         }
 
         .input-area {
-            padding: 10px 15px calc(10px + env(safe-area-inset-bottom));
             background: #fff;
             border-top: 1px solid #eee;
+            padding-bottom: calc(10px + env(safe-area-inset-bottom));
         }
 
         .btn-group {
@@ -307,15 +323,16 @@
 
         .system {
             align-self: center;
+            margin: 12px auto;
             font-size: 12px;
             color: #8e8e93;
             background: #f2f2f7;
             padding: 8px 15px;
             border-radius: 15px;
-            margin: 8px 0;
             width: fit-content;
             text-align: center;
             line-height: 1.5;
+            word-break: keep-all;
         }
 
         .gender-tag {
@@ -328,7 +345,6 @@
             vertical-align: middle;
         }
 
-        /* 타이핑 말풍선 애니메이션 */
         .typing-bubble {
             display: flex;
             gap: 4px;
@@ -343,37 +359,17 @@
             animation: bounce 1.4s infinite ease-in-out;
         }
 
-        .dot:nth-child(2) {
-            animation-delay: 0.2s;
+        .dot:nth-child(2) { animation-delay: 0.2s; }
+        .dot:nth-child(3) { animation-delay: 0.4s; }
+
+        .swipe-transition {
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                        opacity 0.4s ease-out !important;
         }
-
-        .dot:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
-/* 실시간 스와이프를 위해 transition을 상황에 따라 조절합니다 */
-#chat-screen {
-    will-change: transform, opacity;
-    transform-origin: bottom left; /* 왼쪽 아래를 축으로 회전해서 더 역동적임 */
-}
-
-.swipe-transition {
-    /* 튕겨 나갈 때의 텐션감을 주는 큐빅 베지에 값 */
-    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
-                opacity 0.4s ease-out !important;
-}
 
         @keyframes bounce {
-
-            0%,
-            80%,
-            100% {
-                transform: translateY(0);
-            }
-
-            40% {
-                transform: translateY(-8px);
-            }
+            0%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-8px); }
         }
     </style>
 </head>
@@ -413,6 +409,7 @@
             </div>
         </div>
     </div>
+
     <div class="stats-bar" id="top-stats">
         <span id="stat-left">실시간 매칭 중...</span>
         <span id="stat-right">매칭 상태 원활</span>
@@ -426,55 +423,63 @@
             onmousedown="exitToSetup(); return false;">나가기</button>
     </div>
 
-   
+    <div id="chat-screen">
+        <div id="chat-box"></div>
 
-   <div id="chat-screen">
-    <div id="chat-box" style="flex: 1; overflow-y: auto; padding: 15px;"></div>
+        <div id="ad-container" style="display: none; width: 100%; background: #f8f8f8; text-align: center;">
+            <p style="font-size: 10px; color: #999; margin: 8px 0 3px 0;">추천 상품</p>
+            <div id="ad-content-area" style="min-height: 50px;"></div>
+        </div>
 
-    <div id="ad-container" style="display: none; width: 100%; background: #f8f8f8; overflow: hidden; text-align: center; transition: all 0.3s;">
-    <p style="font-size: 10px; color: #999; margin: 8px 0 3px 0;">추천 상품</p>
-    <div id="ad-content-area" style="min-height: 50px;"></div>
-</div>
-
-    <div class="input-area" style="padding: 10px 15px; background: #fff; border-top: 1px solid #eee;">
-        <div class="btn-group" style="display: flex; gap: 8px; align-items: center;">
-            <button onmousedown="requestRematch(); return false;"
-                style="background:#eee; padding: 10px 15px; border-radius: 20px; border:none; font-size:13px; font-weight:bold; flex-shrink:0; cursor:pointer;">다음</button>
-            
-            <input type="text" id="msg-input" placeholder="메시지 입력..." disabled 
-                style="flex: 1; padding: 12px 18px; border: 1px solid #eee; border-radius: 25px; outline: none; background: #f8f8f8; font-size: 16px;"
-                onkeypress="if(event.keyCode==13) send(event)">
-            
-            <button id="send-btn" disabled onmousedown="send(event); return false;"
-                style="background:var(--primary); color:white; width:42px; height:42px; border:none; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:18px;">✈️</button>
+        <div class="input-area">
+            <div class="btn-group">
+                <button onclick="requestRematch()" style="background:#eee; padding: 10px 15px; border-radius: 20px; border:none; font-size:13px; font-weight:bold; flex-shrink:0;">다음</button>
+                <input type="text" id="msg-input" placeholder="상대를 찾는 중..." disabled onkeypress="if(event.keyCode==13) send(event)">
+                <button id="send-btn" disabled onclick="send(event)" style="background:var(--primary); color:white; width:42px; height:42px; border:none; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:18px;">✈️</button>
+            </div>
         </div>
     </div>
-</div>
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io({ reconnection: true });
-        let myData = { nickname: '', gender: '', wantGender: '', interest: '' };
-        let currentStep = 1, partnerGender = "", partnerNickname = "", partnerInterest = "", lastMessage = "", repeatCount = 0, alertShown = false;
 
-            function goNext(step) {
+        let myData = { nickname: '', gender: '', wantGender: '', interest: '' };
+        let currentStep = 1;
+        let partnerGender = "";
+        let partnerNickname = "";
+        let partnerInterest = "";
+        let lastMessage = "";
+        let repeatCount = 0;
+        let alertShown = false;
+        let isRematching = false;
+        let lastEnterTime = 0;
+
+        let typingTimeout;
+        let startX = 0;
+        let currentX = 0;
+        let lastTap = 0;
+
+        const chatScreen = document.getElementById('chat-screen');
+        const chatBox = document.getElementById('chat-box');
+        const msgInput = document.getElementById('msg-input');
+        const sendBtn = document.getElementById('send-btn');
+
+        function goNext(step) {
             if (step === 1) {
                 const nick = document.getElementById('nickname').value.trim();
                 if (!nick) return alert("닉네임을 입력해 주세요!");
                 myData.nickname = nick;
             }
 
-            // 현재 단계 숨기기
             const currentElem = document.getElementById(`step-${currentStep}`);
             if (currentElem) {
                 currentElem.classList.remove('active');
                 currentElem.style.display = 'none';
             }
-            
-            // 다음 단계 번호 계산
+
             currentStep = step + 1;
-            
-            // 다음 단계 보여주기
+
             const nextElem = document.getElementById(`step-${currentStep}`);
             if (nextElem) {
                 nextElem.classList.add('active');
@@ -482,125 +487,137 @@
             }
         }
 
-        function selectGender(v) { 
-            myData.gender = v; 
-            goNext(2); // 2단계(성별)에서 다음으로!
+        function selectGender(v) {
+            myData.gender = v;
+            goNext(2);
         }
 
-        function selectWantGender(v) { 
-            myData.wantGender = v; 
-            goNext(3); // 3단계(관심상대)에서 다음으로!
+        function selectWantGender(v) {
+            myData.wantGender = v;
+            goNext(3);
         }
 
         function startMatching() {
             myData.nickname = document.getElementById('nickname').value.trim() || "익명";
             myData.interest = document.getElementById('interest').value.trim();
+
             socket.emit('join', myData);
+
             document.getElementById('setup-screen').style.display = 'none';
             document.getElementById('chat-screen').style.display = 'flex';
             document.getElementById('chat-top-bar').style.display = 'flex';
-            document.getElementById('top-stats').style.display = 'flex'; // 채팅 진입 시 일단 노출
-
+            document.getElementById('top-stats').style.display = 'flex';
             document.getElementById('ad-container').style.display = 'block';
 
-            document.getElementById('chat-box').innerHTML = '<div class="system">🚀 새로운 상대를 검색 중입니다...</div>';
+            chatBox.innerHTML = '<div class="system">🚀 새로운 상대를 검색 중입니다...</div>';
             setInputState(false);
         }
 
-        // 상대방이 타이핑 중이라는 신호를 받았을 때
-let typingTimeout;
-socket.on('partner-typing', () => {
-    console.log("상대방 신호 수신 성공!"); // 이제 콘솔에 이게 뜰 겁니다!
+        socket.on('partner-typing', () => {
+            let loader = document.getElementById('typing-loader');
 
-    let loader = document.getElementById('typing-loader');
-    
-    // 화면에 아직 점 3개가 없다면 새로 만듭니다
-    if (!loader) {
-        const chatBox = document.getElementById('chat-box');
-        loader = document.createElement('div');
-        loader.id = 'typing-loader';
-        loader.className = 'msg-line partner';
-        loader.innerHTML = `
-            <div class="bubble typing-bubble">
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-            </div>`;
-        chatBox.appendChild(loader);
-        scrollToBottom();
-    }
-    
-    // 3초 동안 추가 입력이 없으면 점 3개를 지웁니다
-    clearTimeout(typingTimeout);
-    typingTimeout = setTimeout(() => {
-        const currentLoader = document.getElementById('typing-loader');
-        if (currentLoader) currentLoader.remove();
-    }, 2000);
-});
+            if (!loader) {
+                loader = document.createElement('div');
+                loader.id = 'typing-loader';
+                loader.className = 'msg-line partner';
+                loader.innerHTML = `
+                    <div class="bubble typing-bubble" style="padding: 10px 15px;">
+                        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    </div>`;
+                chatBox.appendChild(loader);
+                loader.scrollIntoView({ behavior: 'smooth', block: 'end' });
+            }
+
+            clearTimeout(typingTimeout);
+            typingTimeout = setTimeout(() => {
+                const currentLoader = document.getElementById('typing-loader');
+                if (currentLoader) currentLoader.remove();
+            }, 2500);
+        });
+
+        socket.on('stop-partner-typing', () => {
+            const loader = document.getElementById('typing-loader');
+            if (loader) loader.remove();
+            if (typingTimeout) clearTimeout(typingTimeout);
+        });
 
         socket.on('matched', (d) => {
-        partnerGender = d.partnerGender;
-    partnerNickname = d.partnerNickname;
-    partnerInterest = d.partnerInterest;
+            isRematching = false;
 
-    document.getElementById('ad-container').style.display = 'none';
-    
-    const tagColor = partnerGender === 'male' ? 'var(--male)' : 'var(--female)';
-    const tagText = partnerGender === 'male' ? '남' : '여';
-    // 관심사가 있으면 괄호 안에 넣어서 스타일리쉬하게 표시
-    const interestTxt = partnerInterest ? ` <span style="color:#8e8e93; font-weight:normal;">(${partnerInterest})</span>` : "";
+            partnerGender = d.partnerGender;
+            partnerNickname = d.partnerNickname;
+            partnerInterest = d.partnerInterest;
 
-    document.getElementById('chat-box').innerHTML = `
-        <div class="system">
-            <span class="gender-tag" style="background:${tagColor}">${tagText}</span> 
-            <b>${partnerNickname}</b>님과 연결되었습니다.${interestTxt}
-        </div>`;
-    
-    setInputState(true);
-    scrollToBottom();
-});
-        // 상대방이 타이핑을 멈추거나 메시지를 보내면 점 세 개를 즉시 제거
-socket.on('stop-partner-typing', () => {
-    const loader = document.getElementById('typing-loader');
-    if (loader) loader.remove();
-    if (window.typingTimeout) clearTimeout(window.typingTimeout);
-});
-        socket.on('message-ok', (t) => { document.getElementById('chat-box').innerHTML += `<div class="msg-line me"><div class="bubble">${t}</div></div>`; scrollToBottom(); });
-        socket.on('chat-msg', (d) => { 
-          const loader = document.getElementById('typing-loader');
-    if (loader) loader.remove();
+            hideAd();
 
-    const tagColor = partnerGender === 'male' ? 'var(--male)' : 'var(--female)';
-    const tagText = partnerGender === 'male' ? '남' : '여';
-    const interestDisplay = partnerInterest ? `<span style="font-size:11px; color:#aaa; margin-left:4px;">(${partnerInterest})</span>` : "";
+            const tagColor = partnerGender === 'male' ? 'var(--male)' : 'var(--female)';
+            const tagText = partnerGender === 'male' ? '남' : '여';
+            const interestTxt = partnerInterest
+                ? ` <span style="color:#8e8e93; font-weight:normal;">(${partnerInterest})</span>`
+                : "";
 
-    document.getElementById('chat-box').innerHTML += `
-        <div class="msg-line partner" style="margin-top: 12px;">
-            <div style="margin-bottom: 3px; padding-left: 5px; display: flex; align-items: center;">
-                <span class="gender-tag" style="background:${tagColor}; margin-right:5px;">${tagText}</span>
-                <span style="font-size:13px; font-weight:600; color:#333;">${partnerNickname}</span>
-                ${interestDisplay}
-            </div>
-            <div class="bubble">${d.text}</div>
-        </div>`;
-    scrollToBottom();
-});
-        socket.on('partner-left', (m) => { socket.roomId = null; 
-    document.getElementById('ad-container').style.display = 'block';
-    // 모바일인지 확인하는 똑똑한 변수
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    // 모바일이면 톡톡, PC면 엔터 문구로 자동 선택!
-    const tipMsg = isMobile ? "📱 화면을 <b>두 번 톡톡</b> 두드려보세요!" : "⌨️ <b>엔터(Enter) 두 번</b>으로 매칭 시작!";
+            chatBox.innerHTML = `
+                <div class="system">
+                    <span class="gender-tag" style="background:${tagColor}">${tagText}</span> 
+                    <b>${partnerNickname}</b>님과 연결되었습니다.${interestTxt}
+                </div>`;
 
-    document.getElementById('chat-box').innerHTML += `
-        <div class="system">⚠️ ${m}</div>
-        <div class="system" style="background:#f2f2f7; color:#8e8e93; border: 1px dashed #d1d1d6; margin-top:10px;">
-            ${tipMsg}
-        </div>`; 
-    setInputState(false); });
-        socket.on('start-re-match', () => { socket.emit('join', myData); document.getElementById('chat-box').innerHTML = '<div class="system">🚀 새로운 상대를 검색 중입니다...</div>'; setInputState(false); });
+            setInputState(true);
+            scrollToBottom();
+        });
 
-        // [사장님 지시 핵심 로직] 상단 바 문구 제어
+        socket.on('message-ok', (t) => {
+            chatBox.innerHTML += `<div class="msg-line me"><div class="bubble">${escapeHtml(t)}</div></div>`;
+            scrollToBottom();
+        });
+
+        socket.on('chat-msg', (d) => {
+            const loader = document.getElementById('typing-loader');
+            if (loader) loader.remove();
+
+            const tagColor = partnerGender === 'male' ? 'var(--male)' : 'var(--female)';
+            const tagText = partnerGender === 'male' ? '남' : '여';
+            const interestDisplay = partnerInterest
+                ? `<span style="font-size:11px; color:#aaa; margin-left:4px;">(${escapeHtml(partnerInterest)})</span>`
+                : "";
+
+            chatBox.innerHTML += `
+                <div class="msg-line partner" style="margin-top: 12px;">
+                    <div style="margin-bottom: 3px; padding-left: 5px; display: flex; align-items: center;">
+                        <span class="gender-tag" style="background:${tagColor}; margin-right:5px;">${tagText}</span>
+                        <span style="font-size:13px; font-weight:600; color:#333;">${escapeHtml(partnerNickname)}</span>
+                        ${interestDisplay}
+                    </div>
+                    <div class="bubble">${escapeHtml(d.text)}</div>
+                </div>`;
+            scrollToBottom();
+        });
+
+        socket.on('partner-left', (m) => {
+            isRematching = false;
+            socket.roomId = null;
+
+            document.getElementById('ad-container').style.display = 'block';
+
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            const tipMsg = isMobile
+                ? "📱 화면을 <b>두 번 톡톡</b> 두드려보세요!"
+                : "⌨️ <b>엔터(Enter) 두 번</b>으로 매칭 시작!";
+
+            chatBox.innerHTML += `
+                <div class="system">⚠️ ${escapeHtml(m)}</div>
+                <div class="system" style="background:#f2f2f7; color:#8e8e93; border: 1px dashed #d1d1d6; margin-top:10px;">
+                    ${tipMsg}
+                </div>`;
+            setInputState(false);
+        });
+
+        socket.on('start-re-match', () => {
+            socket.emit('join', myData);
+            chatBox.innerHTML = '<div class="system">🚀 새로운 상대를 검색 중입니다...</div>';
+            setInputState(false);
+        });
+
         socket.on('server-stats', (d) => {
             const statsBar = document.getElementById('top-stats');
             const sLeft = document.getElementById('stat-left');
@@ -610,15 +627,12 @@ socket.on('stop-partner-typing', () => {
                 statsBar.style.display = 'flex';
 
                 if (d.currentUsers >= 50) {
-                    // 50명 이상일 때: 실시간 정보 노출
                     sLeft.innerHTML = `접속자: <span>${d.currentUsers}</span>명`;
                     sRight.innerHTML = `대기중: <span>${d.waiting}</span>명`;
                 } else if (d.currentUsers <= 5) {
-                    // 5명 이하일 때: 매칭 원활 멘트
                     sLeft.innerHTML = `🚀 실시간 매칭 중...`;
                     sRight.innerHTML = `✨ 매칭 상태 원활`;
                 } else {
-                    // 20명 내외 등 그 외 (50명 미만): 매칭 중 멘트
                     sLeft.innerHTML = `🚀 실시간 매칭 중...`;
                     sRight.innerHTML = `💬 원활한 대화 가능`;
                 }
@@ -628,264 +642,235 @@ socket.on('stop-partner-typing', () => {
         });
 
         function send(event) {
-            if (event) { event.preventDefault(); event.stopPropagation(); }
-            const i = document.getElementById('msg-input'), v = i.value.trim(), cb = document.getElementById('chat-box');
-            if (!v || i.disabled || !socket.connected) { i.focus(); return; }
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
+            const v = msgInput.value.trim();
+            if (!v || msgInput.disabled || !socket.connected) {
+                msgInput.focus();
+                return;
+            }
+
             if (v === lastMessage) {
                 repeatCount++;
                 if (repeatCount >= 5) {
-                    if (!alertShown) { cb.innerHTML += `<div class="system" style="color:var(--error); border:1px solid var(--error); font-weight:bold;">⚠️ 도배 방지: 동일 문구 전송 불가</div>`; alertShown = true; scrollToBottom(); }
-                    i.focus(); return;
+                    if (!alertShown) {
+                        chatBox.innerHTML += `<div class="system" style="color:var(--error); border:1px solid var(--error); font-weight:bold;">⚠️ 도배 방지: 동일 문구 전송 불가</div>`;
+                        alertShown = true;
+                        scrollToBottom();
+                    }
+                    msgInput.focus();
+                    return;
                 }
-            } else { repeatCount = 1; alertShown = false; }
-            socket.emit('message', v); lastMessage = v; i.value = '';
-            setTimeout(() => { i.focus(); }, 10);
-        }
-// 입력창에 타자 칠 때마다 서버에 알림
-document.getElementById('msg-input').addEventListener('input', (e) => {
-    const val = e.target.value.trim();
-    if (val.length > 0) {
-        socket.emit('typing');       // 글자가 있으면 타이핑 중!
-    } else {
-        socket.emit('stop-typing');  // 글자를 다 지우면 즉시 멈춤!
-    }
-});
-
-// [기존 코드 시작] function setInputState(e) { ...
-        function setInputState(e) {
-            const i = document.getElementById('msg-input'), b = document.getElementById('send-btn');
-            i.disabled = !e; b.disabled = !e; i.placeholder = e ? "메시지 입력..." : "상대를 찾는 중...";
-            if (e) setTimeout(() => i.focus(), 150);
-        }
-
-        function scrollToBottom() { const c = document.getElementById('chat-box'); c.scrollTop = c.scrollHeight; }
-        
-        // 이 부분의 괄호 짝을 정확히 맞췄습니다.
-        function requestRematch() { 
-            if (confirm("다음 상대를 찾을까요?")) {
-                socket.roomId = null; 
-
-                // [이 줄 추가] 새 상대를 찾는 대기 시간 동안 광고 노출!
-        document.getElementById('ad-container').style.display = 'block';
-
-                socket.emit('re-match'); 
+            } else {
+                repeatCount = 1;
+                alertShown = false;
             }
-        } // 👈 사장님 코드에서 이게 빠져있었습니다!
 
-        function exitToSetup() { if (confirm("나갈까요?")) location.reload(); }
-        function blockUser() { 
-            if (confirm("차단하고 다음 상대를 찾을까요?")) {
-                socket.roomId = null; // 클라이언트 방 정보 초기화
-                socket.emit('block-user'); }
-        }
-        
-        // 📱 모바일 & ⌨️ PC 공통 매칭 함수 (중복 방지 및 작별 인사 포함)
-        function triggerAutoMatch() {
-            // 현재 입력창이 활성화(disabled가 false) 상태면 = 대화 중이라는 뜻!
-            // 대화 중일 때는 절대로 작동하지 않게 막습니다.
-            if (!document.getElementById('msg-input').disabled) return;
+            socket.emit('message', v);
+            lastMessage = v;
+            msgInput.value = '';
 
-            console.log("자동 매칭 트리거 발동!");
-            
-            // 기존 방이 있었다면 상대방에게 종료 알림을 먼저 보냄
-            socket.emit('re-match'); 
-            
-            // 새 매칭 시작
-            socket.emit('join', myData); 
-            document.getElementById('chat-box').innerHTML = '<div class="system">🚀 새로운 상대를 검색 중...</div>';
+            setTimeout(() => {
+                msgInput.focus();
+            }, 10);
         }
 
-       
-
-        // ⌨️ PC용: 엔터 두 번 팡팡
-        let lastEnterTime = 0;
-        document.addEventListener('keydown', (e) => {
-            // 채팅 화면이고, 엔터 키일 때만
-            if (e.key === 'Enter' && document.getElementById('chat-screen').style.display === 'flex') {
-                const currentTime = new Date().getTime();
-                const enterInterval = currentTime - lastEnterTime;
-                
-                if (enterInterval < 300 && enterInterval > 0) {
-                    triggerAutoMatch(); // 위에서 만든 안전한 함수 호출
-                    lastEnterTime = 0; 
-                } else { lastEnterTime = currentTime; }
+        msgInput.addEventListener('input', (e) => {
+            const val = e.target.value.trim();
+            if (val.length > 0) {
+                socket.emit('typing');
+            } else {
+                socket.emit('stop-typing');
             }
         });
 
-    // --- 📱 실시간 손맛 스와이프 & 더블탭 통합 로직 ---
-let startX = 0;
-let currentX = 0;
-let lastTap = 0; // 더블탭용
-const chatScreen = document.getElementById('chat-screen');
-
-document.addEventListener('touchstart', (e) => {
-    if (chatScreen.style.display === 'flex') {
-        // 입력창이나 버튼을 누를 때는 작동 안 함
-        if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON') {
-            startX = e.touches[0].clientX;
-            chatScreen.classList.remove('swipe-transition');
+        function setInputState(enabled) {
+            msgInput.disabled = !enabled;
+            sendBtn.disabled = !enabled;
+            msgInput.placeholder = enabled ? "메시지 입력..." : "상대를 찾는 중...";
+            if (enabled) setTimeout(() => msgInput.focus(), 150);
         }
-    }
-}, { passive: true });
 
-document.addEventListener('touchmove', (e) => {
-    if (startX === 0) return;
-    currentX = e.touches[0].clientX;
-    const diff = currentX - startX;
+        function scrollToBottom() {
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
 
-    // 왼쪽으로 밀 때만 (음수값)
-    if (diff < 0) {
-        const moveX = diff * 0.5; // 0.5로 무게감 부여
-        const rotate = (diff / 35); 
-        chatScreen.style.transform = `translateX(${moveX}px) rotate(${rotate}deg)`;
-        chatScreen.style.opacity = 1 + (moveX / 800);
-    }
-}, { passive: true });
+        function requestRematch() {
+            triggerAutoMatch();
+        }
 
-document.addEventListener('touchend', (e) => {
+        function triggerAutoMatch() {
+            if (isRematching) return;
+
+            isRematching = true;
+            socket.roomId = null;
+            socket.emit('re-match');
+
+            chatBox.innerHTML = '<div class="system">🚀 새로운 인연을 찾는 중...</div>';
+            setInputState(false);
+            showAd();
+        }
+
+        function exitToSetup() {
+            if (confirm("나갈까요?")) location.reload();
+        }
+
+        function blockUser() {
+            if (confirm("차단하고 다음 상대를 찾을까요?")) {
+                socket.roomId = null;
+                socket.emit('block-user');
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            const isChatVisible = document.getElementById('chat-screen').style.display === 'flex';
+            if (!isChatVisible) return;
+
+            if (e.shiftKey && (e.key === '.' || e.key === '>')) {
+                e.preventDefault();
+                document.activeElement.blur();
+
+                if (confirm("현재 대화를 종료하고 다음 상대를 찾을까요?")) {
+                    triggerAutoMatch();
+                } else if (!msgInput.disabled) {
+                    msgInput.focus();
+                }
+                return;
+            }
+
+            if (e.key === 'Enter' && msgInput.disabled) {
+                const currentTime = Date.now();
+
+                if (currentTime - lastEnterTime < 300) {
+                    e.preventDefault();
+                    triggerAutoMatch();
+                    lastEnterTime = 0;
+                } else {
+                    lastEnterTime = currentTime;
+                }
+            }
+        }, true);
+
+        document.addEventListener('touchstart', (e) => {
+            if (chatScreen.style.display !== 'flex') return;
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') return;
+
+            startX = e.touches[0].clientX;
+            currentX = startX;
+            chatScreen.classList.remove('swipe-transition');
+        }, { passive: true });
+
+        document.addEventListener('touchmove', (e) => {
             if (startX === 0) return;
-            
-            // 손가락을 뗀 시점의 좌표를 마지막으로 한 번 더 확인
+
+            currentX = e.touches[0].clientX;
+            const diff = currentX - startX;
+
+            if (diff < 0) {
+                const moveX = diff * 0.5;
+                const rotate = diff / 35;
+                chatScreen.style.transform = `translateX(calc(-50% + ${moveX}px)) rotate(${rotate}deg)`;
+                chatScreen.style.opacity = 1 + (moveX / 800);
+            }
+        }, { passive: true });
+
+        document.addEventListener('touchend', (e) => {
+            if (startX === 0) return;
+
             if (currentX === 0 && e.changedTouches && e.changedTouches.length > 0) {
                 currentX = e.changedTouches[0].clientX;
             }
 
             const diff = currentX - startX;
-            const currentTime = new Date().getTime();
-            const tapLength = currentTime - lastTap;
-            
-            chatScreen.classList.add('swipe-transition'); 
+            const currentTime = Date.now();
 
-            // 1. [스와이프 판정] 확실히 왼쪽으로 밀었을 때 (-100px 이상)
+            chatScreen.classList.add('swipe-transition');
+
             if (currentX !== 0 && diff < -100) {
-                chatScreen.style.transform = `translateX(-120%) rotate(-15deg)`;
+                chatScreen.style.transform = `translateX(calc(-50% - 120%)) rotate(-15deg)`;
                 chatScreen.style.opacity = '0';
 
+                triggerAutoMatch();
+
                 setTimeout(() => {
-                    // [핵심] 단순히 triggerAutoMatch만 호출하지 말고, 
-                    // 여기서 확실하게 방 정보를 날리고 서버에 신호를 보냅니다.
-                    socket.roomId = null; // 현재 방 번호 초기화
-                    socket.emit('re-match'); // 서버에 "나 나갈래" 신호 전송
-                    
-                    // 그 다음 새로운 상대를 찾습니다.
-                    triggerAutoMatch(); 
-                    showAd(); // 광고 켜기
-                    
-                    document.getElementById('chat-box').innerHTML = '<div class="system">🚀 새로운 인연을 찾는 중...</div>';
-                    
-                    // 화면 복귀
-                    chatScreen.style.transform = 'translateX(0) rotate(0deg)';
+                    chatScreen.style.transform = 'translateX(-50%) rotate(0deg)';
                     chatScreen.style.opacity = '1';
                 }, 450);
-            }
-            // 2. [더블탭 판정] 거의 움직임이 없을 때 (탭으로 간주)
-            else if (currentX === 0 || Math.abs(diff) < 20) {
-                if (tapLength < 300 && tapLength > 0) {
-                    // 대화 종료 상태(입력창 비활성)일 때만 작동
-                    if (document.getElementById('msg-input').disabled) {
-                        triggerAutoMatch();
-                        showAd();
+            } else {
+                chatScreen.style.transform = 'translateX(-50%) rotate(0deg)';
+                chatScreen.style.opacity = '1';
+
+                const tapLength = currentTime - lastTap;
+                if (Math.abs(diff) < 20) {
+                    if (tapLength < 300 && tapLength > 0) {
+                        if (msgInput.disabled) {
+                            triggerAutoMatch();
+                        }
+                        lastTap = 0;
+                    } else {
+                        lastTap = currentTime;
                     }
-                    lastTap = 0;
-                } else {
-                    lastTap = currentTime;
                 }
-                chatScreen.style.transform = 'translateX(0) rotate(0deg)';
-                chatScreen.style.opacity = '1';
-            }
-            // 3. 그 외 (어중간하게 밀었을 때 제자리로)
-            else {
-                chatScreen.style.transform = 'translateX(0) rotate(0deg)';
-                chatScreen.style.opacity = '1';
             }
 
-            // [중요] 모든 판정이 끝난 후 값을 초기화합니다.
             startX = 0;
             currentX = 0;
-        });
-       // --- ⌨️ PC용 단축키: Shift + . (즉, > 키) 로 즉시 다음! ---
-        document.addEventListener('keydown', (e) => {
-            // 채팅 화면일 때만 작동
-            if (document.getElementById('chat-screen').style.display === 'flex') {
-                
-                // Shift 키와 마침표(.) 키가 같이 눌렸을 때 (= > 키)
-                if (e.shiftKey && (e.key === '.' || e.key === '>')) {
-                    
-                    // 1. 입력창에 '>'가 써지는 기본 기능을 막음
-                    e.preventDefault(); 
-                    
-                    console.log("단축키 감지: '>' 키로 다음 상대 찾기");
+        }, { passive: true });
 
-                    // 2. 입력창에서 커서를 빼서 확실히 명령 전달
-                    document.activeElement.blur(); 
-
-                    // 3. 매칭 확인창
-                    if (confirm("현재 대화를 종료하고 다음 상대를 찾을까요?")) {
-                        socket.roomId = null;
-                        socket.emit('re-match');
-                        socket.emit('join', myData);
-
-                        document.getElementById('ad-container').style.display = 'block';
-
-                        document.getElementById('chat-box').innerHTML = '<div class="system">👋 단축키(>)로 새로운 상대를 찾습니다...</div>';
-                    } else {
-                        // 취소 시 다시 입력창으로 포커스 복구
-                        document.getElementById('msg-input').focus();
-                    }
-                }
-            }
-        }, true); // 우선순위 최상단 유지
         window.addEventListener('load', () => {
             const opScreen = document.getElementById('opening-screen');
             const setupScreen = document.getElementById('setup-screen');
 
-            // 3.5초 감상 후 전환
             setTimeout(() => {
-                // 오프닝 투명하게
                 opScreen.style.opacity = '0';
-                
-                // 셋업 화면 미리 켜기
                 setupScreen.style.display = 'flex';
-                
+
                 setTimeout(() => {
-                    opScreen.style.display = 'none'; // 오프닝 제거
-                    setupScreen.style.opacity = '1'; // 셋업 등장
+                    opScreen.style.display = 'none';
+                    setupScreen.style.opacity = '1';
                 }, 1000);
             }, 3500);
         });
 
-       // 쿠팡 광고를 강제로 그려주는 함수
-function loadCoupangAd() {
-    const adArea = document.getElementById('ad-content-area');
-    adArea.innerHTML = ''; // 이전 광고 초기화
+        function loadCoupangAd() {
+            const adArea = document.getElementById('ad-content-area');
+            adArea.innerHTML = '';
 
-    // 사장님의 쿠팡 스크립트를 동적으로 생성해서 삽입
-    const script = document.createElement('script');
-    script.src = "https://ads-partners.coupang.com/g.js";
-    
-    // 이 데이터는 사장님의 쿠팡 파트너스 설정값으로 꼭 바꾸세요!
-    window.ads_partners_config = {
-        "adId": 834567, // 실제 사장님의 adId 숫자를 넣으세요
-        "width": 320,
-        "height": 50,
-        "type": "banner"
-    };
-    
-    adArea.appendChild(script);
-}
+            const script = document.createElement('script');
+            script.src = "https://ads-partners.coupang.com/g.js";
 
-// 광고를 보여주는 통합 함수
-function showAd() {
-    document.getElementById('ad-container').style.display = 'block';
-    loadCoupangAd(); // 광고 켜질 때마다 스크립트 재실행
-}
+            window.ads_partners_config = {
+                "adId": 834567,
+                "width": 320,
+                "height": 50,
+                "type": "banner"
+            };
 
-// 광고를 숨기는 통합 함수
-function hideAd() {
-    document.getElementById('ad-container').style.display = 'none';
-}
+            adArea.appendChild(script);
+        }
 
+        function showAd() {
+            document.getElementById('ad-container').style.display = 'block';
+            loadCoupangAd();
+        }
+
+        function hideAd() {
+            document.getElementById('ad-container').style.display = 'none';
+        }
+
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
     </script>
+
     <div style="font-size: 8px; color: rgba(255,255,255,0.05); text-align: center; margin-top: 10px;">
         #나나라이브 #실시간채팅 #랜덤채팅 #익명채팅 #가가라이브같은사이트
     </div>
