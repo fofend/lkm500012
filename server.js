@@ -21,6 +21,25 @@ io.on('connection', (socket) => {
     const updateStats = () => io.emit('server-stats', { currentUsers: totalConnections, waiting: waitingUsers.length });
     updateStats();
 
+    socket.on('block-user', () => {
+        if (socket.currentPartnerId) {
+            // 1. 내 블랙리스트에 상대방 추가
+            socket.blacklist.add(socket.currentPartnerId);
+            
+            // 2. 상대방에게 종료 알림 (방 번호로 전송)
+            socket.to(socket.roomId).emit('partner-left', '상대방이 당신을 차단하고 떠났습니다.');
+            
+            // 3. 내 소켓 정보 초기화 및 방 나가기
+            socket.leave(socket.roomId);
+            const oldRoomId = socket.roomId; // 기존 방 번호 임시 저장
+            socket.roomId = null;
+            socket.currentPartnerId = null;
+
+            // 4. 나에게 새로운 매칭 시작하라고 신호 보냄
+            socket.emit('start-re-match');
+        }
+    });
+
     socket.on('join', (data) => {
         socket.nickname = data.nickname || "익명";
         socket.gender = data.gender;
