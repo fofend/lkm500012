@@ -6,7 +6,11 @@ const io = require('socket.io')(http);
 app.use(express.static(__dirname));
 
 app.get('/', (req, res) => { res.sendFile(__dirname + '/index.html'); });
-
+// robots.txt 요청이 오면 파일 위치 상관없이 무조건 허용 텍스트를 쏴줍니다.
+app.get('/robots.txt', (req, res) => {
+    res.type('text/plain');
+    res.send("User-agent: *\nAllow: /");
+});
 let waitingUsers = [];
 let totalConnections = 0;
 
