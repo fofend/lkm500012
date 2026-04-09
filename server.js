@@ -46,12 +46,31 @@ io.on('connection', (socket) => {
             socket.currentPartnerId = partner.id;
             partner.socket.currentPartnerId = socket.id;
 
-            socket.emit('matched', { msg: `연결됨`, partnerGender: partner.gender });
-            partner.socket.emit('matched', { msg: `연결됨`, partnerGender: socket.gender });
+            socket.emit('matched', { 
+                msg: `연결됨`, 
+                partnerGender: partner.gender, 
+                partnerInterest: partner.interest,
+                partnerNickname: partner.nickname // 👈 상대방 닉네임을 나에게 보냄
+            });
+            
+            // 이 부분이 스크린샷의 두 번째 덩어리
+            partner.socket.emit('matched', { 
+                msg: `연결됨`, 
+                partnerGender: socket.gender, 
+                partnerInterest: socket.interest,
+                partnerNickname: socket.nickname // 👈 내 닉네임을 상대방에게 보냄
+            });
+
             waitingUsers.splice(partnerIndex, 1);
         } else {
             if (!waitingUsers.some(u => u.id === socket.id)) {
-                waitingUsers.push({ id: socket.id, gender: socket.gender, wantGender: socket.wantGender, nickname: socket.nickname, socket });
+                waitingUsers.push({ 
+                    id: socket.id, 
+                    gender: socket.gender, 
+                    wantGender: socket.wantGender, 
+                    nickname: socket.nickname, 
+                    interest: socket.interest, // 이 줄을 꼭 추가!
+                    socket });
             }
         }
         updateStats();

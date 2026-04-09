@@ -353,7 +353,7 @@
     <script>
         const socket = io({ reconnection: true });
         let myData = { nickname: '', gender: '', wantGender: '', interest: '' };
-        let currentStep = 1, partnerGender = "", lastMessage = "", repeatCount = 0, alertShown = false;
+        let currentStep = 1, partnerGender = "", partnerNickname = "", partnerInterest = "", lastMessage = "", repeatCount = 0, alertShown = false;
 
         function goNext(s) { document.getElementById(`step-${currentStep}`).classList.remove('active'); document.getElementById(`step-${s}`).classList.add('active'); currentStep = s; }
         function selectGender(v) { myData.gender = v; goNext(3); }
@@ -403,13 +403,24 @@ socket.on('partner-typing', () => {
 });
 
         socket.on('matched', (d) => {
-            partnerGender = d.partnerGender;
-            const tagColor = partnerGender === 'male' ? 'var(--male)' : 'var(--female)';
-            const tagText = partnerGender === 'male' ? '남' : '여';
-            const interestTxt = d.partnerInterest ? `<br><span style="color:#8e8e93">상대 관심사: ${d.partnerInterest}</span>` : "";
-            document.getElementById('chat-box').innerHTML = `<div class="system"><span class="gender-tag" style="background:${tagColor}">${tagText}</span> 상대방과 연결되었습니다.${interestTxt}</div>`;
-            setInputState(true);
-        });
+        partnerGender = d.partnerGender;
+    partnerNickname = d.partnerNickname;
+    partnerInterest = d.partnerInterest;
+    
+    const tagColor = partnerGender === 'male' ? 'var(--male)' : 'var(--female)';
+    const tagText = partnerGender === 'male' ? '남' : '여';
+    // 관심사가 있으면 괄호 안에 넣어서 스타일리쉬하게 표시
+    const interestTxt = partnerInterest ? ` <span style="color:#8e8e93; font-weight:normal;">(${partnerInterest})</span>` : "";
+
+    document.getElementById('chat-box').innerHTML = `
+        <div class="system">
+            <span class="gender-tag" style="background:${tagColor}">${tagText}</span> 
+            <b>${partnerNickname}</b>님과 연결되었습니다.${interestTxt}
+        </div>`;
+    
+    setInputState(true);
+    scrollToBottom();
+});
         // 상대방이 타이핑을 멈추거나 메시지를 보내면 점 세 개를 즉시 제거
 socket.on('stop-partner-typing', () => {
     const loader = document.getElementById('typing-loader');
@@ -417,9 +428,25 @@ socket.on('stop-partner-typing', () => {
     if (window.typingTimeout) clearTimeout(window.typingTimeout);
 });
         socket.on('message-ok', (t) => { document.getElementById('chat-box').innerHTML += `<div class="msg-line me"><div class="bubble">${t}</div></div>`; scrollToBottom(); });
-        socket.on('chat-msg', (d) => { const loader = document.getElementById('typing-loader');
+        socket.on('chat-msg', (d) => { 
+          const loader = document.getElementById('typing-loader');
     if (loader) loader.remove();
-            document.getElementById('chat-box').innerHTML += `<div class="msg-line partner"><div class="bubble">${d.text}</div></div>`; scrollToBottom(); });
+
+    const tagColor = partnerGender === 'male' ? 'var(--male)' : 'var(--female)';
+    const tagText = partnerGender === 'male' ? '남' : '여';
+    const interestDisplay = partnerInterest ? `<span style="font-size:11px; color:#aaa; margin-left:4px;">(${partnerInterest})</span>` : "";
+
+    document.getElementById('chat-box').innerHTML += `
+        <div class="msg-line partner" style="margin-top: 12px;">
+            <div style="margin-bottom: 3px; padding-left: 5px; display: flex; align-items: center;">
+                <span class="gender-tag" style="background:${tagColor}; margin-right:5px;">${tagText}</span>
+                <span style="font-size:13px; font-weight:600; color:#333;">${partnerNickname}</span>
+                ${interestDisplay}
+            </div>
+            <div class="bubble">${d.text}</div>
+        </div>`;
+    scrollToBottom();
+});
         socket.on('partner-left', (m) => { document.getElementById('chat-box').innerHTML += `<div class="system">⚠️ ${m}</div>`; setInputState(false); });
         socket.on('start-re-match', () => { socket.emit('join', myData); document.getElementById('chat-box').innerHTML = '<div class="system">🚀 새로운 상대를 검색 중입니다...</div>'; setInputState(false); });
 
