@@ -9,9 +9,19 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 
+// 3️⃣ robots.txt (수정 버전)
 app.get('/robots.txt', (req, res) => {
     res.type('text/plain');
-    res.send("User-agent: *\nAllow: /");
+    res.send(
+`User-agent: *
+Allow: /
+
+Sitemap: https://nanachat-unzb.onrender.com/sitemap.xml`
+    );
+});
+
+app.get('*', (req, res) => {
+    res.sendFile(__dirname + '/index.html');
 });
 
 let waitingUsers = [];
@@ -252,7 +262,9 @@ io.on('connection', (socket) => {
         }
     });
 });
-
+app.get('*', (req, res) => {
+    res.sendFile(__dirname + '/index.html');
+});
 http.listen(3000, () => {
     console.log('Server running on 3000');
 });
