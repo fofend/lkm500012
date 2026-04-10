@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>랜덤채팅 · 익명채팅 | 나나채팅 (회원가입 없이 바로 시작)</title>
 
-<title>나나채팅 | 익명채팅 · 랜덤채팅 · 실시간 채팅</title>
+
 
 <meta name="description" content="심심할 때 바로 시작하는 익명채팅·랜덤채팅, 나나채팅">
 
@@ -80,6 +80,37 @@
             transition: opacity 1s ease;
         }
 
+        .site-footer {
+    width: 100%;
+    max-width: 500px;
+    margin: 40px auto 20px;
+    text-align: center;
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+}
+
+.footer-links {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    color: rgba(255,255,255,0.9);
+    text-decoration: none;
+    font-weight: 600;
+    margin: 0 6px;
+    transition: all 0.2s ease;
+}
+
+.footer-links a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.footer-copy {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+}
+
         .setup-content-wrapper {
             width: 100%;
             max-width: 320px;
@@ -128,7 +159,14 @@
             width: 100%;
             color: #fff;
         }
+.top-bar button {
+    padding: 6px 10px;
+    border-radius: 8px;
+}
 
+.top-bar button:active {
+    background: rgba(0,0,0,0.05);
+}
         .stats-bar {
     position: fixed;
     top: 0;
@@ -154,13 +192,14 @@
 
         .top-bar {
     position: fixed;
-    top: 31px; /* stats-bar 바로 아래 */
+    top: 31px;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
     max-width: 500px;
+    height: 45px;
     background: #fff;
-    padding: 12px 15px;
+    padding: 0 12px;
     display: none;
     justify-content: space-between;
     align-items: center;
@@ -250,13 +289,13 @@
         #chat-screen {
     display: none;
     flex-direction: column;
-    height: calc(100dvh - 76px); /* 상단 2줄 높이만큼 빼기 */
+    height: calc(100dvh - 76px);
     width: 100%;
     max-width: 500px;
     margin: 0 auto;
     background-color: #fff;
     position: fixed;
-    bottom: 0;
+    top: 76px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 1000;
@@ -540,6 +579,42 @@
     padding-left: 18px;
     margin: 0;
 }
+
+
+.site-footer {
+    width: 100%;
+    max-width: 500px;
+    margin: 40px auto 20px;
+    text-align: center;
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+    padding: 0 16px;
+}
+
+.footer-links {
+    margin-bottom: 10px;
+    line-height: 1.8;
+}
+
+.footer-links a {
+    color: rgba(255,255,255,0.92);
+    text-decoration: none;
+    font-weight: 600;
+    margin: 0 6px;
+    transition: all 0.2s ease;
+}
+
+.footer-links a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.footer-copy {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+}
+
+
     </style>
 </head>
 
@@ -617,6 +692,7 @@
                 <li>음란물 및 성적 내용 공유는 금지됩니다.</li>
                 <li>개인정보 공유는 주의해주세요.</li>
                 <li>불쾌감을 주는 행동은 제한될 수 있습니다.</li>
+                <li>신고 기능을 통해 부적절한 사용자를 제재할 수 있습니다.</li>
                 <li>반복 신고 시 이용이 제한될 수 있습니다.</li>
             </ul>
         </div>
@@ -632,6 +708,9 @@
             <p>
                 본 서비스는 회원가입 없이 이용되며, 이용 중 발생하는 문제에 대한 책임은 사용자에게 있습니다.
             </p>
+            <p>
+부적절한 이용은 제한될 수 있으며, 안전한 채팅 환경을 위해 관리가 이루어집니다.
+</p>
         </div>
     </section>
 
@@ -659,6 +738,30 @@
         </p>
     </div>
 </section>
+
+<section class="landing-section">
+  <div class="landing-card">
+    <h2>자주 묻는 질문 (FAQ)</h2>
+    <ul class="landing-list">
+      <li><b>회원가입이 필요한가요?</b><br>아니요, 회원가입 없이 바로 이용 가능합니다.</li>
+      <li><b>완전 익명인가요?</b><br>닉네임만으로 이용되며 개인정보는 수집하지 않습니다.</li>
+      <li><b>이용은 무료인가요?</b><br>네, 기본 채팅 기능은 무료로 제공됩니다.</li>
+    </ul>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="/about.html">서비스 소개</a>
+    <span>·</span>
+    <a href="/terms.html">이용약관</a>
+    <span>·</span>
+    <a href="/privacy.html">개인정보처리방침</a>
+  </div>
+  <div class="footer-copy">
+    © 2026 나나채팅. All rights reserved.
+  </div>
+</footer>
 
 
 </main>
@@ -698,11 +801,31 @@
     </div>
 
     <div class="top-bar" id="chat-top-bar">
-    <button style="color:var(--error); background:none; border:none; font-weight:600;"
-        onmousedown="blockUser(); return false;">🚫 차단</button>
-    <span style="font-weight: 800; font-size: 17px; letter-spacing: -1px;">나나채팅</span>
-    <button style="color:#8e8e93; background:none; border:none;"
-        onmousedown="exitToSetup(); return false;">나가기</button>
+
+    <div style="display:flex; gap:6px;">
+        <button id="report-btn"
+    style="color:#ff9500; background:none; border:none; font-weight:600;"
+    onmousedown="reportUser(); return false;">
+    ⚠️ 신고
+</button>
+
+<button id="block-btn"
+    style="color:var(--error); background:none; border:none; font-weight:600;"
+    onmousedown="blockUser(); return false;">
+    🚫 차단
+</button>
+    </div>
+
+    <span style="font-weight: 800; font-size: 17px; letter-spacing: -1px;">
+        나나채팅
+    </span>
+
+    <button
+        style="color:#8e8e93; background:none; border:none;"
+        onmousedown="exitToSetup(); return false;">
+        나가기
+    </button>
+
 </div>
 
     <div id="chat-screen">
@@ -793,6 +916,8 @@
 
             chatBox.innerHTML = '<div class="system">🚀 새로운 상대를 검색 중입니다...</div>';
             setInputState(false);
+            setActionButtons(false);
+            
         }
 
         socket.on('partner-typing', () => {
@@ -845,6 +970,7 @@
                 </div>`;
 
             setInputState(true);
+            setActionButtons(true);
             scrollToBottom();
         });
 
@@ -892,12 +1018,14 @@
                     ${tipMsg}
                 </div>`;
             setInputState(false);
+            setActionButtons(false);
         });
 
         socket.on('start-re-match', () => {
             socket.emit('join', myData);
             chatBox.innerHTML = '<div class="system">🚀 새로운 상대를 검색 중입니다...</div>';
             setInputState(false);
+            setActionButtons(false);
         });
 
         socket.on('server-stats', (d) => {
@@ -1006,6 +1134,16 @@
                 socket.emit('block-user');
             }
         }
+       function reportUser() {
+    const reportBtn = document.getElementById('report-btn');
+    if (reportBtn && reportBtn.disabled) return;
+
+    if (confirm("이 사용자를 신고하고 다시 매칭되지 않도록 할까요?")) {
+        socket.roomId = null;
+        socket.emit('report-user');
+    }
+}
+
         function goToSetupDirect() {
     const openingScreen = document.getElementById('opening-screen');
     const landingPage = document.getElementById('landing-page');
@@ -1208,6 +1346,21 @@ function backToOpening() {
                 .replace(/"/g, '&quot;')
                 .replace(/'/g, '&#039;');
         }
+        function setActionButtons(enabled) {
+    const reportBtn = document.getElementById('report-btn');
+    const blockBtn = document.getElementById('block-btn');
+
+    if (!reportBtn || !blockBtn) return;
+
+    reportBtn.disabled = !enabled;
+    blockBtn.disabled = !enabled;
+
+    reportBtn.style.opacity = enabled ? '1' : '0.4';
+    blockBtn.style.opacity = enabled ? '1' : '0.4';
+
+    reportBtn.style.pointerEvents = enabled ? 'auto' : 'none';
+    blockBtn.style.pointerEvents = enabled ? 'auto' : 'none';
+}
     </script>
 
     <div style="font-size: 8px; color: rgba(255,255,255,0.05); text-align: center; margin-top: 10px;">

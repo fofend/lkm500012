@@ -106,6 +106,13 @@ function findMatchFor(socket) {
     });
 }
 
+function reportUser() {
+    if (confirm("이 사용자를 신고하시겠습니까?")) {
+        alert("신고가 접수되었습니다. 검토 후 조치됩니다.");
+    }
+}
+
+
 function matchUsers(socket, partnerEntry) {
     const partnerSocket = partnerEntry.socket;
 
@@ -162,6 +169,20 @@ io.on('connection', (socket) => {
 
         socket.emit('start-re-match');
     });
+
+    socket.on('report-user', () => {
+    if (!socket.currentPartnerId || !socket.roomId) return;
+
+    // 신고도 차단처럼 다시 매칭되지 않게 처리
+    socket.blacklist.add(socket.currentPartnerId);
+
+    // 필요하면 나중에 로그 저장도 여기서 가능
+    // console.log('[REPORT]', socket.id, 'reported', socket.currentPartnerId);
+
+    endCurrentChat(socket, '상대방이 당신을 신고하고 대화를 종료했습니다.');
+
+    socket.emit('start-re-match');
+});
 
     socket.on('join', (data) => {
         removeFromWaitingQueue(socket.id);
