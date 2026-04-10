@@ -7,19 +7,20 @@
     <meta name="google-site-verification" content="YspUA0A6dj_tFIE1xhKtJ6c5J5k9xj0iMEY7dSuonfI" />
     <meta name="naver-site-verification" content="8572913501975976136ba19963888a168a2f33a6" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>랜덤채팅 · 익명채팅 | 나나채팅 (회원가입 없이 바로 시작)</title>
 
 
 
-<meta name="description" content="심심할 때 바로 시작하는 익명채팅·랜덤채팅, 나나채팅">
+    <meta name="description" content="심심할 때 바로 시작하는 익명채팅·랜덤채팅, 나나채팅">
 
-<meta name="keywords" content="익명채팅, 랜덤채팅, 실시간채팅, 채팅사이트, 익명대화, 모바일채팅">
+    <meta name="keywords" content="익명채팅, 랜덤채팅, 실시간채팅, 채팅사이트, 익명대화, 모바일채팅">
 
-<meta property="og:title" content="나나채팅 | 익명채팅 · 랜덤채팅">
-<meta property="og:description" content="회원가입 없이 바로 시작하는 실시간 익명채팅. 랜덤채팅으로 새로운 사람과 대화를 시작해보세요.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://nanachat-unzb.onrender.com/">
+    <meta property="og:title" content="나나채팅 | 익명채팅 · 랜덤채팅">
+    <meta property="og:description" content="회원가입 없이 바로 시작하는 실시간 익명채팅. 랜덤채팅으로 새로운 사람과 대화를 시작해보세요.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nanachat-unzb.onrender.com/">
     <style>
         html {
             background-color: #fff !important;
@@ -29,23 +30,47 @@
         }
 
         @keyframes flow {
-            from { background-position: 0% 50%; }
-            to { background-position: 100% 50%; }
+            from {
+                background-position: 0% 50%;
+            }
+
+            to {
+                background-position: 100% 50%;
+            }
         }
 
         @keyframes fadeInLogo {
-            from { opacity: 0; transform: translateY(15px); filter: blur(5px); }
-            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+                filter: blur(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
         }
 
         @keyframes fadeInContent {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         #opening-screen {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: linear-gradient(-45deg, #1a0525, #6c3483, #8e44ad, #c15ee2);
             background-size: 300% 300%;
             animation: flow 4s ease-out forwards;
@@ -60,7 +85,7 @@
             font-size: 48px;
             font-weight: 900;
             color: #fff;
-            text-shadow: 0 4px 25px rgba(0,0,0,0.4);
+            text-shadow: 0 4px 25px rgba(0, 0, 0, 0.4);
             letter-spacing: -2px;
             margin: 0;
             padding: 0;
@@ -69,7 +94,11 @@
 
         #setup-screen {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%; height: 100dvh;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            height: 100dvh;
             display: none;
             flex-direction: column;
             align-items: center;
@@ -81,35 +110,35 @@
         }
 
         .site-footer {
-    width: 100%;
-    max-width: 500px;
-    margin: 40px auto 20px;
-    text-align: center;
-    font-size: 13px;
-    color: rgba(255,255,255,0.7);
-}
+            width: 100%;
+            max-width: 500px;
+            margin: 40px auto 20px;
+            text-align: center;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+        }
 
-.footer-links {
-    margin-bottom: 10px;
-}
+        .footer-links {
+            margin-bottom: 10px;
+        }
 
-.footer-links a {
-    color: rgba(255,255,255,0.9);
-    text-decoration: none;
-    font-weight: 600;
-    margin: 0 6px;
-    transition: all 0.2s ease;
-}
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 600;
+            margin: 0 6px;
+            transition: all 0.2s ease;
+        }
 
-.footer-links a:hover {
-    color: #fff;
-    text-decoration: underline;
-}
+        .footer-links a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
 
-.footer-copy {
-    font-size: 11px;
-    color: rgba(255,255,255,0.5);
-}
+        .footer-copy {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.5);
+        }
 
         .setup-content-wrapper {
             width: 100%;
@@ -159,54 +188,56 @@
             width: 100%;
             color: #fff;
         }
-.top-bar button {
-    padding: 6px 10px;
-    border-radius: 8px;
-}
 
-.top-bar button:active {
-    background: rgba(0,0,0,0.05);
-}
+        .top-bar button {
+            padding: 6px 10px;
+            border-radius: 8px;
+        }
+
+        .top-bar button:active {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
         .stats-bar {
-    position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: 500px;
-    background: rgba(0, 0, 0, 0.5);
-    color: rgba(255, 255, 255, 0.95);
-    font-size: 11px;
-    padding: 7px 15px;
-    display: none;
-    justify-content: space-between;
-    z-index: 2002;
-    backdrop-filter: blur(8px);
-    font-weight: 500;
-}
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 500px;
+            background: rgba(0, 0, 0, 0.5);
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 11px;
+            padding: 7px 15px;
+            display: none;
+            justify-content: space-between;
+            z-index: 2002;
+            backdrop-filter: blur(8px);
+            font-weight: 500;
+        }
 
         .swipe-transition {
             transition: transform 0.55s cubic-bezier(0.19, 1, 0.22, 1),
-                        opacity 0.4s ease-out !important;
+                opacity 0.4s ease-out !important;
         }
 
         .top-bar {
-    position: fixed;
-    top: 31px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: 500px;
-    height: 45px;
-    background: #fff;
-    padding: 0 12px;
-    display: none;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #d1d1d6;
-    z-index: 2001;
-    color: #000;
-}
+            position: fixed;
+            top: 31px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 500px;
+            height: 45px;
+            background: #fff;
+            padding: 0 12px;
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #d1d1d6;
+            z-index: 2001;
+            color: #000;
+        }
 
         #setup-screen {
             padding: 40px 25px;
@@ -287,20 +318,20 @@
         }
 
         #chat-screen {
-    display: none;
-    flex-direction: column;
-    height: calc(100dvh - 76px);
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto;
-    background-color: #fff;
-    position: fixed;
-    top: 76px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000;
-    overflow: hidden;
-}
+            display: none;
+            flex-direction: column;
+            height: calc(100dvh - 76px);
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #fff;
+            position: fixed;
+            top: 76px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            overflow: hidden;
+        }
 
         #chat-box {
             flex: 1;
@@ -408,371 +439,385 @@
             animation: bounce 1.4s infinite ease-in-out;
         }
 
-        .dot:nth-child(2) { animation-delay: 0.2s; }
-        .dot:nth-child(3) { animation-delay: 0.4s; }
+        .dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
 
         .swipe-transition {
             transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-                        opacity 0.4s ease-out !important;
+                opacity 0.4s ease-out !important;
         }
 
         @keyframes bounce {
-            0%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-8px); }
+
+            0%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-8px);
+            }
         }
+
         .opening-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    max-width: 360px;
-    padding: 24px;
-    text-align: center;
-}
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 360px;
+            padding: 24px;
+            text-align: center;
+        }
 
-.opening-subtext {
-    font-size: 18px;
-    color: rgba(255,255,255,0.82);
-    margin: 0 0 24px;
-    animation: fadeInLogo 1.5s 0.8s ease-out forwards;
-    opacity: 0;
-}
+        .opening-subtext {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.82);
+            margin: 0 0 24px;
+            animation: fadeInLogo 1.5s 0.8s ease-out forwards;
+            opacity: 0;
+        }
 
-.opening-btn-row {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-top: 10px;
-    animation: fadeInContent 0.9s 1.1s ease-out forwards;
-    opacity: 0;
-}
+        .opening-btn-row {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 10px;
+            animation: fadeInContent 0.9s 1.1s ease-out forwards;
+            opacity: 0;
+        }
 
-.opening-btn-primary,
-.opening-btn-secondary {
-    width: 100%;
-    border-radius: 18px;
-    padding: 16px 18px;
-    font-size: 16px;
-    font-weight: 800;
-    border: none;
-    cursor: pointer;
-}
+        .opening-btn-primary,
+        .opening-btn-secondary {
+            width: 100%;
+            border-radius: 18px;
+            padding: 16px 18px;
+            font-size: 16px;
+            font-weight: 800;
+            border: none;
+            cursor: pointer;
+        }
 
-.opening-btn-primary {
-    background: #fff;
-    color: #6c3483;
-}
+        .opening-btn-primary {
+            background: #fff;
+            color: #6c3483;
+        }
 
-.opening-btn-secondary {
-    background: rgba(255,255,255,0.12);
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.18);
-}
+        .opening-btn-secondary {
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
 
-/* 랜딩페이지 */
-#landing-page {
-    display: none;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    width: 100%;
-    max-width: 500px;
-    transform: translateX(-50%);
-    z-index: 9998;
-    background:
-        radial-gradient(circle at top, rgba(193, 94, 226, 0.22), transparent 35%),
-        linear-gradient(180deg, #16051f 0%, #2c0a3d 45%, #4d1f67 100%);
-    color: #fff;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 40px;
-}
+        /* 랜딩페이지 */
+        #landing-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 100%;
+            max-width: 500px;
+            transform: translateX(-50%);
+            z-index: 9998;
+            background:
+                radial-gradient(circle at top, rgba(193, 94, 226, 0.22), transparent 35%),
+                linear-gradient(180deg, #16051f 0%, #2c0a3d 45%, #4d1f67 100%);
+            color: #fff;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 40px;
+        }
 
-.landing-hero {
-    padding: 72px 24px 28px;
-    text-align: left;
-}
+        .landing-hero {
+            padding: 72px 24px 28px;
+            text-align: left;
+        }
 
-.landing-badge {
-    display: inline-block;
-    padding: 8px 12px;
-    border-radius: 999px;
-    background: rgba(255,255,255,0.12);
-    font-size: 13px;
-    font-weight: 700;
-    margin-bottom: 16px;
-}
+        .landing-badge {
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.12);
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
 
-.landing-title {
-    font-size: 34px;
-    line-height: 1.15;
-    font-weight: 900;
-    letter-spacing: -1.2px;
-    margin: 0 0 14px;
-}
+        .landing-title {
+            font-size: 34px;
+            line-height: 1.15;
+            font-weight: 900;
+            letter-spacing: -1.2px;
+            margin: 0 0 14px;
+        }
 
-.landing-desc {
-    font-size: 16px;
-    line-height: 1.7;
-    color: rgba(255,255,255,0.9);
-    margin: 0 0 24px;
-}
+        .landing-desc {
+            font-size: 16px;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0 0 24px;
+        }
 
-.landing-cta-row {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
+        .landing-cta-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
 
-.landing-btn-primary,
-.landing-btn-secondary {
-    border-radius: 16px;
-    padding: 15px 18px;
-    font-size: 15px;
-    font-weight: 800;
-    cursor: pointer;
-}
+        .landing-btn-primary,
+        .landing-btn-secondary {
+            border-radius: 16px;
+            padding: 15px 18px;
+            font-size: 15px;
+            font-weight: 800;
+            cursor: pointer;
+        }
 
-.landing-btn-primary {
-    background: #fff;
-    color: #6c3483;
-    border: none;
-}
+        .landing-btn-primary {
+            background: #fff;
+            color: #6c3483;
+            border: none;
+        }
 
-.landing-btn-secondary {
-    background: rgba(255,255,255,0.08);
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.18);
-}
+        .landing-btn-secondary {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
 
-.landing-section {
-    padding: 0 24px;
-    margin-top: 18px;
-}
+        .landing-section {
+            padding: 0 24px;
+            margin-top: 18px;
+        }
 
-.landing-card {
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 22px;
-    padding: 20px;
-    backdrop-filter: blur(8px);
-}
+        .landing-card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 22px;
+            padding: 20px;
+            backdrop-filter: blur(8px);
+        }
 
-.landing-section h2 {
-    font-size: 22px;
-    font-weight: 900;
-    margin: 0 0 14px;
-    letter-spacing: -0.6px;
-}
+        .landing-section h2 {
+            font-size: 22px;
+            font-weight: 900;
+            margin: 0 0 14px;
+            letter-spacing: -0.6px;
+        }
 
-.landing-section p,
-.landing-section li {
-    font-size: 15px;
-    line-height: 1.8;
-    color: rgba(255,255,255,0.92);
-}
+        .landing-section p,
+        .landing-section li {
+            font-size: 15px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.92);
+        }
 
-.landing-list {
-    padding-left: 18px;
-    margin: 0;
-}
-
-
-.site-footer {
-    width: 100%;
-    max-width: 500px;
-    margin: 40px auto 20px;
-    text-align: center;
-    font-size: 13px;
-    color: rgba(255,255,255,0.7);
-    padding: 0 16px;
-}
-
-.footer-links {
-    margin-bottom: 10px;
-    line-height: 1.8;
-}
-
-.footer-links a {
-    color: rgba(255,255,255,0.92);
-    text-decoration: none;
-    font-weight: 600;
-    margin: 0 6px;
-    transition: all 0.2s ease;
-}
-
-.footer-links a:hover {
-    color: #fff;
-    text-decoration: underline;
-}
-
-.footer-copy {
-    font-size: 11px;
-    color: rgba(255,255,255,0.5);
-}
+        .landing-list {
+            padding-left: 18px;
+            margin: 0;
+        }
 
 
+        .site-footer {
+            width: 100%;
+            max-width: 500px;
+            margin: 40px auto 20px;
+            text-align: center;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 0 16px;
+        }
+
+        .footer-links {
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.92);
+            text-decoration: none;
+            font-weight: 600;
+            margin: 0 6px;
+            transition: all 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        .footer-copy {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.5);
+        }
     </style>
 </head>
 
 <body>
-   <div id="opening-screen">
-    <div class="opening-content">
-        <h1 class="main-logo-style" style="animation: fadeInLogo 1.5s 0.3s ease-out forwards; opacity: 0; margin-bottom: 10px;">
-            나나
-        </h1>
-        <p class="opening-subtext">나와 나의 시간</p>
+    <div id="opening-screen">
+        <div class="opening-content">
+            <h1 class="main-logo-style"
+                style="animation: fadeInLogo 1.5s 0.3s ease-out forwards; opacity: 0; margin-bottom: 10px;">
+                나나
+            </h1>
+            <p class="opening-subtext">나와 나의 시간</p>
 
-        <div class="opening-btn-row">
-            <button class="opening-btn-primary" onclick="goToSetupDirect()">채팅 시작</button>
-            <button class="opening-btn-secondary" onclick="openLandingPage()">소개 보기</button>
+            <div class="opening-btn-row">
+                <button class="opening-btn-primary" onclick="goToSetupDirect()">채팅 시작</button>
+                <button class="opening-btn-secondary" onclick="openLandingPage()">소개 보기</button>
+            </div>
         </div>
     </div>
-</div>
 
     <main id="landing-page">
 
-    <section class="landing-hero">
-        <div class="landing-badge">익명채팅 · 랜덤채팅 · 실시간채팅</div>
-        <h1 class="landing-title">나나채팅</h1>
-        <p class="landing-desc">
-            나나채팅은 회원가입 없이 바로 시작할 수 있는 실시간 익명 채팅 서비스입니다.
-            새로운 사람과 가볍게 대화를 나누고 싶을 때, 빠르게 연결되어 부담 없이 소통할 수 있습니다.
-        </p>
-
-        <div class="landing-cta-row">
-            <button class="landing-btn-primary" onclick="goToSetupDirect()">채팅 시작하기</button>
-            <button class="landing-btn-secondary" onclick="backToOpening()">뒤로 가기</button>
-        </div>
-    </section>
-
-    <section class="landing-section">
-        <div class="landing-card">
-            <h2>익명채팅이란?</h2>
-            <p>
-                익명채팅은 개인 정보를 공개하지 않고 자유롭게 대화를 나눌 수 있는 서비스입니다.
-                나나채팅에서는 별도의 회원가입 없이 닉네임만으로 바로 대화를 시작할 수 있습니다.
+        <section class="landing-hero">
+            <div class="landing-badge">익명채팅 · 랜덤채팅 · 실시간채팅</div>
+            <h1 class="landing-title">나나채팅</h1>
+            <p class="landing-desc">
+                나나채팅은 회원가입 없이 바로 시작할 수 있는 실시간 익명 채팅 서비스입니다.
+                새로운 사람과 가볍게 대화를 나누고 싶을 때, 빠르게 연결되어 부담 없이 소통할 수 있습니다.
             </p>
-        </div>
-    </section>
 
-    <section class="landing-section">
-        <div class="landing-card">
-            <h2>나나채팅의 특징</h2>
-            <ul class="landing-list">
-                <li>회원가입 없이 바로 시작 가능한 익명채팅</li>
-                <li>실시간 랜덤채팅 시스템</li>
-                <li>모바일 최적화 UI</li>
-                <li>스와이프로 다음 대화 상대 찾기</li>
-                <li>빠르고 가벼운 채팅 환경</li>
-            </ul>
-        </div>
-    </section>
+            <div class="landing-cta-row">
+                <button class="landing-btn-primary" onclick="goToSetupDirect()">채팅 시작하기</button>
+                <button class="landing-btn-secondary" onclick="backToOpening()">뒤로 가기</button>
+            </div>
+        </section>
 
-    <section class="landing-section">
-        <div class="landing-card">
-            <h2>이용 방법</h2>
-            <ol class="landing-list">
-                <li>채팅 시작 버튼을 누릅니다.</li>
-                <li>닉네임과 기본 정보를 입력합니다.</li>
-                <li>상대가 연결되면 바로 대화를 시작합니다.</li>
-                <li>원하지 않으면 다음 버튼으로 새로운 상대를 찾습니다.</li>
-            </ol>
-        </div>
-    </section>
+        <section class="landing-section">
+            <div class="landing-card">
+                <h2>익명채팅이란?</h2>
+                <p>
+                    익명채팅은 개인 정보를 공개하지 않고 자유롭게 대화를 나눌 수 있는 서비스입니다.
+                    나나채팅에서는 별도의 회원가입 없이 닉네임만으로 바로 대화를 시작할 수 있습니다.
+                </p>
+            </div>
+        </section>
 
-    <section class="landing-section">
-        <div class="landing-card">
-            <h2>이용 시 주의사항</h2>
-            <ul class="landing-list">
-                <li>욕설, 비방, 혐오 발언은 금지됩니다.</li>
-                <li>음란물 및 성적 내용 공유는 금지됩니다.</li>
-                <li>개인정보 공유는 주의해주세요.</li>
-                <li>불쾌감을 주는 행동은 제한될 수 있습니다.</li>
-                <li>신고 기능을 통해 부적절한 사용자를 제재할 수 있습니다.</li>
-                <li>반복 신고 시 이용이 제한될 수 있습니다.</li>
-            </ul>
-        </div>
-    </section>
+        <section class="landing-section">
+            <div class="landing-card">
+                <h2>나나채팅의 특징</h2>
+                <ul class="landing-list">
+                    <li>회원가입 없이 바로 시작 가능한 익명채팅</li>
+                    <li>실시간 랜덤채팅 시스템</li>
+                    <li>모바일 최적화 UI</li>
+                    <li>스와이프로 다음 대화 상대 찾기</li>
+                    <li>빠르고 가벼운 채팅 환경</li>
+                </ul>
+            </div>
+        </section>
 
-    <section class="landing-section">
-        <div class="landing-card">
-            <h2>서비스 이용 정책</h2>
-            <p>
-                나나채팅은 누구나 자유롭게 사용할 수 있는 익명채팅 서비스입니다.
-                이용자는 서로를 존중해야 하며, 서비스 운영을 방해하는 행위는 제한될 수 있습니다.
-            </p>
-            <p>
-                본 서비스는 회원가입 없이 이용되며, 이용 중 발생하는 문제에 대한 책임은 사용자에게 있습니다.
-            </p>
-            <p>
-부적절한 이용은 제한될 수 있으며, 안전한 채팅 환경을 위해 관리가 이루어집니다.
-</p>
-        </div>
-    </section>
+        <section class="landing-section">
+            <div class="landing-card">
+                <h2>이용 방법</h2>
+                <ol class="landing-list">
+                    <li>채팅 시작 버튼을 누릅니다.</li>
+                    <li>닉네임과 기본 정보를 입력합니다.</li>
+                    <li>상대가 연결되면 바로 대화를 시작합니다.</li>
+                    <li>원하지 않으면 다음 버튼으로 새로운 상대를 찾습니다.</li>
+                </ol>
+            </div>
+        </section>
 
-    <section class="landing-section">
-        <div class="landing-card">
-            <h2>이런 분께 추천합니다</h2>
-            <ul class="landing-list">
-                <li>심심할 때 가볍게 대화하고 싶은 분</li>
-                <li>익명으로 새로운 사람과 소통하고 싶은 분</li>
-                <li>복잡한 가입 없이 빠르게 채팅하고 싶은 분</li>
-            </ul>
-        </div>
-    </section>
-    <section class="landing-section">
-    <div class="landing-card">
-        <h2>익명채팅과 랜덤채팅을 찾고 있다면</h2>
-        <p>
-            나나채팅은 익명채팅과 랜덤채팅을 동시에 제공하는 서비스입니다.
-            심심할 때 새로운 사람과 대화를 시작하고 싶다면,
-            별도의 가입 없이 바로 이용할 수 있습니다.
-        </p>
-        <p>
-            실시간채팅 기반으로 빠르게 상대가 연결되며,
-            모바일 환경에서도 편하게 사용할 수 있도록 최적화되어 있습니다.
-        </p>
-    </div>
-</section>
+        <section class="landing-section">
+            <div class="landing-card">
+                <h2>이용 시 주의사항</h2>
+                <ul class="landing-list">
+                    <li>욕설, 비방, 혐오 발언은 금지됩니다.</li>
+                    <li>음란물 및 성적 내용 공유는 금지됩니다.</li>
+                    <li>개인정보 공유는 주의해주세요.</li>
+                    <li>불쾌감을 주는 행동은 제한될 수 있습니다.</li>
+                    <li>신고 기능을 통해 부적절한 사용자를 제재할 수 있습니다.</li>
+                    <li>반복 신고 시 이용이 제한될 수 있습니다.</li>
+                </ul>
+            </div>
+        </section>
 
-<section class="landing-section">
-  <div class="landing-card">
-    <h2>자주 묻는 질문 (FAQ)</h2>
-    <ul class="landing-list">
-      <li><b>회원가입이 필요한가요?</b><br>아니요, 회원가입 없이 바로 이용 가능합니다.</li>
-      <li><b>완전 익명인가요?</b><br>닉네임만으로 이용되며 개인정보는 수집하지 않습니다.</li>
-      <li><b>이용은 무료인가요?</b><br>네, 기본 채팅 기능은 무료로 제공됩니다.</li>
-    </ul>
-  </div>
-</section>
+        <section class="landing-section">
+            <div class="landing-card">
+                <h2>서비스 이용 정책</h2>
+                <p>
+                    나나채팅은 누구나 자유롭게 사용할 수 있는 익명채팅 서비스입니다.
+                    이용자는 서로를 존중해야 하며, 서비스 운영을 방해하는 행위는 제한될 수 있습니다.
+                </p>
+                <p>
+                    본 서비스는 회원가입 없이 이용되며, 이용 중 발생하는 문제에 대한 책임은 사용자에게 있습니다.
+                </p>
+                <p>
+                    부적절한 이용은 제한될 수 있으며, 안전한 채팅 환경을 위해 관리가 이루어집니다.
+                </p>
+            </div>
+        </section>
 
-<footer class="site-footer">
-  <div class="footer-links">
-    <a href="/about.html">서비스 소개</a>
-    <span>·</span>
-    <a href="/terms.html">이용약관</a>
-    <span>·</span>
-    <a href="/privacy.html">개인정보처리방침</a>
-  </div>
-  <div class="footer-copy">
-    © 2026 나나채팅. All rights reserved.
-  </div>
-</footer>
+        <section class="landing-section">
+            <div class="landing-card">
+                <h2>이런 분께 추천합니다</h2>
+                <ul class="landing-list">
+                    <li>심심할 때 가볍게 대화하고 싶은 분</li>
+                    <li>익명으로 새로운 사람과 소통하고 싶은 분</li>
+                    <li>복잡한 가입 없이 빠르게 채팅하고 싶은 분</li>
+                </ul>
+            </div>
+        </section>
+        <section class="landing-section">
+            <div class="landing-card">
+                <h2>익명채팅과 랜덤채팅을 찾고 있다면</h2>
+                <p>
+                    나나채팅은 익명채팅과 랜덤채팅을 동시에 제공하는 서비스입니다.
+                    심심할 때 새로운 사람과 대화를 시작하고 싶다면,
+                    별도의 가입 없이 바로 이용할 수 있습니다.
+                </p>
+                <p>
+                    실시간채팅 기반으로 빠르게 상대가 연결되며,
+                    모바일 환경에서도 편하게 사용할 수 있도록 최적화되어 있습니다.
+                </p>
+            </div>
+        </section>
+
+        <section class="landing-section">
+            <div class="landing-card">
+                <h2>자주 묻는 질문 (FAQ)</h2>
+                <ul class="landing-list">
+                    <li><b>회원가입이 필요한가요?</b><br>아니요, 회원가입 없이 바로 이용 가능합니다.</li>
+                    <li><b>완전 익명인가요?</b><br>닉네임만으로 이용되며 개인정보는 수집하지 않습니다.</li>
+                    <li><b>이용은 무료인가요?</b><br>네, 기본 채팅 기능은 무료로 제공됩니다.</li>
+                </ul>
+            </div>
+        </section>
+
+        <footer class="site-footer">
+            <div class="footer-links">
+                <a href="/about.html">서비스 소개</a>
+                <span>·</span>
+                <a href="/terms.html">이용약관</a>
+                <span>·</span>
+                <a href="/privacy.html">개인정보처리방침</a>
+            </div>
+            <div class="footer-copy">
+                © 2026 나나채팅. All rights reserved.
+            </div>
+        </footer>
 
 
-</main>
+    </main>
 
     <div id="setup-screen" style="display: none; opacity: 0;">
         <div class="setup-content-wrapper">
             <div class="step-container active" id="step-1">
                 <div class="step-title">어떤 닉네임을 쓰실까요?</div>
-                <input type="text" id="nickname" class="modern-input" placeholder="닉네임 입력 (최대 8자)" maxlength="8" onkeypress="if(event.keyCode==13) goNext(1)">
+                <input type="text" id="nickname" class="modern-input" placeholder="닉네임 입력 (최대 8자)" maxlength="8" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" onkeypress="if(event.keyCode==13) goNext(1)">
                 <button class="btn-next-circle" onclick="goNext(1)">➔</button>
             </div>
+
 
             <div class="step-container" id="step-2">
                 <div class="step-title">본인의 성별을 선택해 주세요.</div>
@@ -789,8 +834,10 @@
 
             <div class="step-container" id="step-4">
                 <div class="step-title">관심사를 적어주세요 (선택)</div>
-                <input type="text" id="interest" class="modern-input" placeholder="예: 운동, 음악, 수다" maxlength="15" onkeypress="if(event.keyCode==13) startMatching()">
-                <button onclick="startMatching()" style="width:100%; background:#fff; color:var(--primary); padding:20px; border-radius:18px; font-size:24px; font-weight:900; border:none; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">매칭 시작하기 🚀</button>
+                <input type="text" id="interest" class="modern-input" placeholder="예: 운동, 음악, 수다" maxlength="15" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" onkeypress="if(event.keyCode==13) startMatching()">
+                <button onclick="startMatching()"
+                    style="width:100%; background:#fff; color:var(--primary); padding:20px; border-radius:18px; font-size:24px; font-weight:900; border:none; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">매칭
+                    시작하기 🚀</button>
             </div>
         </div>
     </div>
@@ -802,31 +849,27 @@
 
     <div class="top-bar" id="chat-top-bar">
 
-    <div style="display:flex; gap:6px;">
-        <button id="report-btn"
-    style="color:#ff9500; background:none; border:none; font-weight:600;"
-    onmousedown="reportUser(); return false;">
-    ⚠️ 신고
-</button>
+        <div style="display:flex; gap:6px;">
+            <button id="report-btn" style="color:#ff9500; background:none; border:none; font-weight:600;"
+                onmousedown="reportUser(); return false;">
+                ⚠️ 신고
+            </button>
 
-<button id="block-btn"
-    style="color:var(--error); background:none; border:none; font-weight:600;"
-    onmousedown="blockUser(); return false;">
-    🚫 차단
-</button>
+            <button id="block-btn" style="color:var(--error); background:none; border:none; font-weight:600;"
+                onmousedown="blockUser(); return false;">
+                🚫 차단
+            </button>
+        </div>
+
+        <span style="font-weight: 800; font-size: 17px; letter-spacing: -1px;">
+            나나채팅
+        </span>
+
+        <button style="color:#8e8e93; background:none; border:none;" onmousedown="exitToSetup(); return false;">
+            나가기
+        </button>
+
     </div>
-
-    <span style="font-weight: 800; font-size: 17px; letter-spacing: -1px;">
-        나나채팅
-    </span>
-
-    <button
-        style="color:#8e8e93; background:none; border:none;"
-        onmousedown="exitToSetup(); return false;">
-        나가기
-    </button>
-
-</div>
 
     <div id="chat-screen">
         <div id="chat-box"></div>
@@ -838,9 +881,12 @@
 
         <div class="input-area">
             <div class="btn-group">
-                <button onclick="requestRematch()" style="background:#eee; padding: 10px 15px; border-radius: 20px; border:none; font-size:13px; font-weight:bold; flex-shrink:0;">다음</button>
-                <input type="text" id="msg-input" placeholder="상대를 찾는 중..." disabled onkeypress="if(event.keyCode==13) send(event)">
-                <button id="send-btn" disabled onclick="send(event)" style="background:var(--primary); color:white; width:42px; height:42px; border:none; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:18px;">✈️</button>
+                <button onclick="requestRematch()"
+                    style="background:#eee; padding: 10px 15px; border-radius: 20px; border:none; font-size:13px; font-weight:bold; flex-shrink:0;">다음</button>
+                <input type="text" id="msg-input" autocomplete="off" placeholder="상대를 찾는 중..." disabled
+                    onkeypress="if(event.keyCode==13) send(event)">
+                <button id="send-btn" disabled onclick="send(event)"
+                    style="background:var(--primary); color:white; width:42px; height:42px; border:none; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:18px;">✈️</button>
             </div>
         </div>
     </div>
@@ -905,7 +951,7 @@
         function startMatching() {
             myData.nickname = document.getElementById('nickname').value.trim() || "익명";
             myData.interest = document.getElementById('interest').value.trim();
-
+            document.getElementById('msg-input').value = '';
             socket.emit('join', myData);
 
             document.getElementById('setup-screen').style.display = 'none';
@@ -917,7 +963,7 @@
             chatBox.innerHTML = '<div class="system">🚀 새로운 상대를 검색 중입니다...</div>';
             setInputState(false);
             setActionButtons(false);
-            
+
         }
 
         socket.on('partner-typing', () => {
@@ -1018,11 +1064,13 @@
                     ${tipMsg}
                 </div>`;
             setInputState(false);
+            document.getElementById('msg-input').value = '';
             setActionButtons(false);
         });
 
         socket.on('start-re-match', () => {
             socket.emit('join', myData);
+            document.getElementById('msg-input').value = '';
             chatBox.innerHTML = '<div class="system">🚀 새로운 상대를 검색 중입니다...</div>';
             setInputState(false);
             setActionButtons(false);
@@ -1134,66 +1182,69 @@
                 socket.emit('block-user');
             }
         }
-       function reportUser() {
-    const reportBtn = document.getElementById('report-btn');
-    if (reportBtn && reportBtn.disabled) return;
+        function reportUser() {
+            const reportBtn = document.getElementById('report-btn');
+            if (reportBtn && reportBtn.disabled) return;
 
-    if (confirm("이 사용자를 신고하고 다시 매칭되지 않도록 할까요?")) {
-        socket.roomId = null;
-        socket.emit('report-user');
-    }
-}
+            if (confirm("이 사용자를 신고하고 다시 매칭되지 않도록 할까요?")) {
+                socket.roomId = null;
+                socket.emit('report-user');
+            }
+        }
 
         function goToSetupDirect() {
-    const openingScreen = document.getElementById('opening-screen');
-    const landingPage = document.getElementById('landing-page');
-    const setupScreen = document.getElementById('setup-screen');
+            const openingScreen = document.getElementById('opening-screen');
+            const landingPage = document.getElementById('landing-page');
+            const setupScreen = document.getElementById('setup-screen');
 
-    if (openingScreen) {
-        openingScreen.style.display = 'none';
-        openingScreen.style.opacity = '0';
-    }
+            if (openingScreen) {
+                openingScreen.style.display = 'none';
+                openingScreen.style.opacity = '0';
+            }
 
-    if (landingPage) {
-        landingPage.style.display = 'none';
-    }
+            if (landingPage) {
+                landingPage.style.display = 'none';
+            }
 
-    setupScreen.style.display = 'flex';
-    setupScreen.style.opacity = '1';
+            setupScreen.style.display = 'flex';
+            setupScreen.style.opacity = '1';
 
-    const nicknameInput = document.getElementById('nickname');
-    if (nicknameInput) {
-        setTimeout(() => nicknameInput.focus(), 150);
-    }
-}
+            document.getElementById('nickname').value = '';
+            document.getElementById('interest').value = '';
 
-function openLandingPage() {
-    const openingScreen = document.getElementById('opening-screen');
-    const landingPage = document.getElementById('landing-page');
+            const nicknameInput = document.getElementById('nickname');
+            if (nicknameInput) {
+                setTimeout(() => nicknameInput.focus(), 150);
+            }
+        }
 
-    if (openingScreen) {
-        openingScreen.style.display = 'none';
-        openingScreen.style.opacity = '0';
-    }
+        function openLandingPage() {
+            const openingScreen = document.getElementById('opening-screen');
+            const landingPage = document.getElementById('landing-page');
 
-    if (landingPage) {
-        landingPage.style.display = 'block';
-    }
-}
+            if (openingScreen) {
+                openingScreen.style.display = 'none';
+                openingScreen.style.opacity = '0';
+            }
 
-function backToOpening() {
-    const openingScreen = document.getElementById('opening-screen');
-    const landingPage = document.getElementById('landing-page');
+            if (landingPage) {
+                landingPage.style.display = 'block';
+            }
+        }
 
-    if (landingPage) {
-        landingPage.style.display = 'none';
-    }
+        function backToOpening() {
+            const openingScreen = document.getElementById('opening-screen');
+            const landingPage = document.getElementById('landing-page');
 
-    if (openingScreen) {
-        openingScreen.style.display = 'flex';
-        openingScreen.style.opacity = '1';
-    }
-}
+            if (landingPage) {
+                landingPage.style.display = 'none';
+            }
+
+            if (openingScreen) {
+                openingScreen.style.display = 'flex';
+                openingScreen.style.opacity = '1';
+            }
+        }
         document.addEventListener('keydown', (e) => {
             const isChatVisible = document.getElementById('chat-screen').style.display === 'flex';
             if (!isChatVisible) return;
@@ -1290,29 +1341,29 @@ function backToOpening() {
         }, { passive: true });
 
         window.addEventListener('load', () => {
-    const opScreen = document.getElementById('opening-screen');
-    const setupScreen = document.getElementById('setup-screen');
-    const landingPage = document.getElementById('landing-page');
+            const opScreen = document.getElementById('opening-screen');
+            const setupScreen = document.getElementById('setup-screen');
+            const landingPage = document.getElementById('landing-page');
 
-    if (opScreen) {
-        opScreen.style.display = 'flex';
-        opScreen.style.opacity = '1';
-    }
+            if (opScreen) {
+                opScreen.style.display = 'flex';
+                opScreen.style.opacity = '1';
+            }
 
-    if (setupScreen) {
-        setupScreen.style.display = 'none';
-        setupScreen.style.opacity = '0';
-    }
+            if (setupScreen) {
+                setupScreen.style.display = 'none';
+                setupScreen.style.opacity = '0';
+            }
 
-    if (landingPage) {
-        landingPage.style.display = 'none';
-    }
-});
+            if (landingPage) {
+                landingPage.style.display = 'none';
+            }
+        });
 
-       function loadCoupangAd() {
-    const adArea = document.getElementById('ad-content-area');
+        function loadCoupangAd() {
+            const adArea = document.getElementById('ad-content-area');
 
-    adArea.innerHTML = `
+            adArea.innerHTML = `
         <a 
             href="https://link.coupang.com/a/elZ2oh" 
             target="_blank" 
@@ -1327,7 +1378,7 @@ function backToOpening() {
             >
         </a>
     `;
-}
+        }
 
         function showAd() {
             document.getElementById('ad-container').style.display = 'block';
@@ -1347,20 +1398,20 @@ function backToOpening() {
                 .replace(/'/g, '&#039;');
         }
         function setActionButtons(enabled) {
-    const reportBtn = document.getElementById('report-btn');
-    const blockBtn = document.getElementById('block-btn');
+            const reportBtn = document.getElementById('report-btn');
+            const blockBtn = document.getElementById('block-btn');
 
-    if (!reportBtn || !blockBtn) return;
+            if (!reportBtn || !blockBtn) return;
 
-    reportBtn.disabled = !enabled;
-    blockBtn.disabled = !enabled;
+            reportBtn.disabled = !enabled;
+            blockBtn.disabled = !enabled;
 
-    reportBtn.style.opacity = enabled ? '1' : '0.4';
-    blockBtn.style.opacity = enabled ? '1' : '0.4';
+            reportBtn.style.opacity = enabled ? '1' : '0.4';
+            blockBtn.style.opacity = enabled ? '1' : '0.4';
 
-    reportBtn.style.pointerEvents = enabled ? 'auto' : 'none';
-    blockBtn.style.pointerEvents = enabled ? 'auto' : 'none';
-}
+            reportBtn.style.pointerEvents = enabled ? 'auto' : 'none';
+            blockBtn.style.pointerEvents = enabled ? 'auto' : 'none';
+        }
     </script>
 
     <div style="font-size: 8px; color: rgba(255,255,255,0.05); text-align: center; margin-top: 10px;">
