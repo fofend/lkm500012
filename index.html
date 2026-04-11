@@ -110,8 +110,8 @@
         }
 
         #send-btn {
-    background: linear-gradient(135deg, #a855f7, #7c3aed);
-}
+            background: linear-gradient(135deg, #a855f7, #7c3aed);
+        }
 
         .site-footer {
             width: 100%;
@@ -172,6 +172,16 @@
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
             outline: none;
+        }
+
+        button {
+            transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button:active {
+            transform: scale(0.94);
+            opacity: 0.85;
         }
 
         html {
@@ -334,8 +344,9 @@
             font-size: 18px;
             font-weight: 700;
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: center;
+            gap: 12px;
             color: #111;
             box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
             transition: transform 0.16s ease, box-shadow 0.16s ease;
@@ -410,25 +421,25 @@
         }
 
         .bubble {
-    max-width: 75%;
-    padding: 10px 14px;
-    border-radius: 16px;
-    font-size: 14px;
-}
+            max-width: 75%;
+            padding: 10px 14px;
+            border-radius: 16px;
+            font-size: 14px;
+        }
 
-/* 내 메시지 */
-.msg-line.me .bubble {
-    background: linear-gradient(135deg, #a855f7, #7c3aed);
-    color: white;
-    border-bottom-right-radius: 6px;
-}
+        /* 내 메시지 */
+        .msg-line.me .bubble {
+            background: linear-gradient(135deg, #a855f7, #7c3aed);
+            color: white;
+            border-bottom-right-radius: 6px;
+        }
 
-/* 상대 메시지 */
-.msg-line.partner .bubble {
-    background: linear-gradient(135deg, #c084fc, #a855f7);
-    color: white;
-    border-bottom-left-radius: 6px;
-}
+        /* 상대 메시지 */
+        .msg-line.partner .bubble {
+            background: linear-gradient(135deg, #c084fc, #a855f7);
+            color: white;
+            border-bottom-left-radius: 6px;
+        }
 
         #chat-box {
             flex: 1;
@@ -546,11 +557,11 @@
         }
 
         .opening-subtext {
-            font-size: 17px;
-            color: rgba(255, 255, 255, 0.82);
-            margin: 14px 0 26px;
-            letter-spacing: -0.3px;
-            font-weight: 500;
+            font-size: 22px;
+            color: rgba(255, 255, 255, 0.9);
+            margin: 16px 0 28px;
+            letter-spacing: -0.4px;
+            font-weight: 700;
             opacity: 0;
             transform: translateY(12px);
             animation: fadeInContent 0.9s 0.85s ease-out forwards;
@@ -738,6 +749,33 @@
             font-size: 11px;
             color: rgba(255, 255, 255, 0.5);
         }
+
+        .option-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 34px;
+            height: 34px;
+            padding: 0 10px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            color: #fff;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.10);
+        }
+
+        .male-pill {
+            background: linear-gradient(135deg, #60a5fa, #2563eb);
+        }
+
+        .female-pill {
+            background: linear-gradient(135deg, #f472b6, #db2777);
+        }
+
+        .all-pill {
+            background: linear-gradient(135deg, #a855f7, #7c3aed);
+        }
     </style>
 </head>
 
@@ -904,15 +942,33 @@
 
             <div class="step-container" id="step-2">
                 <div class="step-title">본인의 성별을 선택해 주세요.</div>
-                <button class="option-btn" onclick="selectGender('male')">🙋‍♂️ 남성</button>
-                <button class="option-btn" onclick="selectGender('female')">🙋‍♀️ 여성</button>
+                <button class="option-btn" onclick="selectGender('male')">
+                    <span class="option-pill male-pill">남</span>
+                    <span>남성</span>
+                </button>
+
+                <button class="option-btn" onclick="selectGender('female')">
+                    <span class="option-pill female-pill">여</span>
+                    <span>여성</span>
+                </button>
             </div>
 
             <div class="step-container" id="step-3">
                 <div class="step-title">누구와 대화하고 싶나요?</div>
-                <button class="option-btn" onclick="selectWantGender('all')">🌈 누구나</button>
-                <button class="option-btn" onclick="selectWantGender('female')">🙋‍♀️ 여성만</button>
-                <button class="option-btn" onclick="selectWantGender('male')">🙋‍♂️ 남성만</button>
+                <button class="option-btn" onclick="selectWantGender('all')">
+                    <span class="option-pill all-pill">ALL</span>
+                    <span>누구나</span>
+                </button>
+
+                <button class="option-btn" onclick="selectWantGender('female')">
+                    <span class="option-pill female-pill">여</span>
+                    <span>여성만</span>
+                </button>
+
+                <button class="option-btn" onclick="selectWantGender('male')">
+                    <span class="option-pill male-pill">남</span>
+                    <span>남성만</span>
+                </button>
             </div>
 
             <div class="step-container" id="step-4">
@@ -922,7 +978,7 @@
                     onkeypress="if(event.keyCode==13) startMatching()">
                 <button onclick="startMatching()"
                     style="width:100%; background:#fff; color:var(--primary); padding:20px; border-radius:18px; font-size:24px; font-weight:900; border:none; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">매칭
-                    시작하기 🚀</button>
+                    시작하기 </button>
             </div>
         </div>
     </div>
@@ -1202,10 +1258,10 @@
                     sLeft.innerHTML = `접속자: <span>${d.currentUsers}</span>명`;
                     sRight.innerHTML = `대기중: <span>${d.waiting}</span>명`;
                 } else if (d.currentUsers <= 5) {
-                    sLeft.innerHTML = `🚀 실시간 매칭 중...`;
+                    sLeft.innerHTML = `실시간 매칭 중`;
                     sRight.innerHTML = `✨ 매칭 상태 원활`;
                 } else {
-                    sLeft.innerHTML = `🚀 실시간 매칭 중...`;
+                    sLeft.innerHTML = `실시간 매칭 중`;
                     sRight.innerHTML = `💬 원활한 대화 가능`;
                 }
             } else {
