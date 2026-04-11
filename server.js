@@ -3,32 +3,40 @@ const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
+/* =========================
+   정적 파일 서빙
+========================= */
 app.use(express.static(__dirname));
 
+/* =========================
+   메인 페이지
+========================= */
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/robots.txt', (req, res) => {
-    res.type('text/plain');
-    res.send(
-`User-agent: *
-Allow: /
-
-Sitemap: https://nanachat-unzb.onrender.com/sitemap.xml`
-    );
+/* =========================
+   사이트맵 명시 서빙
+========================= */
+app.get('/sitemap.xml', (req, res) => {
+    res.sendFile(__dirname + '/sitemap.xml');
 });
 
-// Express 5 대응용 catch-all 라우트
+/* =========================
+   catch-all (SPA 대응)
+========================= */
 app.get('/{*splat}', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 
+/* =========================
+   매칭 시스템
+========================= */
 let waitingUsers = [];
 let totalConnections = 0;
 
 /* =========================
-   공통 유틸
+   유틸 함수
 ========================= */
 
 function updateStats() {
@@ -52,7 +60,7 @@ function getPartnerSocket(socket) {
     return io.sockets.sockets.get(socket.currentPartnerId) || null;
 }
 
-function endCurrentChat(socket, partnerLeftMessage = null) {
+function endCurrentChat(socket, message = null) {
     const partnerSocket = getPartnerSocket(socket);
     const roomId = socket.roomId;
 
@@ -62,20 +70,16 @@ function endCurrentChat(socket, partnerLeftMessage = null) {
         removeFromWaitingQueue(partnerSocket.id);
     }
 
-    if (partnerSocket && roomId && partnerLeftMessage) {
-        partnerSocket.emit('partner-left', partnerLeftMessage);
+    if (partnerSocket && roomId && message) {
+        partnerSocket.emit('partner-left', message);
     }
 
     if (partnerSocket) {
-        if (roomId) {
-            partnerSocket.leave(roomId);
-        }
+        if (roomId) partnerSocket.leave(roomId);
         resetSocketState(partnerSocket);
     }
 
-    if (roomId) {
-        socket.leave(roomId);
-    }
+    if (roomId) socket.leave(roomId);
     resetSocketState(socket);
 
     updateStats();
@@ -105,13 +109,6 @@ function findMatchFor(socket) {
         return iWantThem && theyWantMe;
     });
 }
-
-function reportUser() {
-    if (confirm("이 사용자를 신고하시겠습니까?")) {
-        alert("신고가 접수되었습니다. 검토 후 조치됩니다.");
-    }
-}
-
 
 function matchUsers(socket, partnerEntry) {
     const partnerSocket = partnerEntry.socket;
@@ -147,6 +144,10 @@ function matchUsers(socket, partnerEntry) {
     updateStats();
 }
 
+/* =========================
+   Socket 연결
+========================= */
+
 io.on('connection', (socket) => {
     totalConnections++;
 
@@ -160,6 +161,9 @@ io.on('connection', (socket) => {
 
     updateStats();
 
+    /* =========================
+       차단
+    ========================= */
     socket.on('block-user', () => {
         if (!socket.currentPartnerId || !socket.roomId) return;
 
@@ -170,20 +174,22 @@ io.on('connection', (socket) => {
         socket.emit('start-re-match');
     });
 
+    /* =========================
+       신고 (차단 포함)
+    ========================= */
     socket.on('report-user', () => {
-    if (!socket.currentPartnerId || !socket.roomId) return;
+        if (!socket.currentPartnerId || !socket.roomId) return;
 
-    // 신고도 차단처럼 다시 매칭되지 않게 처리
-    socket.blacklist.add(socket.currentPartnerId);
+        socket.blacklist.add(socket.currentPartnerId);
 
-    // 필요하면 나중에 로그 저장도 여기서 가능
-    // console.log('[REPORT]', socket.id, 'reported', socket.currentPartnerId);
+        endCurrentChat(socket, '상대방이 당신을 신고하고 대화를 종료했습니다.');
 
-    endCurrentChat(socket, '상대방이 당신을 신고하고 대화를 종료했습니다.');
+        socket.emit('start-re-match');
+    });
 
-    socket.emit('start-re-match');
-});
-
+    /* =========================
+       매칭 시작
+    ========================= */
     socket.on('join', (data) => {
         removeFromWaitingQueue(socket.id);
 
@@ -215,6 +221,9 @@ io.on('connection', (socket) => {
         }
     });
 
+    /* =========================
+       메시지
+    ========================= */
     socket.on('message', (msg) => {
         if (!socket.roomId) return;
 
@@ -223,9 +232,13 @@ io.on('connection', (socket) => {
             sender: socket.nickname,
             text: msg
         });
+
         socket.to(socket.roomId).emit('stop-partner-typing');
     });
 
+    /* =========================
+       타이핑
+    ========================= */
     socket.on('typing', () => {
         if (!socket.roomId) return;
         socket.to(socket.roomId).emit('partner-typing');
@@ -236,6 +249,9 @@ io.on('connection', (socket) => {
         socket.to(socket.roomId).emit('stop-partner-typing');
     });
 
+    /* =========================
+       재매칭
+    ========================= */
     socket.on('re-match', () => {
         if (socket.roomId) {
             endCurrentChat(socket, '상대방이 종료했습니다.');
@@ -248,6 +264,9 @@ io.on('connection', (socket) => {
         socket.emit('start-re-match');
     });
 
+    /* =========================
+       연결 종료
+    ========================= */
     socket.on('disconnect', () => {
         totalConnections--;
 
@@ -261,6 +280,9 @@ io.on('connection', (socket) => {
     });
 });
 
+/* =========================
+   서버 실행
+========================= */
 http.listen(3000, () => {
     console.log('Server running on 3000');
 });
