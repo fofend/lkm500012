@@ -16,9 +16,11 @@ app.get('/', (req, res) => {
 });
 
 /* =========================
-   ⚠️ robots.txt 라우트 제거됨
-   → 루트 robots.txt 파일만 사용
+   사이트맵 명시 서빙
 ========================= */
+app.get('/sitemap.xml', (req, res) => {
+    res.sendFile(__dirname + '/sitemap.xml');
+});
 
 /* =========================
    catch-all (SPA 대응)
@@ -30,7 +32,6 @@ app.get('/{*splat}', (req, res) => {
 /* =========================
    매칭 시스템
 ========================= */
-
 let waitingUsers = [];
 let totalConnections = 0;
 
@@ -282,7 +283,6 @@ io.on('connection', (socket) => {
 /* =========================
    서버 실행
 ========================= */
-
 http.listen(3000, () => {
     console.log('Server running on 3000');
 });
