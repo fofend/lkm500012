@@ -500,16 +500,16 @@
 
     .system {
         align-self: center;
-        margin: 10px auto;
+        margin: 8px auto;
         font-size: 12px;
         color: #6e6e73;
         background: rgba(255, 255, 255, 0.82);
         border: 1px solid rgba(60, 60, 67, 0.08);
-        padding: 7px 13px;
+        padding: 8px 12px;
         border-radius: 14px;
         width: fit-content;
         text-align: center;
-        line-height: 1.45;
+        line-height: 1.35;
         word-break: keep-all;
         backdrop-filter: blur(10px);
     }
@@ -961,6 +961,7 @@
                 <ul class="landing-list">
                     <li>욕설, 비방, 혐오 발언은 금지됩니다.</li>
                     <li>음란물 및 성적 내용 공유는 금지됩니다.</li>
+                    <li>전화번호, 카카오톡, SNS 등 외부 연락처 공유 시 개인정보 유출이나 사칭 위험이 있을 수 있으니 주의해주세요.</li>
                     <li>개인정보 공유는 주의해주세요.</li>
                     <li>불쾌감을 주는 행동은 제한될 수 있습니다.</li>
                     <li>신고 기능을 통해 부적절한 사용자를 제재할 수 있습니다.</li>
@@ -1152,7 +1153,7 @@
 ">다음</button>
                 <input type="text" id="msg-input" autocomplete="off" placeholder="상대를 찾는 중..." disabled
                     onkeypress="if(event.keyCode==13) send(event)">
-                <button id="send-btn" disabled onclick="send(event)" style="
+                <button id="send-btn" disabled style="
    background:linear-gradient(135deg, #a855f7, #7c3aed);
     color:white;
     width:38px;
@@ -1240,7 +1241,13 @@
             document.getElementById('top-stats').style.display = 'flex';
             showAd();
 
-            const notices = ["지금 이 대화가 아쉽다면? 오른쪽에서 왼쪽으로 슥- 스와이프해서 다음 설렘을 찾아보세요. 🎈", "손가락 하나로 슥- PC에선 Shift + . 키로 다음 분을 모실게요. ⌨️", "우리 사이의 소중한 매너! 개인정보를 묻거나 공개하지 않기로 약속해요. 🙌", "불편한 대화는 참지 마세요. 차단 버튼이 여러분의 기분을 지켜드릴게요. 🛡️", "안전을 위해 전화번호 공유는 시스템으로 금지되어 있어요. 😉"];
+            const notices = [
+                "지금 이 대화가 맘에 안든다면? 오른쪽에서 왼쪽으로 슥- 스와이프해서 다음 설렘을 찾아보세요. 🎈",
+                "손가락 하나로 슥- PC에선 Shift + . 키로 다음 분을 모실게요. ⌨️",
+                "우리 사이의 소중한 매너! 개인정보를 묻거나 공개하지 않기로 약속해요. 🙌",
+                "불편한 대화는 참지 마세요. 차단 버튼이 여러분의 기분을 지켜드릴게요. 🛡️",
+                "전화번호, 카카오톡, SNS 등 외부 연락처 공유 시 개인정보 유출이나 사칭 위험이 있을 수 있으니 주의해주세요."
+            ];
             const notice = notices[Math.floor(Math.random() * notices.length)];
             chatBox.innerHTML = `<div class="system">🚀 새로운 상대를 검색 중입니다...</div><div class="system" style="color:#a855f7; border:1px solid rgba(168,85,247,0.25);">${notice}</div>`;
             scrollToBottom(true);
@@ -1270,6 +1277,14 @@
                 const currentLoader = document.getElementById('typing-loader');
                 if (currentLoader) currentLoader.remove();
             }, 2500);
+        });
+
+        socket.on('system-msg', (text) => {
+            chatBox.innerHTML += `
+       <div class="system" style="color:var(--error); border:1px solid rgba(255,59,48,0.35); white-space:pre-line; padding:8px 14px; line-height:1.35; margin:8px auto;">
+            ${escapeHtml(text)}
+        </div>`;
+            scrollToBottom(true);
         });
 
         socket.on('stop-partner-typing', () => {
@@ -1350,7 +1365,13 @@
             setInputState(false);
             document.getElementById('msg-input').value = '';
             setActionButtons(false);
-            const notices = ["지금 이 대화가 아쉽다면? 오른쪽에서 왼쪽으로 슥- 스와이프해서 다음 설렘을 찾아보세요. 🎈", "손가락 하나로 슥- PC에선 Shift + . 키로 다음 분을 모실게요. ⌨️", "우리 사이의 소중한 매너! 개인정보를 묻거나 공개하지 않기로 약속해요. 🙌", "불편한 대화는 참지 마세요. 차단 버튼이 여러분의 기분을 지켜드릴게요. 🛡️", "안전을 위해 전화번호 공유는 시스템으로 금지되어 있어요. 😉"];
+            const notices = [
+                "지금 이 대화가 맘에 안든다면? 오른쪽에서 왼쪽으로 슥- 스와이프해서 다음 설렘을 찾아보세요. 🎈",
+                "손가락 하나로 슥- PC에선 Shift + . 키로 다음 분을 모실게요. ⌨️",
+                "우리 사이의 소중한 매너! 개인정보를 묻거나 공개하지 않기로 약속해요. 🙌",
+                "불편한 대화는 참지 마세요. 차단 버튼이 여러분의 기분을 지켜드릴게요. 🛡️",
+                "전화번호, 카카오톡, SNS 등 외부 연락처 공유 시 개인정보 유출이나 사칭 위험이 있을 수 있으니 주의해주세요."
+            ];
             const notice = notices[Math.floor(Math.random() * notices.length)];
             chatBox.innerHTML += `<div class="system" style="color:#a855f7; border:1px solid rgba(168,85,247,0.25);">${notice}</div>`;
             scrollToBottom(true);
@@ -1359,7 +1380,13 @@
         socket.on('start-re-match', () => {
             socket.emit('join', myData);
             document.getElementById('msg-input').value = '';
-            const notices = ["지금 이 대화가 아쉽다면? 오른쪽에서 왼쪽으로 슥- 스와이프해서 다음 설렘을 찾아보세요. 🎈", "손가락 하나로 슥- PC에선 Shift + . 키로 다음 분을 모실게요. ⌨️", "우리 사이의 소중한 매너! 개인정보를 묻거나 공개하지 않기로 약속해요. 🙌", "불편한 대화는 참지 마세요. 차단 버튼이 여러분의 기분을 지켜드릴게요. 🛡️", "안전을 위해 전화번호 공유는 시스템으로 금지되어 있어요. 😉"];
+            const notices = [
+                "지금 이 대화가 맘에 안든다면? 오른쪽에서 왼쪽으로 슥- 스와이프해서 다음 설렘을 찾아보세요. 🎈",
+                "손가락 하나로 슥- PC에선 Shift + . 키로 다음 분을 모실게요. ⌨️",
+                "우리 사이의 소중한 매너! 개인정보를 묻거나 공개하지 않기로 약속해요. 🙌",
+                "불편한 대화는 참지 마세요. 차단 버튼이 여러분의 기분을 지켜드릴게요. 🛡️",
+                "전화번호, 카카오톡, SNS 등 외부 연락처 공유 시 개인정보 유출이나 사칭 위험이 있을 수 있으니 주의해주세요."
+            ];
             const notice = notices[Math.floor(Math.random() * notices.length)];
             chatBox.innerHTML = `<div class="system">🚀 새로운 상대를 검색 중입니다...</div><div class="system" style="color:#a855f7; border:1px solid rgba(168,85,247,0.25);">${notice}</div>`;
             scrollToBottom(true);
@@ -1411,7 +1438,12 @@
                         alertShown = true;
                         scrollToBottom();
                     }
-                    msgInput.focus();
+
+                    msgInput.value = '';
+                    socket.emit('stop-typing');
+                    setTimeout(() => {
+                        msgInput.focus({ preventScroll: true });
+                    }, 10);
                     return;
                 }
             } else {
@@ -1424,9 +1456,21 @@
             msgInput.value = '';
 
             setTimeout(() => {
-                msgInput.focus();
+                const prevTop = chatBox.scrollTop;
+                msgInput.focus({ preventScroll: true });
+                chatBox.scrollTop = prevTop;
             }, 10);
         }
+
+        document.getElementById('send-btn').addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('send-btn');
+            if (!btn.disabled) send(e);
+        }, { passive: false });
+
+        document.getElementById('send-btn').addEventListener('mousedown', (e) => {
+            e.preventDefault();
+        });
 
         msgInput.addEventListener('input', (e) => {
             const val = e.target.value.trim();
@@ -1467,7 +1511,7 @@
             socket.roomId = null;
             socket.emit('re-match');
 
-            const notices = ["지금 이 대화가 아쉽다면? 오른쪽에서 왼쪽으로 슥- 스와이프해서 다음 설렘을 찾아보세요. 🎈", "손가락 하나로 슥- PC에선 Shift + . 키로 다음 분을 모실게요. ⌨️", "우리 사이의 소중한 매너! 개인정보를 묻거나 공개하지 않기로 약속해요. 🙌", "불편한 대화는 참지 마세요. 차단 버튼이 여러분의 기분을 지켜드릴게요. 🛡️", "안전을 위해 전화번호 공유는 시스템으로 금지되어 있어요. 😉"];
+            const notices = ["지금 이 대화가 아쉽다면? 오른쪽에서 왼쪽으로 슥- 스와이프해서 다음 설렘을 찾아보세요. 🎈", "손가락 하나로 슥- PC에선 Shift + . 키로 다음 분을 모실게요. ⌨️", "우리 사이의 소중한 매너! 개인정보를 묻거나 공개하지 않기로 약속해요. 🙌", "불편한 대화는 참지 마세요. 차단 버튼이 여러분의 기분을 지켜드릴게요. 🛡️"];
             const notice = notices[Math.floor(Math.random() * notices.length)];
             chatBox.innerHTML = `<div class="system">🚀 새로운 인연을 찾는 중...</div><div class="system" style="color:#a855f7; border:1px solid rgba(168,85,247,0.25);">${notice}</div>`;
             scrollToBottom();

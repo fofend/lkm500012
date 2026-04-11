@@ -116,6 +116,9 @@ function findMatchFor(socket) {
     });
 }
 
+
+
+
 function matchUsers(socket, partnerEntry) {
     const partnerSocket = partnerEntry.socket;
 
@@ -233,10 +236,15 @@ io.on('connection', (socket) => {
     socket.on('message', (msg) => {
         if (!socket.roomId) return;
 
-        socket.emit('message-ok', msg);
+        const cleanMsg = String(msg || '').trim();
+        if (!cleanMsg) return;
+
+
+
+        socket.emit('message-ok', cleanMsg);
         socket.to(socket.roomId).emit('chat-msg', {
             sender: socket.nickname,
-            text: msg
+            text: cleanMsg
         });
 
         socket.to(socket.roomId).emit('stop-partner-typing');
