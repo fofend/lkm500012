@@ -141,13 +141,13 @@
         }
 
         .setup-content-wrapper {
-    width: 100%;
-    max-width: 360px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    opacity: 1;
-}
+            width: 100%;
+            max-width: 360px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 1;
+        }
 
         :root {
             --primary: #8E44AD;
@@ -239,15 +239,15 @@
             color: #000;
         }
 
-      #setup-screen {
-    padding: 36px 24px;
-    flex: 1;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
+        #setup-screen {
+            padding: 36px 24px;
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
 
         #setup-screen h1 {
             text-align: center;
@@ -258,98 +258,99 @@
             text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
-       .step-container {
-    display: none;
-    width: 100%;
-    max-width: 360px;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-}
+        .step-container {
+            display: none;
+            width: 100%;
+            max-width: 360px;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
 
         .step-container.active {
             display: flex;
         }
 
-      .step-title {
-    font-size: 30px;
-    font-weight: 800;
-    margin-bottom: 28px;
-    text-align: center;
-    line-height: 1.35;
-    letter-spacing: -1.2px;
-    color: #fff;
-}
-    .modern-input::placeholder {
-    color: #7c7c82;
-    font-weight: 600;
-    letter-spacing: -0.2px;
-}
+        .step-title {
+            font-size: 30px;
+            font-weight: 800;
+            margin-bottom: 28px;
+            text-align: center;
+            line-height: 1.35;
+            letter-spacing: -1.2px;
+            color: #fff;
+        }
+
+        .modern-input::placeholder {
+            color: #7c7c82;
+            font-weight: 600;
+            letter-spacing: -0.2px;
+        }
 
 
 
-       .modern-input {
-    width: 100%;
-    height: 62px;
-    border-radius: 22px;
-    background: rgba(255,255,255,0.92);
-    border: 1px solid rgba(255,255,255,0.35);
-    padding: 0 22px;
-    font-size: 18px;
-    font-weight: 600;
-    text-align: center;
-    outline: none;
-    margin-bottom: 18px;
-    color: #111;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-}
+        .modern-input {
+            width: 100%;
+            height: 62px;
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            padding: 0 22px;
+            font-size: 18px;
+            font-weight: 600;
+            text-align: center;
+            outline: none;
+            margin-bottom: 18px;
+            color: #111;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+        }
 
-.modern-input:focus {
-    transform: translateY(-1px);
-    border-color: rgba(255,255,255,0.85);
-    box-shadow: 0 14px 34px rgba(0,0,0,0.12);
-}
+        .modern-input:focus {
+            transform: translateY(-1px);
+            border-color: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.12);
+        }
 
-       .option-btn {
-    width: 100%;
-    padding: 19px 20px;
-    margin: 8px 0;
-    border-radius: 22px;
-    border: 1px solid rgba(255,255,255,0.22);
-    background: rgba(255,255,255,0.94);
-    font-size: 18px;
-    font-weight: 700;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #111;
-    box-shadow: 0 12px 28px rgba(0,0,0,0.08);
-    transition: transform 0.16s ease, box-shadow 0.16s ease;
-}
+        .option-btn {
+            width: 100%;
+            padding: 19px 20px;
+            margin: 8px 0;
+            border-radius: 22px;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            background: rgba(255, 255, 255, 0.94);
+            font-size: 18px;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #111;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+            transition: transform 0.16s ease, box-shadow 0.16s ease;
+        }
 
-.option-btn:active {
-    transform: scale(0.985);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.10);
-}
+        .option-btn:active {
+            transform: scale(0.985);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.10);
+        }
 
         .btn-next-circle {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    background: #fff;
-    color: var(--primary);
-    border: none;
-    font-size: 28px;
-    font-weight: 900;
-    box-shadow: 0 12px 28px rgba(0,0,0,0.14);
-    transition: transform 0.16s ease, box-shadow 0.16s ease;
-}
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: #fff;
+            color: var(--primary);
+            border: none;
+            font-size: 28px;
+            font-weight: 900;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.14);
+            transition: transform 0.16s ease, box-shadow 0.16s ease;
+        }
 
-.btn-next-circle:active {
-    transform: scale(0.96);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.14);
-}
+        .btn-next-circle:active {
+            transform: scale(0.96);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.14);
+        }
 
         #chat-screen {
             display: none;
@@ -510,13 +511,13 @@
             text-align: center;
         }
 
-       .opening-subtext {
-    font-size: 17px;
-    color: rgba(255,255,255,0.82);
-    margin: 14px 0 26px;
-    letter-spacing: -0.3px;
-    font-weight: 500;
-}
+        .opening-subtext {
+            font-size: 17px;
+            color: rgba(255, 255, 255, 0.82);
+            margin: 14px 0 26px;
+            letter-spacing: -0.3px;
+            font-weight: 500;
+        }
 
         .opening-btn-row {
             width: 100%;
@@ -698,10 +699,10 @@
 <body>
     <div id="opening-screen">
         <div class="opening-content">
-            <h1 class="main-logo-style"
+            <div class="main-logo-style"
                 style="animation: fadeInLogo 1.5s 0.3s ease-out forwards; opacity: 0; margin-bottom: 10px;">
                 나나
-            </h1>
+            </div>
             <p class="opening-subtext">나와 나의 시간</p>
 
             <div class="opening-btn-row">
@@ -709,7 +710,7 @@
                 <button class="opening-btn-secondary" onclick="openLandingPage()">소개 보기</button>
             </div>
         </div>
-    </div>
+    </div>S
 
     <main id="landing-page">
 
