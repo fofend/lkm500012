@@ -15,6 +15,12 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 
+
+app.get('/robots.txt', (req, res) => {
+    res.type('text/plain');
+    res.send('User-agent: *\nAllow: /\n\nSitemap: https://nanachat-unzb.onrender.com/sitemap.xml');
+});
+
 /* =========================
    사이트맵 명시 서빙
 ========================= */
