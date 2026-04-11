@@ -24,11 +24,14 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://nanachat-unzb.onrender.com/">
 <style>
-    html {
-        background-color: #fff !important;
+    html,
+    body {
         margin: 0;
         padding: 0;
+        width: 100%;
         height: 100%;
+        overflow: hidden;
+        overscroll-behavior: none;
     }
 
     @keyframes fadeUp {
@@ -226,10 +229,7 @@
         height: 100dvh;
         overflow: hidden;
         position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        inset: 0;
         width: 100%;
         color: #fff;
     }
@@ -403,31 +403,36 @@
     #chat-screen {
         display: none;
         flex-direction: column;
-        height: calc(100dvh - 76px);
+        height: 100dvh;
         width: 100%;
         max-width: 500px;
         margin: 0 auto;
         background: linear-gradient(180deg, #6a0dad 0%, #8e44ad 100%);
         position: fixed;
-        top: 76px;
+        top: 0;
         left: 50%;
         transform: translateX(-50%);
         z-index: 1000;
         overflow: hidden;
         border-radius: 0;
         box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.02);
+        overscroll-behavior: none;
     }
 
     #chat-box {
         flex: 1;
         overflow-y: auto;
+        overflow-x: hidden;
         -webkit-overflow-scrolling: touch;
-        padding: 14px 12px 10px;
+        padding: 99px 14px 12px;
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
+        min-height: 0;
+        overscroll-behavior-y: contain;
         background:
-            linear-gradient(180deg, #f8f8fa 0%, #f2f2f7 100%);
+            radial-gradient(circle at top left, rgba(255, 255, 255, 0.08), transparent 30%),
+            linear-gradient(180deg, #2b1538 0%, #4b2563 100%);
     }
 
     .msg-line {
@@ -466,17 +471,6 @@
         border-bottom-left-radius: 6px;
     }
 
-    #chat-box {
-        flex: 1;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-        padding: 14px 12px 10px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        background:
-            linear-gradient(180deg, #f8f8fa 0%, #f2f2f7 100%);
-    }
 
     .input-area {
         background: rgba(255, 255, 255, 0.9);
@@ -802,6 +796,94 @@
     .all-pill {
         background: linear-gradient(135deg, #a855f7, #7c3aed);
     }
+
+    @media (min-width: 768px) {
+
+        .stats-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: none;
+            width: 100%;
+            max-width: none;
+            height: 30px;
+            padding: 0 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.95);
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: 30;
+        }
+
+        .top-bar {
+            position: absolute;
+            top: 30px;
+            left: 0;
+            transform: none;
+            width: 100%;
+            max-width: none;
+            height: 52px;
+            padding: 0 14px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(60, 60, 67, 0.18);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 31;
+            color: #000;
+        }
+
+        #chat-screen {
+            width: 390px;
+            height: calc(100dvh - 8px);
+            margin: 0 auto;
+            padding-top: 82px;
+            border-radius: 38px;
+            border: 10px solid #1c1c1e;
+            background: #000;
+            position: fixed;
+            top: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            overflow: hidden;
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.4),
+                0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        #chat-screen::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 26px;
+            background: #000;
+            border-radius: 0 0 20px 20px;
+            z-index: 10;
+        }
+
+        #chat-screen::after {
+            content: '';
+            position: absolute;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            z-index: 11;
+        }
+
+
+    }
 </style>
 </head>
 
@@ -1009,21 +1091,24 @@
         </div>
     </div>
 
-    <div class="stats-bar" id="top-stats">
-        <span id="stat-left">실시간 매칭 중...</span>
-        <span id="stat-right">매칭 상태 원활</span>
-    </div>
 
-    <div class="top-bar" id="chat-top-bar">
-        <div style="position:absolute; left:12px; display:flex; gap:6px;">
-            <button id="report-btn" style="color:#ff9f0a; background:none; border:none; font-weight:600;"
-                onmousedown="reportUser(); return false;">⚠️ 신고</button>
+    <div id="chat-screen">
 
-            <button id="block-btn" style="color:#ff453a; background:none; border:none; font-weight:600;"
-                onmousedown="blockUser(); return false;">🚫 차단</button>
+        <div class="stats-bar" id="top-stats">
+            <span id="stat-left">실시간 매칭 중...</span>
+            <span id="stat-right">매칭 상태 원활</span>
         </div>
 
-        <span style="
+        <div class="top-bar" id="chat-top-bar">
+            <div style="position:absolute; left:12px; display:flex; gap:6px;">
+                <button id="report-btn" style="color:#ff9f0a; background:none; border:none; font-weight:600;"
+                    onmousedown="reportUser(); return false;">⚠️ 신고</button>
+
+                <button id="block-btn" style="color:#ff453a; background:none; border:none; font-weight:600;"
+                    onmousedown="blockUser(); return false;">🚫 차단</button>
+            </div>
+
+            <span style="
         position:absolute;
         left:50%;
         transform:translateX(-50%);
@@ -1032,10 +1117,10 @@
         letter-spacing:-0.8px;
         color:#000;
     ">
-            나나채팅
-        </span>
+                나나채팅
+            </span>
 
-        <button style="
+            <button style="
         position:absolute;
         right:12px;
         color:#8e8e93;
@@ -1043,10 +1128,9 @@
         border:none;
         font-weight:600;
     " onmousedown="exitToSetup(); return false;">
-            나가기
-        </button>
-    </div>
-    <div id="chat-screen">
+                나가기
+            </button>
+        </div>
         <div id="chat-box"></div>
 
         <div id="ad-container" style="display: none; width: 100%; background: #f8f8f8; text-align: center;">
@@ -1156,7 +1240,11 @@
             document.getElementById('top-stats').style.display = 'flex';
             showAd();
 
-            chatBox.innerHTML = '<div class="system">🚀 새로운 상대를 검색 중입니다...</div>';
+            const notices = ["지금 이 대화가 아쉽다면? 오른쪽에서 왼쪽으로 슥- 스와이프해서 다음 설렘을 찾아보세요. 🎈", "손가락 하나로 슥- PC에선 Shift + . 키로 다음 분을 모실게요. ⌨️", "우리 사이의 소중한 매너! 개인정보를 묻거나 공개하지 않기로 약속해요. 🙌", "불편한 대화는 참지 마세요. 차단 버튼이 여러분의 기분을 지켜드릴게요. 🛡️", "안전을 위해 전화번호 공유는 시스템으로 금지되어 있어요. 😉"];
+            const notice = notices[Math.floor(Math.random() * notices.length)];
+            chatBox.innerHTML = `<div class="system">🚀 새로운 상대를 검색 중입니다...</div><div class="system" style="color:#a855f7; border:1px solid rgba(168,85,247,0.25);">${notice}</div>`;
+            scrollToBottom(true);
+
             setInputState(false);
             setActionButtons(false);
 
@@ -1262,12 +1350,20 @@
             setInputState(false);
             document.getElementById('msg-input').value = '';
             setActionButtons(false);
+            const notices = ["지금 이 대화가 아쉽다면? 오른쪽에서 왼쪽으로 슥- 스와이프해서 다음 설렘을 찾아보세요. 🎈", "손가락 하나로 슥- PC에선 Shift + . 키로 다음 분을 모실게요. ⌨️", "우리 사이의 소중한 매너! 개인정보를 묻거나 공개하지 않기로 약속해요. 🙌", "불편한 대화는 참지 마세요. 차단 버튼이 여러분의 기분을 지켜드릴게요. 🛡️", "안전을 위해 전화번호 공유는 시스템으로 금지되어 있어요. 😉"];
+            const notice = notices[Math.floor(Math.random() * notices.length)];
+            chatBox.innerHTML += `<div class="system" style="color:#a855f7; border:1px solid rgba(168,85,247,0.25);">${notice}</div>`;
+            scrollToBottom(true);
         });
 
         socket.on('start-re-match', () => {
             socket.emit('join', myData);
             document.getElementById('msg-input').value = '';
-            chatBox.innerHTML = '<div class="system">🚀 새로운 상대를 검색 중입니다...</div>';
+            const notices = ["지금 이 대화가 아쉽다면? 오른쪽에서 왼쪽으로 슥- 스와이프해서 다음 설렘을 찾아보세요. 🎈", "손가락 하나로 슥- PC에선 Shift + . 키로 다음 분을 모실게요. ⌨️", "우리 사이의 소중한 매너! 개인정보를 묻거나 공개하지 않기로 약속해요. 🙌", "불편한 대화는 참지 마세요. 차단 버튼이 여러분의 기분을 지켜드릴게요. 🛡️", "안전을 위해 전화번호 공유는 시스템으로 금지되어 있어요. 😉"];
+            const notice = notices[Math.floor(Math.random() * notices.length)];
+            chatBox.innerHTML = `<div class="system">🚀 새로운 상대를 검색 중입니다...</div><div class="system" style="color:#a855f7; border:1px solid rgba(168,85,247,0.25);">${notice}</div>`;
+            scrollToBottom(true);
+
             setInputState(false);
             setActionButtons(false);
         });
@@ -1348,8 +1444,16 @@
             if (enabled) setTimeout(() => msgInput.focus(), 150);
         }
 
-        function scrollToBottom() {
-            chatBox.scrollTop = chatBox.scrollHeight;
+        function scrollToBottom(force = false) {
+            requestAnimationFrame(() => {
+                chatBox.scrollTop = chatBox.scrollHeight;
+
+                if (force) {
+                    setTimeout(() => {
+                        chatBox.scrollTop = chatBox.scrollHeight;
+                    }, 30);
+                }
+            });
         }
 
         function requestRematch() {
@@ -1363,7 +1467,11 @@
             socket.roomId = null;
             socket.emit('re-match');
 
-            chatBox.innerHTML = '<div class="system">🚀 새로운 인연을 찾는 중...</div>';
+            const notices = ["지금 이 대화가 아쉽다면? 오른쪽에서 왼쪽으로 슥- 스와이프해서 다음 설렘을 찾아보세요. 🎈", "손가락 하나로 슥- PC에선 Shift + . 키로 다음 분을 모실게요. ⌨️", "우리 사이의 소중한 매너! 개인정보를 묻거나 공개하지 않기로 약속해요. 🙌", "불편한 대화는 참지 마세요. 차단 버튼이 여러분의 기분을 지켜드릴게요. 🛡️", "안전을 위해 전화번호 공유는 시스템으로 금지되어 있어요. 😉"];
+            const notice = notices[Math.floor(Math.random() * notices.length)];
+            chatBox.innerHTML = `<div class="system">🚀 새로운 인연을 찾는 중...</div><div class="system" style="color:#a855f7; border:1px solid rgba(168,85,247,0.25);">${notice}</div>`;
+            scrollToBottom();
+
             setInputState(false);
             showAd();
         }
@@ -1387,6 +1495,9 @@
                 socket.emit('report-user');
             }
         }
+
+
+
 
         function goToSetupDirect() {
             const openingScreen = document.getElementById('opening-screen');
@@ -1470,16 +1581,16 @@
             }
         }, true);
 
-        document.addEventListener('touchstart', (e) => {
+        chatScreen.addEventListener('touchstart', (e) => {
             if (chatScreen.style.display !== 'flex') return;
-            if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') return;
+            if (e.target.closest('input, button')) return;
 
             startX = e.touches[0].clientX;
             currentX = startX;
             chatScreen.classList.remove('swipe-transition');
         }, { passive: true });
 
-        document.addEventListener('touchmove', (e) => {
+        chatScreen.addEventListener('touchmove', (e) => {
             if (startX === 0) return;
 
             currentX = e.touches[0].clientX;
@@ -1493,7 +1604,7 @@
             }
         }, { passive: true });
 
-        document.addEventListener('touchend', (e) => {
+        chatScreen.addEventListener('touchend', (e) => {
             if (startX === 0) return;
 
             if (currentX === 0 && e.changedTouches && e.changedTouches.length > 0) {
