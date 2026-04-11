@@ -81,16 +81,16 @@
             transition: opacity 1s ease;
         }
 
-        .main-logo-style {
-            font-size: 56px;
-            font-weight: 900;
-            color: #fff;
-            letter-spacing: -2.8px;
-            line-height: 1;
-            margin: 0;
-            padding: 0;
-            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
-        }
+      .main-logo-style {
+    font-size: 60px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -3.2px;
+    line-height: 0.95;
+    margin: 0;
+    padding: 0;
+    text-shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
+}
 
         #setup-screen {
             position: fixed;
@@ -141,13 +141,19 @@
         }
 
         .setup-content-wrapper {
-            width: 100%;
-            max-width: 360px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            opacity: 1;
-        }
+    width: 100%;
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 1;
+    padding: 28px 22px;
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.16);
+}
 
         :root {
             --primary: #8E44AD;
@@ -271,15 +277,16 @@
             display: flex;
         }
 
-        .step-title {
-            font-size: 30px;
-            font-weight: 800;
-            margin-bottom: 28px;
-            text-align: center;
-            line-height: 1.35;
-            letter-spacing: -1.2px;
-            color: #fff;
-        }
+       .step-title {
+    font-size: 31px;
+    font-weight: 800;
+    margin-bottom: 24px;
+    text-align: center;
+    line-height: 1.32;
+    letter-spacing: -1.35px;
+    color: #fff;
+    text-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
+}
 
         .modern-input::placeholder {
             color: #7c7c82;
@@ -511,13 +518,16 @@
             text-align: center;
         }
 
-        .opening-subtext {
-            font-size: 17px;
-            color: rgba(255, 255, 255, 0.82);
-            margin: 14px 0 26px;
-            letter-spacing: -0.3px;
-            font-weight: 500;
-        }
+       .opening-subtext {
+    font-size: 17px;
+    color: rgba(255, 255, 255, 0.82);
+    margin: 14px 0 26px;
+    letter-spacing: -0.3px;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(12px);
+    animation: fadeInContent 0.9s 0.85s ease-out forwards;
+}
 
         .opening-btn-row {
             width: 100%;
@@ -529,28 +539,35 @@
             opacity: 0;
         }
 
-        .opening-btn-primary,
-        .opening-btn-secondary {
-            width: 100%;
-            border-radius: 18px;
-            padding: 16px 18px;
-            font-size: 16px;
-            font-weight: 800;
-            border: none;
-            cursor: pointer;
-        }
+       .opening-btn-primary,
+.opening-btn-secondary {
+    width: 100%;
+    border-radius: 20px;
+    padding: 17px 18px;
+    font-size: 16px;
+    font-weight: 800;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+}
 
-        .opening-btn-primary {
-            background: #fff;
-            color: #6c3483;
-        }
+.opening-btn-primary {
+    background: #fff;
+    color: #6c3483;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+}
 
-        .opening-btn-secondary {
-            background: rgba(255, 255, 255, 0.12);
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-        }
+.opening-btn-secondary {
+    background: rgba(255, 255, 255, 0.10);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    backdrop-filter: blur(8px);
+}
 
+.opening-btn-primary:active,
+.opening-btn-secondary:active {
+    transform: scale(0.985);
+}
         /* 랜딩페이지 */
         #landing-page {
             display: none;
@@ -711,7 +728,7 @@
                 <button class="opening-btn-secondary" onclick="openLandingPage()">소개 보기</button>
             </div>
         </div>
-    </div>S
+    </div>
 
     <main id="landing-page">
 
