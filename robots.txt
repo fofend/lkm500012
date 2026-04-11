@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nana-live.onrender.com/sitemap.xml
+Sitemap: https://nanachat-unzb.onrender.com/sitemap.xml
