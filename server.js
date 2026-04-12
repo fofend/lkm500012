@@ -1,5 +1,17 @@
 const express = require('express');
 const app = express();
+
+// 👉 301 리디렉션 (중요)
+app.use((req, res, next) => {
+    const host = req.headers.host;
+
+    if (host === 'nanachat-unzb.onrender.com' || host === 'www.nanachatapp.com') {
+        return res.redirect(301, 'https://nanachatapp.com' + req.url);
+    }
+
+    next();
+});
+
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
