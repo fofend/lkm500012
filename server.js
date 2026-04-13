@@ -15,10 +15,12 @@ app.use((req, res, next) => {
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
+const path = require('path');
+
 /* =========================
    정적 파일 서빙
 ========================= */
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, 'public')));
 
 /* =========================
    메인 페이지
