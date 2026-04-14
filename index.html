@@ -520,7 +520,6 @@
         padding: 10px 14px;
         border-radius: 16px;
         font-size: 14px;
-        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
     }
 
     /* 내 메시지: 더 진하고 선명하게 */
@@ -1221,6 +1220,7 @@
     font-weight:700;
     flex-shrink:0;
 ">다음</button>
+
                 <input type="text" id="msg-input" autocomplete="off" placeholder="상대를 찾는 중..." disabled
                     onkeypress="if(event.keyCode==13) send(event)">
                 <button id="send-btn" disabled style="
@@ -1267,6 +1267,12 @@
         const msgInput = document.getElementById('msg-input');
         const sendBtn = document.getElementById('send-btn');
 
+        function removeTypingLoader() {
+            const loader = document.getElementById('typing-loader');
+            if (loader) loader.remove();
+            if (typingTimeout) clearTimeout(typingTimeout);
+        }
+
         function goNext(step) {
             if (step === 1) {
                 const nick = document.getElementById('nickname').value.trim();
@@ -1289,6 +1295,8 @@
             }
         }
 
+
+
         function selectGender(v) {
             myData.gender = v;
             goNext(2);
@@ -1300,6 +1308,9 @@
         }
 
         function startMatching() {
+            if (isRematching) return;
+            isRematching = true;
+
             myData.nickname = document.getElementById('nickname').value.trim() || "익명";
             myData.interest = document.getElementById('interest').value.trim();
             document.getElementById('msg-input').value = '';
@@ -1364,6 +1375,7 @@
         });
 
         socket.on('matched', (d) => {
+            removeTypingLoader();
             isRematching = false;
 
             partnerGender = d.partnerGender;
@@ -1419,6 +1431,7 @@
         });
 
         socket.on('partner-left', (m) => {
+            removeTypingLoader();
             isRematching = false;
             socket.roomId = null;
 
@@ -1450,6 +1463,7 @@
         });
 
         socket.on('start-re-match', () => {
+            removeTypingLoader();
             socket.emit('join', myData);
             document.getElementById('msg-input').value = '';
             const notices = [

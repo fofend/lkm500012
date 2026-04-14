@@ -60,6 +60,7 @@ let totalConnections = 0;
 ========================= */
 
 function updateStats() {
+    cleanupWaitingUsers();
     io.emit('server-stats', {
         currentUsers: totalConnections,
         waiting: waitingUsers.length
@@ -68,6 +69,18 @@ function updateStats() {
 
 function removeFromWaitingQueue(socketId) {
     waitingUsers = waitingUsers.filter(user => user.id !== socketId);
+}
+
+function cleanupWaitingUsers() {
+    waitingUsers = waitingUsers.filter(user => {
+        if (!user || !user.socket) return false;
+
+        const liveSocket = io.sockets.sockets.get(user.id);
+        if (!liveSocket) return false;
+        if (liveSocket.disconnected) return false;
+
+        return true;
+    });
 }
 
 function resetSocketState(socket) {
@@ -106,6 +119,8 @@ function endCurrentChat(socket, message = null) {
 }
 
 function findMatchFor(socket) {
+    cleanupWaitingUsers();
+
     return waitingUsers.findIndex(user => {
         if (!user || !user.socket) return false;
         if (user.id === socket.id) return false;
@@ -215,16 +230,17 @@ io.on('connection', (socket) => {
     ========================= */
     socket.on('join', (data) => {
         removeFromWaitingQueue(socket.id);
-
-        socket.nickname = data.nickname || '익명';
-        socket.gender = data.gender || '';
-        socket.wantGender = data.wantGender || 'all';
-        socket.interest = data.interest ? data.interest.trim() : '';
+        cleanupWaitingUsers();
 
         if (socket.roomId) {
             updateStats();
             return;
         }
+
+        socket.nickname = data.nickname || '익명';
+        socket.gender = data.gender || '';
+        socket.wantGender = data.wantGender || 'all';
+        socket.interest = data.interest ? data.interest.trim() : '';
 
         const partnerIndex = findMatchFor(socket);
 
@@ -232,14 +248,19 @@ io.on('connection', (socket) => {
             const partner = waitingUsers[partnerIndex];
             matchUsers(socket, partner);
         } else {
-            waitingUsers.push({
-                id: socket.id,
-                gender: socket.gender,
-                wantGender: socket.wantGender,
-                nickname: socket.nickname,
-                interest: socket.interest,
-                socket
-            });
+            const alreadyWaiting = waitingUsers.some(user => user.id === socket.id);
+
+            if (!alreadyWaiting) {
+                waitingUsers.push({
+                    id: socket.id,
+                    gender: socket.gender,
+                    wantGender: socket.wantGender,
+                    nickname: socket.nickname,
+                    interest: socket.interest,
+                    socket
+                });
+            }
+
             updateStats();
         }
     });
