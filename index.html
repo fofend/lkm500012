@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7001789713295513"
-     crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7001789713295513"
+        crossorigin="anonymous"></script>
 
     <link rel="canonical" href="https://nanachatapp.com/">
 
@@ -520,22 +520,22 @@
         padding: 10px 14px;
         border-radius: 16px;
         font-size: 14px;
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
     }
 
-    /* 내 메시지 */
+    /* 내 메시지: 더 진하고 선명하게 */
     .msg-line.me .bubble {
-        background: linear-gradient(135deg, #a855f7, #7c3aed);
-        color: white;
+        background: linear-gradient(135deg, #7c3aed, #5b21b6);
+        color: #fff;
         border-bottom-right-radius: 6px;
     }
 
-    /* 상대 메시지 */
+    /* 상대 메시지: 아예 밝은 톤으로 분리 */
     .msg-line.partner .bubble {
-        background: linear-gradient(135deg, #c084fc, #a855f7);
-        color: white;
+        background: linear-gradient(135deg, #4c1d95, #1e3a8a);
+        color: #fff;
         border-bottom-left-radius: 6px;
     }
-
 
     .input-area {
         background: rgba(255, 255, 255, 0.9);
@@ -591,16 +591,18 @@
 
     .typing-bubble {
         display: flex;
-        gap: 4px;
+        gap: 5px;
         padding: 12px 18px !important;
+        background: linear-gradient(135deg, #d9d3f0, #cfc7ea) !important;
     }
 
     .dot {
-        width: 6px;
-        height: 6px;
-        background: #8e8e93;
+        width: 7px;
+        height: 7px;
+        background: #6d28d9;
         border-radius: 50%;
         animation: bounce 1.4s infinite ease-in-out;
+        opacity: 0.95;
     }
 
     .dot:nth-child(2) {
@@ -1399,18 +1401,20 @@
             const tagColor = partnerGender === 'male' ? 'var(--male)' : 'var(--female)';
             const tagText = partnerGender === 'male' ? '남' : '여';
             const interestDisplay = partnerInterest
-                ? `<span style="font-size:11px; color:#aaa; margin-left:4px;">(${escapeHtml(partnerInterest)})</span>`
+                ? `<span style="font-size:11px; color:#d8b4fe; margin-left:4px;">(${escapeHtml(partnerInterest)})</span>`
                 : "";
 
             chatBox.innerHTML += `
-                <div class="msg-line partner" style="margin-top: 12px;">
-                    <div style="margin-bottom: 3px; padding-left: 5px; display: flex; align-items: center;">
-                        <span class="gender-tag" style="background:${tagColor}; margin-right:5px;">${tagText}</span>
-                        <span style="font-size:13px; font-weight:600; color:#333;">${escapeHtml(partnerNickname)}</span>
-                        ${interestDisplay}
-                    </div>
-                    <div class="bubble">${escapeHtml(d.text)}</div>
-                </div>`;
+    <div class="msg-line partner" style="margin-top: 12px;">
+        <div style="margin-bottom: 4px; padding-left: 5px; display: flex; align-items: center;">
+            <span class="gender-tag" style="background:${tagColor}; margin-right:5px;">${tagText}</span>
+           <span style="font-size:13px; font-weight:700; color:#e9def7; text-shadow:0 1px 2px rgba(0,0,0,0.35);">
+    ${escapeHtml(partnerNickname)}
+</span>
+            ${interestDisplay}
+        </div>
+        <div class="bubble">${escapeHtml(d.text)}</div>
+    </div>`;
             scrollToBottom();
         });
 
@@ -1532,14 +1536,13 @@
 
         document.getElementById('send-btn').addEventListener('touchstart', (e) => {
             e.preventDefault();
-            const btn = document.getElementById('send-btn');
-            if (!btn.disabled) send(e);
+            if (!sendBtn.disabled) send(e);
         }, { passive: false });
 
-        document.getElementById('send-btn').addEventListener('mousedown', (e) => {
+        document.getElementById('send-btn').addEventListener('click', (e) => {
             e.preventDefault();
+            if (!sendBtn.disabled) send(e);
         });
-
         msgInput.addEventListener('input', (e) => {
             const val = e.target.value.trim();
             if (val.length > 0) {
