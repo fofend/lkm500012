@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
 
 app.get('/robots.txt', (req, res) => {
     res.type('text/plain');
-    res.send('User-agent: *\nAllow: /\n\nSitemap: https://nanachat-unzb.onrender.com/sitemap.xml');
+    res.send('User-agent: *\nAllow: /\n\nSitemap: https://nanachatapp.com/sitemap.xml');
 });
 
 /* =========================
