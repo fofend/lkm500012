@@ -1230,8 +1230,9 @@
     flex-shrink:0;
 ">다음</button>
 
-                <input type="text" id="msg-input" autocomplete="off" placeholder="상대를 찾는 중..." disabled
-                    onkeypress="if(event.keyCode==13) send(event)">
+                <input type="search" id="msg-input" name="chat-message" inputmode="text" enterkeyhint="send"
+                    autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+                    placeholder="상대를 찾는 중..." disabled onkeypress="if(event.keyCode==13) send(event)">
                 <button id="send-btn" disabled style="
    background:linear-gradient(135deg, #a855f7, #7c3aed);
     color:white;
