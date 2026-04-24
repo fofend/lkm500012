@@ -273,10 +273,9 @@
 
     body {
         font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        max-width: 500px;
-        margin: 0 auto;
         background: transparent;
         display: flex;
+        justify-content: center;
         flex-direction: column;
         height: 100vh;
         height: 100dvh;
@@ -285,6 +284,11 @@
         inset: 0;
         width: 100%;
         color: #fff;
+    }
+
+    .container {
+        max-width: 760px;
+        width: 100%;
     }
 
     .top-bar button {
@@ -719,10 +723,10 @@
         position: fixed;
         top: 0;
         bottom: 0;
-        left: 50%;
+        left: 0;
         width: 100%;
-        max-width: 500px;
-        transform: translateX(-50%);
+        max-width: none;
+        transform: none;
         z-index: 9998;
         background:
             radial-gradient(circle at top, rgba(193, 94, 226, 0.22), transparent 35%),
@@ -736,6 +740,15 @@
     .landing-hero {
         padding: 72px 24px 28px;
         text-align: left;
+    }
+
+    .landing-hero,
+    .landing-section,
+    .site-footer {
+        width: 100%;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .landing-badge {
@@ -974,6 +987,7 @@
 </head>
 
 <body>
+    <div class="container">
     <div id="opening-screen">
         <div class="opening-content">
             <!-- opening-screen 로고 -->
@@ -1108,7 +1122,25 @@
                 </ul>
             </div>
         </section>
-
+        <section class="landing-section">
+            <div class="landing-card">
+                <h2>익명채팅 정보</h2>
+                <div style="display:flex; flex-direction:column; gap:10px;">
+                    <a href="/tips1.html"
+                        style="color:#fff; text-decoration:none; font-weight:800; background:rgba(255,255,255,0.10); padding:14px 16px; border-radius:14px;">
+                        익명채팅 안전 이용 방법
+                    </a>
+                    <a href="/tips2.html"
+                        style="color:#fff; text-decoration:none; font-weight:800; background:rgba(255,255,255,0.10); padding:14px 16px; border-radius:14px;">
+                        랜덤채팅 후기
+                    </a>
+                    <a href="/tips3.html"
+                        style="color:#fff; text-decoration:none; font-weight:800; background:rgba(255,255,255,0.10); padding:14px 16px; border-radius:14px;">
+                        심심할 때 할 것
+                    </a>
+                </div>
+            </div>
+        </section>
         <footer class="site-footer">
             <div class="footer-links">
                 <a href="/about.html">서비스 소개</a>
@@ -1116,6 +1148,8 @@
                 <a href="/guide.html">이용 가이드</a>
                 <span>·</span>
                 <a href="/safety.html">안전 수칙</a>
+                <span>·</span>
+                <a href="/tips1.html">익명채팅 안전 이용 방법</a>
                 <span>·</span>
                 <a href="/faq.html">자주 묻는 질문</a>
                 <span>·</span>
@@ -1893,6 +1927,7 @@
 
     <div style="font-size: 8px; color: rgba(255,255,255,0.05); text-align: center; margin-top: 10px;">
         #나나라이브 #실시간채팅 #랜덤채팅 #익명채팅 #가가라이브같은사이트
+    </div>
     </div>
 </body>
 
