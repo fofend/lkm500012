@@ -985,8 +985,8 @@
             <p class="opening-subtext">나와 나의 시간</p>
 
             <div class="opening-btn-row">
-                <button class="opening-btn-primary" onclick="goToSetupDirect()">채팅 시작</button>
-                <button class="opening-btn-secondary" onclick="openLandingPage()">소개 보기</button>
+                <button class="opening-btn-primary" onclick="openLandingPage()">서비스 소개 보기</button>
+                <button class="opening-btn-secondary" onclick="goToSetupDirect()">채팅 시작</button>
             </div>
         </div>
     </div>
@@ -1047,7 +1047,7 @@
                 <h2>이용 시 주의사항</h2>
                 <ul class="landing-list">
                     <li>욕설, 비방, 혐오 발언은 금지됩니다.</li>
-                    <li>음란물 및 성적 내용 공유는 금지됩니다.</li>
+                    <li>부적절한 내용물 및 불쾌감을 주는 내용 공유는 금지됩니다.</li>
                     <li>전화번호, 카카오톡, SNS 등 외부 연락처 공유 시 개인정보 유출이나 사칭 위험이 있을 수 있으니 주의해주세요.</li>
                     <li>개인정보 공유는 주의해주세요.</li>
                     <li>불쾌감을 주는 행동은 제한될 수 있습니다.</li>
@@ -1112,6 +1112,12 @@
         <footer class="site-footer">
             <div class="footer-links">
                 <a href="/about.html">서비스 소개</a>
+                <span>·</span>
+                <a href="/guide.html">이용 가이드</a>
+                <span>·</span>
+                <a href="/safety.html">안전 수칙</a>
+                <span>·</span>
+                <a href="/faq.html">자주 묻는 질문</a>
                 <span>·</span>
                 <a href="/terms.html">이용약관</a>
                 <span>·</span>
@@ -1787,10 +1793,27 @@
         }, { passive: true });
 
         window.addEventListener('load', () => {
+            const params = new URLSearchParams(window.location.search);
+
             const opScreen = document.getElementById('opening-screen');
             const setupScreen = document.getElementById('setup-screen');
             const landingPage = document.getElementById('landing-page');
 
+            // 👉 landing 요청이면 opening 강제 차단
+            if (params.get('page') === 'landing') {
+                if (opScreen) {
+                    opScreen.style.display = 'none';
+                    opScreen.style.opacity = '0';
+                }
+
+                if (landingPage) {
+                    landingPage.style.display = 'block';
+                }
+
+                return; // ⭐ 여기 중요 (아래 코드 실행 막기)
+            }
+
+            // 기본 상태
             if (opScreen) {
                 opScreen.style.display = 'flex';
                 opScreen.style.opacity = '1';
@@ -1805,32 +1828,31 @@
                 landingPage.style.display = 'none';
             }
         });
-
         function loadCoupangAd() {
+            /*
             const adArea = document.getElementById('ad-content-area');
-
+        
             adArea.innerHTML = `
-        <a 
-            href="https://link.coupang.com/a/elZ2oh" 
-            target="_blank" 
-            referrerpolicy="unsafe-url"
-            rel="nofollow sponsored noopener"
-            style="display:block; width:100%; text-align:center;"
-        >
-            <img 
-                src="https://ads-partners.coupang.com/banners/979326?subId=&traceId=V0-301-5a8c79a76485eb21-I979326&w=320&h=50"
-                alt="쿠팡 추천 배너"
-                style="display:block; width:100%; max-width:320px; height:auto; margin:0 auto; border:0;"
-            >
-        </a>
-    `;
+                <a 
+                    href="https://link.coupang.com/a/elZ2oh" 
+                    target="_blank" 
+                    referrerpolicy="unsafe-url"
+                    rel="nofollow sponsored noopener"
+                    style="display:block; width:100%; text-align:center;"
+                >
+                    <img 
+                        src="https://ads-partners.coupang.com/banners/979326?subId=&traceId=V0-301-5a8c79a76485eb21-I979326&w=320&h=50"
+                        alt="쿠팡 추천 배너"
+                        style="display:block; width:100%; max-width:320px; height:auto; margin:0 auto; border:0;"
+                    >
+                </a>
+            `;
+            */
         }
 
         function showAd() {
-            document.getElementById('ad-container').style.display = 'block';
-            loadCoupangAd();
+            return;
         }
-
         function hideAd() {
             document.getElementById('ad-container').style.display = 'none';
         }
@@ -1858,6 +1880,15 @@
             reportBtn.style.pointerEvents = enabled ? 'auto' : 'none';
             blockBtn.style.pointerEvents = enabled ? 'auto' : 'none';
         }
+        window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+
+            if (params.get('page') === 'landing') {
+                document.getElementById('opening-screen').style.display = 'none';
+                document.getElementById('opening-screen').style.opacity = '0';
+                document.getElementById('landing-page').style.display = 'block';
+            }
+        });
     </script>
 
     <div style="font-size: 8px; color: rgba(255,255,255,0.05); text-align: center; margin-top: 10px;">
