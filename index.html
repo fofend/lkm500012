@@ -1369,7 +1369,7 @@
 
             <div class="input-area">
                 <div class="btn-group">
-                    <button type="button" id="next-btn" onclick="requestRematch(); return false;" style="
+                    <button type="button" id="next-btn" style="
     background:#ececf0;
     color:#111;
     padding: 10px 14px;
@@ -1434,11 +1434,13 @@
             let startX = 0;
             let currentX = 0;
             let lastTap = 0;
+            let nextPointerHandled = false;
 
             const chatScreen = document.getElementById('chat-screen');
             const chatBox = document.getElementById('chat-box');
             const msgInput = document.getElementById('msg-input');
             const sendBtn = document.getElementById('send-btn');
+            const nextBtn = document.getElementById('next-btn');
             const inputArea = document.querySelector('.input-area');
 
 
@@ -1729,12 +1731,11 @@
 
                 const isInput = e.target === msgInput;
                 const isSendBtn = e.target === sendBtn || e.target.closest('#send-btn');
-                const isNextBtn = e.target.closest('#next-btn');
                 const isTopButton = e.target.closest('#report-btn, #block-btn');
                 const isInputArea = e.target.closest('.input-area');
 
                 // 원래 눌러야 하는 버튼/입력창은 통과
-                if (isInput || isSendBtn || isNextBtn || isTopButton) return;
+                if (isInput || isSendBtn || isTopButton) return;
 
                 // 입력창 영역의 빈 공간을 누르면 키보드 내려가지 않게 막기
                 if (isInputArea && !msgInput.disabled) {
@@ -1750,6 +1751,24 @@
                 if (sendBtn.disabled) return;
 
                 send(e);
+            });
+            nextBtn.addEventListener('pointerdown', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                nextPointerHandled = true;
+                requestRematch();
+            });
+            nextBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                if (nextPointerHandled) {
+                    nextPointerHandled = false;
+                    return;
+                }
+
+                requestRematch();
             });
 
 
