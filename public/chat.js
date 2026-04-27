@@ -495,6 +495,23 @@
                     openingScreen.style.opacity = '1';
                 }
             }
+            document.querySelector('.opening-btn-primary').addEventListener('click', openLandingPage);
+            document.querySelector('.opening-btn-secondary').addEventListener('click', goToSetupDirect);
+            document.querySelector('.landing-btn-primary').addEventListener('click', goToSetupDirect);
+            document.querySelector('.landing-btn-secondary').addEventListener('click', backToOpening);
+            document.getElementById('nickname').addEventListener('keypress', (event) => {
+                if (event.keyCode == 13) goNext(1);
+            });
+            document.querySelector('#step-1 .btn-next-circle').addEventListener('click', () => goNext(1));
+            document.querySelectorAll('#step-2 .option-btn')[0].addEventListener('click', () => selectGender('male'));
+            document.querySelectorAll('#step-2 .option-btn')[1].addEventListener('click', () => selectGender('female'));
+            document.querySelectorAll('#step-3 .option-btn')[0].addEventListener('click', () => selectWantGender('all'));
+            document.querySelectorAll('#step-3 .option-btn')[1].addEventListener('click', () => selectWantGender('female'));
+            document.querySelectorAll('#step-3 .option-btn')[2].addEventListener('click', () => selectWantGender('male'));
+            document.getElementById('interest').addEventListener('keypress', (event) => {
+                if (event.keyCode == 13) startMatching();
+            });
+            document.querySelector('#step-4 button').addEventListener('click', startMatching);
             document.addEventListener('keydown', (e) => {
                 const isChatVisible = document.getElementById('chat-screen').style.display === 'flex';
                 if (!isChatVisible) return;
@@ -684,4 +701,3 @@
                     document.getElementById('landing-page').style.display = 'block';
                 }
             });
-

@@ -61,8 +61,8 @@
                 <p class="opening-subtext">나와 나의 시간</p>
 
                 <div class="opening-btn-row">
-                    <button class="opening-btn-primary" onclick="openLandingPage()">서비스 소개 보기</button>
-                    <button class="opening-btn-secondary" onclick="goToSetupDirect()">채팅 시작</button>
+                    <button class="opening-btn-primary">서비스 소개 보기</button>
+                    <button class="opening-btn-secondary">채팅 시작</button>
                 </div>
             </div>
         </div>
@@ -78,8 +78,8 @@
                 </p>
 
                 <div class="landing-cta-row">
-                    <button class="landing-btn-primary" onclick="goToSetupDirect()">채팅 시작하기</button>
-                    <button class="landing-btn-secondary" onclick="backToOpening()">뒤로 가기</button>
+                    <button class="landing-btn-primary">채팅 시작하기</button>
+                    <button class="landing-btn-secondary">뒤로 가기</button>
                 </div>
             </section>
 
@@ -241,20 +241,19 @@
                 <div class="step-container active" id="step-1">
                     <div class="step-title">어떤 닉네임을 쓰실까요?</div>
                     <input type="text" id="nickname" class="modern-input" placeholder="닉네임 입력 (최대 8자)" maxlength="8"
-                        autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
-                        onkeypress="if(event.keyCode==13) goNext(1)">
-                    <button class="btn-next-circle" onclick="goNext(1)">➔</button>
+                        autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+                    <button class="btn-next-circle">➔</button>
                 </div>
 
 
                 <div class="step-container" id="step-2">
                     <div class="step-title">본인의 성별을 선택해 주세요.</div>
-                    <button class="option-btn" onclick="selectGender('male')">
+                    <button class="option-btn">
                         <span class="option-pill male-pill">남</span>
                         <span>남성</span>
                     </button>
 
-                    <button class="option-btn" onclick="selectGender('female')">
+                    <button class="option-btn">
                         <span class="option-pill female-pill">여</span>
                         <span>여성</span>
                     </button>
@@ -262,17 +261,17 @@
 
                 <div class="step-container" id="step-3">
                     <div class="step-title">누구와 대화하고 싶나요?</div>
-                    <button class="option-btn" onclick="selectWantGender('all')">
+                    <button class="option-btn">
                         <span class="option-pill all-pill">ALL</span>
                         <span>누구나</span>
                     </button>
 
-                    <button class="option-btn" onclick="selectWantGender('female')">
+                    <button class="option-btn">
                         <span class="option-pill female-pill">여</span>
                         <span>여성만</span>
                     </button>
 
-                    <button class="option-btn" onclick="selectWantGender('male')">
+                    <button class="option-btn">
                         <span class="option-pill male-pill">남</span>
                         <span>남성만</span>
                     </button>
@@ -281,9 +280,8 @@
                 <div class="step-container" id="step-4">
                     <div class="step-title">관심사를 적어주세요 (선택)</div>
                     <input type="text" id="interest" class="modern-input" placeholder="예: 운동, 음악, 수다" maxlength="15"
-                        autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
-                        onkeypress="if(event.keyCode==13) startMatching()">
-                    <button onclick="startMatching()"
+                        autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+                    <button
                         style="width:100%; background:#fff; color:var(--primary); padding:20px; border-radius:18px; font-size:24px; font-weight:900; border:none; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">매칭
                         시작하기 </button>
                 </div>
