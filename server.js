@@ -224,6 +224,11 @@ function findMatchFor(socket) {
 function matchUsers(socket, partnerEntry) {
     const partnerSocket = partnerEntry.socket;
 
+    // 중복 매칭 방지: 이미 매칭된 소켓은 매칭하지 않음
+    if (socket.roomId || partnerSocket.roomId) {
+        return;
+    }
+
     removeFromWaitingQueue(socket.id);
     removeFromWaitingQueue(partnerSocket.id);
 
@@ -343,6 +348,7 @@ io.on('connection', (socket) => {
         removeFromWaitingQueue(socket.id);
         cleanupWaitingUsers();
 
+        // 이미 매칭 중이면 무시
         if (socket.roomId) {
             updateStats();
             return;
@@ -387,6 +393,13 @@ io.on('connection', (socket) => {
     ========================= */
     socket.on('message', (msg) => {
         if (!socket.roomId) return;
+
+        const partnerSocket = getPartnerSocket(socket);
+        if (!partnerSocket || partnerSocket.disconnected) {
+            socket.emit('partner-left', '상대방 연결 끊김');
+            endCurrentChat(socket);
+            return;
+        }
 
         const cleanMsg = String(msg || '').trim();
         if (!cleanMsg) return;

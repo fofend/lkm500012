@@ -206,7 +206,6 @@
             socket.on('partner-left', (m) => {
                 removeTypingLoader();
                 isRematching = false;
-                socket.roomId = null;
 
                 document.getElementById('ad-container').style.display = 'block';
 
@@ -284,7 +283,16 @@
                 }
 
                 const v = msgInput.value.trim();
-                if (!v || msgInput.disabled || !socket.connected) {
+                if (!v) {
+                    console.log('메시지 전송 실패: 빈 메시지');
+                    return;
+                }
+                if (msgInput.disabled) {
+                    console.log('메시지 전송 실패: 입력창 비활성화');
+                    return;
+                }
+                if (!socket.connected) {
+                    console.log('메시지 전송 실패: 소켓 연결 끊김');
                     return;
                 }
 
@@ -306,6 +314,7 @@
 
                     msgInput.value = '';
                     socket.emit('stop-typing');
+                    console.log('메시지 전송 실패: 반복 메시지 제한');
                     return;
                 }
 
@@ -407,7 +416,6 @@
                 if (isRematching) return;
 
                 isRematching = true;
-                socket.roomId = null;
                 socket.emit('re-match');
 
                 const notices = ["지금 이 대화가 아쉽다면? 오른쪽에서 왼쪽으로 슥- 스와이프해서 다음 설렘을 찾아보세요. 🎈", "손가락 하나로 슥- PC에선 Shift + . 키로 다음 분을 모실게요. ⌨️", "우리 사이의 소중한 매너! 개인정보를 묻거나 공개하지 않기로 약속해요. 🙌", "불편한 대화는 참지 마세요. 차단 버튼이 여러분의 기분을 지켜드릴게요. 🛡️"];
@@ -425,7 +433,6 @@
 
             function blockUser() {
                 if (confirm("차단하고 다음 상대를 찾을까요?")) {
-                    socket.roomId = null;
                     socket.emit('block-user');
                 }
             }
@@ -434,7 +441,6 @@
                 if (reportBtn && reportBtn.disabled) return;
 
                 if (confirm("이 사용자를 신고하고 다시 매칭되지 않도록 할까요?")) {
-                    socket.roomId = null;
                     socket.emit('report-user');
                 }
             }
